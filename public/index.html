@@ -3,6 +3,14 @@
         <title>Roomkey Challenge</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link href="/css/main.css" rel="stylesheet" type="text/css"> 
+        
+        <!-- Date Range Picker -->
+        <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+        
+        
+        
     </head>
     <body>
         <div id='head'>
@@ -17,13 +25,16 @@
                     <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
                         <span class='icon-bar'></span>
                         <span class='icon-bar'></span>
+                        <span class='icon-bar'></span>
+                        <span class='icon-bar'></span>
                     </button>
                     
                 </div>
                 <div class='collapse navbar-collapse'>
                     <ul class='nav navbar-nav navbar'>
                         <li class='navlinks'><a href='/'>Home</a></li>
-                        <li class='navlinks'><a href='/'>Hotels</a></li>
+                        <li class='navlinks'><a href='/api/locations'>Search Cities</a></li>
+                        <li class='navlinks'><a href='/'>Search Hotels</a></li>
                         <li class='navlinks'><a href='/'>Contact Us</a></li>
                     </ul>
                 </div>
