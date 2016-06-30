@@ -4,10 +4,6 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link href="/css/main.css" rel="stylesheet" type="text/css"> 
         
-        <!-- Date Range Picker -->
-        <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-        <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
-        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
         
         
         
@@ -41,13 +37,36 @@
             </div>        
         </nav>
         </div>
+        
+        <div id='searchbox'>
+            <h4>Select a location</h4>
+            <form>
+                <select name='location'>
+                    <option value='charlottesville'>Charlottesville</option>
+                    <option value='nyc'>New York City</optino>
+                    <option value='chicago'>Chicago</option>
+                </select>
+                <input type='text' name='daterange' value=''>
+            </form>
             
+        </div>
             
+        <div id='location'></div>    
+        <div id='hotels'></div>
         
+        <!-- location template? -->
+        <script id='locationTemplate' type='text/template'>
+            <ul>
+                <li><%= cityname %></li>
+                <li><%= countryname %></li>
+            </ul>
+        </script>
         
+        <!-- Date Range Picker -->
         
-        
-        
+        <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
         
         <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
