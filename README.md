@@ -1,3 +1,8 @@
+This is a challenge I'm going to attempt using Backbone.js. I have not used Backbone before
+but will use this challenge as a way to get to know Backbone.js and start to build my skill level.
+
+
+
 Room Key Front End Development Challenge
 ========================================
 
