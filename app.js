@@ -16,7 +16,7 @@ app.use(express.static(publicPath));
 
 app.use('/api/locations', locations);
 
-var server = app.listen(9696, function () {
+var server = app.listen(8080, function () {
 
   var host = ip.address();
   var port = server.address().port;
