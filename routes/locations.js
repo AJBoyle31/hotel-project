@@ -49,11 +49,13 @@ function getHotels(location, req) {
 }
 
 // Get locations
+//this is really /api/locations
 router.get('/', function(req, res) {
   res.json(_.toArray(locations));
 });
 
 // Get a location by id
+//this is really /api/locations/:id
 router.get('/:id', function(req, res, next) {
   var location = locations[req.params.id];
   if (!location) return next();
@@ -61,6 +63,7 @@ router.get('/:id', function(req, res, next) {
 });
 
 // Get a location's hotels
+//this is really /api/locations/:id/hotels
 router.get('/:id/hotels', function(req, res, next) {
   var location = locations[req.params.id];
   var hotels;
@@ -69,6 +72,7 @@ router.get('/:id/hotels', function(req, res, next) {
 });
 
 // Get a specific hotel
+//this is really /api/locations/:id/hotels/:udicode
 router.get('/:id/hotels/:udicode', function(req, res, next) {
   var location = locations[req.params.id];
   var hotels;
