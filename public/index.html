@@ -65,13 +65,20 @@
         
         
 
-            
-        <div id='location'></div>    
+        <div id='location'>    
+        <div class='locationContainer'></div>
+        </div>
         <div id='hotels'></div>
         
         
 
-        
+        <script id=locationTemplate type='text/template'>
+            <ul>
+                <li><%= name %></li>
+                <li><%= region_code %></li>
+            </ul>
+            
+        </script>
             
         
         
