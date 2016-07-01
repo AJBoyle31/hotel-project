@@ -1,17 +1,38 @@
+var data = require('../data/locations.json');
+
 (function(){
-    var Locations = Backbone.Model.extend({
-        defaults:{
-            "name": '',
-            "country_code": '',
-            "country_name": '',
-            "id": '',
-            "region_code': '',
-            "lat": '',
-            "full_name": '',
-            "lng": ''
+    
+    
+    var LocationsModel = Backbone.Model.extend({
+        defaults: function() {
+            return {
+                "name": '',
+                "country_code": '',
+                "country_name": '',
+                "id": '',
+                "region_code": '',
+                "lat": '',
+                "full_name": '',
+                "lng": ''
+            }
         }
     });
-   
+    
+    var LocationsCollection = Backbone.Collection.extend({
+        model: LocationsModel,
+        url: data
+    });
+    
+    
+    var testCollection = new LocationsCollection();
+    
+    testCollection.fetch({
+        success: function(){
+            console.log(testCollection);
+        }
+    });
+    
+   /*
     var Places = Backbone.Collection.extend({
         url: 'http://localhost:8080/api/locations',
         model: Locations
@@ -66,7 +87,7 @@
         }
     });
     
-    
+    */
     
 })();
 
