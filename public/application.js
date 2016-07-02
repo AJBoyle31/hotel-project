@@ -1,93 +1,52 @@
-var data = require('../data/locations.json');
-
 (function(){
     
     
-    var LocationsModel = Backbone.Model.extend({
-        defaults: function() {
-            return {
-                "name": '',
-                "country_code": '',
-                "country_name": '',
-                "id": '',
-                "region_code": '',
-                "lat": '',
-                "full_name": '',
-                "lng": ''
-            }
+    var LocationModel = Backbone.Model.extend({});
+    
+    var LocationView = Backbone.View.extend({
+        tagName: 'li',
+        className: 'loc',
+        render: function(){
+            $(this.el).html(
+                '<b>' + this.model.get("name") + '</b> - ' + this.model.get("country_code"));
+            return this;
         }
     });
     
     var LocationsCollection = Backbone.Collection.extend({
-        model: LocationsModel,
-        url: data
-    });
-    
-    
-    var testCollection = new LocationsCollection();
-    
-    testCollection.fetch({
-        success: function(){
-            console.log(testCollection);
-        }
-    });
-    
-   /*
-    var Places = Backbone.Collection.extend({
-        url: 'http://localhost:8080/api/locations',
-        model: Locations
-    });
-    
-    var LocationView = Backbone.View.extend({
-        tagName: 'div',
-        className: 'locationContainer',
-        template: $('#locationTemplate').html(), 
+        model: LocationModel,
+        url: 'https://roomkey-frontend-project-ajboyle.c9users.io/api/locations/'
         
+    });
+    
+    var LocationsView = Backbone.View.extend({
+        tagName: "ul",
+        className: "locs",
+        initialize: function(options){
+            this.collection.bind("add", function(model){
+                var locationView = new LocationView({
+                    model: model
+                });
+            $(this.el).prepend(locationView.render().el);
+            }, this);
+        },
         render: function(){
-            var tmpl = _.template(this.template);
-            this.$el.html(tmpl(this.model.toJSON()));
             return this;
         }
-        
     });
     
-    var PlacesView = Backbone.View.extend({
-        el: $('#location'),
-        
-        initialize: function(){
-            this.collection = new Places(locations);
-            this.render();
-        },
-        
-        render: function(){
-            var that = this;
-            _.each(this.collection.models, function(item){
-                that.renderLocation(item);
-            }, this);
-        }, 
-        
-        renderLocation: function(item){
-            var locationView = new LocationView({
-                model: item
-            });
-            this.$el.append(locationView.render().el);
-        }
-    });
-    var placesView = new PlacesView();
-    
-   
-    
-    var myCollection = new Places();
-    myCollection.fetch({
-        success: function(){
-            console.log('success');
-        },
-        error: function(){
-            console.log('error');
-        }
+    var assemblyLocs = new LocationsCollection([], {
+        language: "assembly"
     });
     
-    */
+    var assemblyLocsView = new LocationsView({
+        collection: assemblyLocs
+    });
+    
+    $('#location').html(assemblyLocsView.render().el);
+    
+    assemblyLocs.fetch();
+    
     
 })();
 
