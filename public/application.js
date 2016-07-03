@@ -1,3 +1,4 @@
+//when the search cities nav link is clicked, the cities are loaded
 $('#cities').click(function(){
     
     $('#searchbox').hide();
@@ -84,6 +85,21 @@ $('#cities').click(function(){
     assemblyLocs.fetch();
     
 });
+
+
+
+
+//add MVC for hotels when a search is run
+
+
+
+
+
+
+
+
+
+
 
 
 //when user clicks search hotels in nav bar, everything is hidden except searchbox
