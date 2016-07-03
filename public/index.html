@@ -60,11 +60,21 @@
         </div>
         
         <div id='contactus' style='display: none'>
-            <form>
-                <input type='text' name='firstname' id='firstname' value='First Name'>
-                <input type='text' name='lastname' id='lastname' value='Last Name'>
-                <input type='text' name='email' id='email' value='Email Address'>
-                <input type='text' name='message' id='message' value="What's on your mind?">
+            <h2 id='contactTitle'>We'd love to hear your thoughts!</h2>
+            
+            <form id='contactform'>
+                <h4>First Name:</h4>
+                <input type='text' name='firstname' id='firstname'>
+                <br>
+                <h4>Last Name:</h4>
+                <input type='text' name='lastname' id='lastname'>
+                <br>
+                <h4>Email Address:</h4>
+                <input type='text' name='email' id='email'>
+                <br>
+                <h4>What's on your mind?</h4>
+                <textarea type='text' name='message' id='message' form='contactform' rows='8' cols='75'></textarea>
+                <br>
                 <input type='submit' id='submitbut' value='Send my message!'>
             </form>
         </div>
@@ -78,10 +88,7 @@
         
                 
         <script id=locationTemplate type='text/template'>
-            <ul>
-                <li><%= name %></li>
-                <li><%= region_code %></li>
-            </ul>
+            
             
         </script>
             
