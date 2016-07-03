@@ -1,7 +1,28 @@
 $('#cities').click(function(){
     
     $('#searchbox').hide();
+    $('#contactus').hide();
     $('#location').show();
+    
+    //charlottesville, nyc, chicago
+    cityPics = ['http://az616578.vo.msecnd.net/files/2016/03/19/635939924999229260-1043665980_1400-charlottesville-va-downtown.imgcache.rev1409086909867.web.jpg', 'http://www.nationalgeographic.com/new-york-city-skyline-tallest-midtown-manhattan/assets/img/articleImg/01nyskyline1536.jpg','http://chicagoraffaello.com/wp-content/uploads/2013/08/chicago-skyline.jpg'];
+    
+    function whatPic(city){
+        switch(city) {
+            case 'charlottesville':
+                return cityPics[0];
+                break;
+            case 'newyork':
+                return cityPics[1];
+                break;
+            case 'chicago':
+                return cityPics[2];
+                break;
+            default:
+                return cityPics[0];
+                break;
+      }  
+    };
     
     
     //container for a location object
@@ -14,7 +35,9 @@ $('#cities').click(function(){
         render: function(){
             //just render the location name and country code of this object
             $(this.el).html(
-                '<b>' + this.model.get("name") + '</b> - ' + this.model.get("country_code"));
+                '<h4>' + this.model.get("name") + ', ' + this.model.get("region_code") + '</h4>' +
+                '<img id="pic" src=' + whatPic(this.model.get("id")) + '>'
+                );
             return this;
         }
     });
