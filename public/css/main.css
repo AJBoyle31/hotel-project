@@ -55,6 +55,9 @@ select {
 #searchbox h4 {
     font-size: 150%;
 }
+#submit {
+    font-size: 150%;
+}
 
 /* Search Cities */
 #location{
