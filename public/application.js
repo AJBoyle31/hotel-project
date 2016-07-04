@@ -92,7 +92,8 @@ $('#cities').click(function(){
 
 //add MVC for hotels when a search is run
 //regex /\d{4}-\d{2}-\d{2}/   
-    
+//need to change this function, take out arguments.
+
 function hotelSearch(area, cin, cout){
     
     var city = area;
@@ -110,7 +111,7 @@ function hotelSearch(area, cin, cout){
         className: "hotel",
         render: function(){
             $(this.el).html(
-                '<h3>' + this.model.get("name") + '</h3><p>' + this.model.get("short_description") + '</p>'
+                '<img src="' + this.model.get("photos")[0]['thumbnail'] + '"><h3>' + this.model.get("name") + '</h3>'
                 );
             return this;
         }
@@ -172,6 +173,7 @@ $('#contact').click(function(){
 });
 
 //on submit button click, input values stored in variables, dates are validated, if valid hotelSearch function is called
+//need to make the checkin checkout and city variables global
 $('#submit').click(function(e){
     var x = $('#checkin').val();
     var y = $('#checkout').val();
