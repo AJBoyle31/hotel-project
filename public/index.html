@@ -35,7 +35,7 @@
                 <div class='collapse navbar-collapse'>
                     <ul class='nav navbar-nav navbar'>
                         <li class='navlinks'><a href='/'>Home</a></li>
-                        <li class='navlinks'><a href='#' id='cities'>Search Cities</a></li>
+                        <li class='navlinks'><a href='#' id='cities'>Cities We Represent</a></li>
                         <li class='navlinks'><a href='#' id='search'>Search Hotels</a></li>
                         <li class='navlinks'><a href='#' id='contact'>Contact Us</a></li>
                     </ul>
@@ -44,24 +44,30 @@
         </nav>
         </div>
         
-        <div id='searchbox' style='display: none'>
+        <div id='searchbox'>
             <div class='container-fluid'>
-            <h4>Select a location</h4>
+            <h2>If you're only looking for a hotel in Chicago, Charlottesville or New York City, then you've come to the right place!</h2>  
+            <br>
+            <h4 class='inputHead'>Pick from one of our three cities:</h4>
+            <br>
             
                 <select name='location' id='selloc'>
                     <option value='charlottesville'>Charlottesville</option>
                     <option value='newyork'>New York City</optino>
                     <option value='chicago'>Chicago</option>
                 </select>
-                </br>
-                <h4>Check In?</h4>
+                <br>
+                <br>
+                <h4 class='inputHead'>Check In?</h4>
                 <input type='text' name='checkin' id='checkin' placeholder='YYYY-MM-DD'>
-                </br>
-                <h4>Check Out?</h4>
+                <br>
+                <br>
+                <h4 class='inputHead'>Check Out?</h4>
                 <input type='text' name='checkout' id='checkout' placeholder='YYYY-MM-DD'>
-                </br>
-                </br>
-                <button type='submit' id='submit' value="Find me some rates!">Find Rates!</button>
+                <br>
+                <br>
+                <br>
+                <button type='submit' id='submit'>Find me some rates!</button>
             
             </div>
         </div>
@@ -90,6 +96,7 @@
 
         <div id='location'></div>
         
+        <!-- add search items to top of hotels div which shows what the user searched for and then they can change dates and get new results-->
         <div id='hotels'></div>
         
         
