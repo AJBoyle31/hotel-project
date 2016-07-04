@@ -1,9 +1,15 @@
 <html>
     <head>
         <title>Roomkey Challenge</title>
+        
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+        
         <link href="/css/main.css" rel="stylesheet" type="text/css"> 
         
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css">
+
     
         
         
@@ -38,25 +44,26 @@
         </nav>
         </div>
         
-        <div id='searchbox' style='display: none'>
+        <div id='searchbox' style='display: none' onsubmit="return validateDate()">
+            <div class='container-fluid'>
             <h4>Select a location</h4>
             <form>
                 <select name='location' id='selloc'>
                     <option value='charlottesville'>Charlottesville</option>
-                    <option value='nyc'>New York City</optino>
+                    <option value='newyork'>New York City</optino>
                     <option value='chicago'>Chicago</option>
                 </select>
                 </br>
                 <h4>Check In?</h4>
-                <input type='text' name='checkin' id='checkin' value='YYYY-MM-DD'>
+                <input type='text' name='checkin' id='checkin' placeholder='YYYY-MM-DD'>
                 </br>
                 <h4>Check Out?</h4>
-                <input type='text' name='checkout' id='checkout' value='YYYY-MM-DD'>
+                <input type='text' name='checkout' id='checkout' placeholder='YYYY-MM-DD'>
                 </br>
                 </br>
                 <input type='submit' id='submit' value="Find me some rates!">
             </form>
-            
+            </div>
         </div>
         
         <div id='contactus' style='display: none'>
