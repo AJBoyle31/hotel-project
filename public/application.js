@@ -24,7 +24,7 @@ $('#cities').click(function(){
                 return cityPics[0];
                 break;
       }  
-    };
+    }
     
     
     //container for a location object
@@ -93,13 +93,17 @@ $('#cities').click(function(){
 //add MVC for hotels when a search is run
 //regex /\d{4}-\d{2}-\d{2}/   
     
-$('#submit').click(function(){
+function hotelSearch(city, checkin, checkout){
+    
+    //var city = $('#selloc').val();
+    //var checkin = $('#checkin').val();
+    //var checkout = $('#checkout').val();
+    var city = city;
+    var checkin = checkin;
+    var checkout = checkout;
+    
     
     $('#searchbox').hide();
-    
-    var city = $('#selloc').val();
-    var checkin = $('#checkin').val();
-    var checkout = $('#checkout').val();
     
     //container for hotel model
     var HotelModel = Backbone.Model.extend({});
@@ -149,7 +153,7 @@ $('#submit').click(function(){
     
     assemblyHotels.fetch();
     
-});
+};
 
 
 
@@ -168,20 +172,36 @@ $('#contact').click(function(){
     $('#location').hide();
     $('#searchbox').hide();
     $('#contactus').show();
-})
+});
 
-function validateDate() {
+
+$('#submit').click(function(e){
+    var x = $('#checkin').val();
+    var y = $('#checkout').val();
+    var city = $('#selloc').val();
+    
+    if (!validateDate(x, y)){
+        e.preventDefault();
+    }
+    else {
+        hotelSearch(city, x, y);
+    }
+       
+   
+   
+});
+
+
+function validateDate(x, y) {
     //regex /\d{4}-\d{2}-\d{2}/ 
     //x is checkin
     //y is checkout
     var regex = /\d{4}-\d{2}-\d{2}/;
     
-    var x = $('#checkin').val();
     var xYear = x.slice(0,4);
     var xMonth = x.slice(5,7);
     var xDay = x.slice(8,10);
     
-    var y = $('#checkout').val();
     var yYear = y.slice(0,4);
     var yMonth = y.slice(5,7);
     var yDay = y.slice(8,10);
@@ -211,14 +231,5 @@ function validateDate() {
             }
         }
     }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-     
+     return true;
 }
