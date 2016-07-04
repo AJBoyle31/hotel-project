@@ -49,10 +49,10 @@ nav {
 #searchbox {
     text-align: center;
 }
-select {
-    font-size: 130%;
+#selloc {
+    font-size: 150%;
 }
-#searchbox h4 {
+.inputHead {
     font-size: 150%;
 }
 #submit {
@@ -91,3 +91,26 @@ select {
     margin-top: 15px;
     font-size: 150%;
 }
+
+
+/* Hotel Search Results */
+#hotels {
+    
+}
+
+.hotel {
+  display: inline-block;
+  vertical-align: top;
+  border: 2px solid black;
+  width: 204px;
+  height: 300px;
+  margin-left: 50px;
+  margin-top: 50px;
+}
+
+.hotel img {
+  width: 200px;
+  height: 170px;
+  border: 2px solid blue;
+}
+
