@@ -6,6 +6,7 @@ $('#cities').click(function(){
     $('#location').show();
     
     //charlottesville, nyc, chicago
+    //change to an object {charlottesville: picture, chicago: picture, nyc: picture }
     cityPics = ['http://az616578.vo.msecnd.net/files/2016/03/19/635939924999229260-1043665980_1400-charlottesville-va-downtown.imgcache.rev1409086909867.web.jpg', 'http://www.nationalgeographic.com/new-york-city-skyline-tallest-midtown-manhattan/assets/img/articleImg/01nyskyline1536.jpg','http://chicagoraffaello.com/wp-content/uploads/2013/08/chicago-skyline.jpg'];
     
     function whatPic(city){
@@ -34,7 +35,7 @@ $('#cities').click(function(){
         tagName: 'div',
         className: 'loc',
         render: function(){
-            //just render the location name and country code of this object
+            //just render the location name and region code of this object
             $(this.el).html(
                 '<h4>' + this.model.get("name") + ', ' + this.model.get("region_code") + '</h4>' +
                 '<img id="pic" src=' + whatPic(this.model.get("id")) + '>'
@@ -90,14 +91,65 @@ $('#cities').click(function(){
 
 
 //add MVC for hotels when a search is run
-
-
-
-
-
-
-
-
+//regex /\d{4}-\d{2}-\d{2}/   
+    
+$('#submit').click(function(){
+    
+    $('#searchbox').hide();
+    
+    var city = $('#selloc').val();
+    var checkin = $('#checkin').val();
+    var checkout = $('#checkout').val();
+    
+    //container for hotel model
+    var HotelModel = Backbone.Model.extend({});
+    
+    var HotelView = Backbone.View.extend({
+        tagName: "div",
+        className: "hotel",
+        render: function(){
+            $(this.el).html(
+                '<h3>' + this.model.get("name") + '</h3><br><h3>' + this.model.get("chain") + '</h3>'
+                );
+            return this;
+        }
+    });
+    
+    var HotelsCollection = Backbone.Collection.extend({
+        model: HotelModel,
+        url: 'https://roomkey-frontend-project-ajboyle.c9users.io/api/locations/' + city + '/hotels?checkin=' + checkin + '&checkout=' + checkout
+    });
+    
+    var HotelsView = Backbone.View.extend({
+        el: "#hotels",
+        initialize: function(options){
+            //Bind on initialize rather than rendering. reason we are binding versus rendering is because
+            //we only want to bind to 'add' once.
+            this.collection.bind("add", function(model){
+                var hotelView = new HotelView({
+                    model: model
+                });
+            $(this.el).prepend(hotelView.render().el);
+            }, this);
+        },
+        render: function(){
+            return this;
+        }
+    });
+    
+    var assemblyHotels = new HotelsCollection([],{
+        language: "assembly"
+    });
+    
+    var assemblyHotelsView = new HotelsView({
+        collection: assemblyHotels
+    });
+    
+    $('#hotels').html(assemblyHotelsView.render().el);
+    
+    assemblyHotels.fetch();
+    
+});
 
 
 
@@ -107,6 +159,8 @@ $('#search').click(function(){
     $('#location').hide();
     $('#contactus').hide();
     $('#searchbox').show();
+    
+    
 });
 
 //when user clicks contact us in nav bar, everything is hidden except contact us form
@@ -115,3 +169,56 @@ $('#contact').click(function(){
     $('#searchbox').hide();
     $('#contactus').show();
 })
+
+function validateDate() {
+    //regex /\d{4}-\d{2}-\d{2}/ 
+    //x is checkin
+    //y is checkout
+    var regex = /\d{4}-\d{2}-\d{2}/;
+    
+    var x = $('#checkin').val();
+    var xYear = x.slice(0,4);
+    var xMonth = x.slice(5,7);
+    var xDay = x.slice(8,10);
+    
+    var y = $('#checkout').val();
+    var yYear = y.slice(0,4);
+    var yMonth = y.slice(5,7);
+    var yDay = y.slice(8,10);
+    
+    if (!regex.test(x)) {
+        alert('Invalid Date');
+        return false;
+    } 
+    if (!regex.test(y)) {
+        alert('Invalid Date');
+        return false;
+    }
+    if (yYear > xYear) {
+        return true;
+    }
+    else {
+        if (yMonth > xMonth){
+            return true;
+        }
+        else {
+            if (yDay > xDay){
+                return true;
+            }
+            else {
+                alert("Invalid Date Range");
+                return false;
+            }
+        }
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+     
+}
