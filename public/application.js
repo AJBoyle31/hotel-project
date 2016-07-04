@@ -110,7 +110,7 @@ function hotelSearch(area, cin, cout){
         className: "hotel",
         render: function(){
             $(this.el).html(
-                '<h3>' + this.model.get("name") + '</h3><br><h3>' + this.model.get("chain") + '</h3>'
+                '<h3>' + this.model.get("name") + '</h3><p>' + this.model.get("short_description") + '</p>'
                 );
             return this;
         }
