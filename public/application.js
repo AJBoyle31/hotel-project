@@ -93,14 +93,11 @@ $('#cities').click(function(){
 //add MVC for hotels when a search is run
 //regex /\d{4}-\d{2}-\d{2}/   
     
-function hotelSearch(city, checkin, checkout){
+function hotelSearch(area, cin, cout){
     
-    //var city = $('#selloc').val();
-    //var checkin = $('#checkin').val();
-    //var checkout = $('#checkout').val();
-    var city = city;
-    var checkin = checkin;
-    var checkout = checkout;
+    var city = area;
+    var checkin = cin;
+    var checkout = cout;
     
     
     $('#searchbox').hide();
@@ -174,7 +171,7 @@ $('#contact').click(function(){
     $('#contactus').show();
 });
 
-
+//on submit button click, input values stored in variables, dates are validated, if valid hotelSearch function is called
 $('#submit').click(function(e){
     var x = $('#checkin').val();
     var y = $('#checkout').val();
@@ -186,12 +183,11 @@ $('#submit').click(function(e){
     else {
         hotelSearch(city, x, y);
     }
-       
-   
-   
+
 });
 
-
+//function to validate the check in and out dates entered by user to make sure they are the correct format and the 
+//check out date is after the check in date
 function validateDate(x, y) {
     //regex /\d{4}-\d{2}-\d{2}/ 
     //x is checkin
@@ -231,5 +227,5 @@ function validateDate(x, y) {
             }
         }
     }
-     return true;
+     
 }
