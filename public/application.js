@@ -1,3 +1,10 @@
+//form variables
+var city = '';
+var checkin = '';
+var checkout = '';
+var id = '';
+
+
 //when the search cities nav link is clicked, the cities are loaded
 $('#cities').click(function(){
     
@@ -92,14 +99,23 @@ $('#cities').click(function(){
 
 //add MVC for hotels when a search is run
 //regex /\d{4}-\d{2}-\d{2}/   
-//need to change this function, take out arguments.
+//how to i get the ID from the bulk of hotels to call pickHotel??????
 
-function hotelSearch(area, cin, cout){
+function hotelSearch(task){
+    var hotelsUrl = '';
+    var hotelsTemplate = '';
+    var divClassName = '';
     
-    var city = area;
-    var checkin = cin;
-    var checkout = cout;
-    
+    if (task == 'searchHotels'){
+        hotelsUrl = 'https://roomkey-frontend-project-ajboyle.c9users.io/api/locations/' + city + '/hotels?checkin=' + checkin + '&checkout=' + checkout;
+        hotelsTemplate = $('#hotelsTemplate');
+        divClassName = 'hotels';
+    }
+    else if (task == 'pickHotel'){
+        hotelsUrl = 'https://roomkey-frontend-project-ajboyle.c9users.io/api/locations/' + id + '/hotels?checkin=' + checkin + '&checkout=' + checkout;
+        hotelsTemplate = $('#oneHotelTemplate');
+        divClassName = 'hotel';
+    }
     
     $('#searchbox').hide();
     
@@ -108,18 +124,19 @@ function hotelSearch(area, cin, cout){
     
     var HotelView = Backbone.View.extend({
         tagName: "div",
-        className: "hotel",
+        className: divClassName,
+        template: hotelsTemplate.html(),
         render: function(){
-            $(this.el).html(
-                '<img src="' + this.model.get("photos")[0]['thumbnail'] + '"><h3>' + this.model.get("name") + '</h3>'
-                );
+            var tmpl = _.template(this.template);
+            $(this.el).html(tmpl(this.model.toJSON()));
+            
             return this;
         }
     });
     
     var HotelsCollection = Backbone.Collection.extend({
         model: HotelModel,
-        url: 'https://roomkey-frontend-project-ajboyle.c9users.io/api/locations/' + city + '/hotels?checkin=' + checkin + '&checkout=' + checkout
+        url: hotelsUrl
     });
     
     var HotelsView = Backbone.View.extend({
@@ -151,7 +168,7 @@ function hotelSearch(area, cin, cout){
     
     assemblyHotels.fetch();
     
-};
+}
 
 
 
@@ -175,15 +192,15 @@ $('#contact').click(function(){
 //on submit button click, input values stored in variables, dates are validated, if valid hotelSearch function is called
 //need to make the checkin checkout and city variables global
 $('#submit').click(function(e){
-    var x = $('#checkin').val();
-    var y = $('#checkout').val();
-    var city = $('#selloc').val();
+    checkin = $('#checkin').val();
+    checkout = $('#checkout').val();
+    city = $('#selloc').val();
     
-    if (!validateDate(x, y)){
+    if (!validateDate(checkin, checkout)){
         e.preventDefault();
     }
     else {
-        hotelSearch(city, x, y);
+        hotelSearch('searchHotels');
     }
 
 });
@@ -230,4 +247,12 @@ function validateDate(x, y) {
         }
     }
      
+}
+
+
+
+function storeId(hotelId){
+    id = hotelId;
+    alert(id);
+    hotelSearch('pickHotel');
 }
