@@ -100,12 +100,22 @@
         <div id='hotels'></div>
         
         
-                
-        <script id=locationTemplate type='text/template'>
+        <script id='hotelsTemplate' type='text/template'>
             
+            <img src=<%= photos[0]['thumbnail'] %>>
+            <h3><%= name %></h3>
+            <% if (available) { nightly_rate = Number(nightly_rate).toFixed(0); %>
+            <h3><%= nightly_rate %></h3>
+            <% } else { %>
+            <h3>Unavailable</h3>
+            <% } %>
             
         </script>
-            
+        
+        <script id='oneHotelTemplate' type='text/template'>
+            <h3><%= name %></h3>
+        </script>
+        
         
         <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
         <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
