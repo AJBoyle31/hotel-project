@@ -101,7 +101,8 @@
         </div>
         
         <script id='hotelsTemplate' type='text/template'>
-            
+            <% var hotelid = id %>
+            <a href='#' onclick='storeId("<%= id %>")' >
             <img src=<%= photos[0]['thumbnail'] %>>
             <% if (name.length > 20){ name = name.slice(0,20) + '...'} %>
             <h3 class='hotelname'><%= name %></h3>
@@ -110,6 +111,7 @@
             <% } else { %>
             <h3 class='hotelrate'>Unavailable</h3>
             <% } %>
+            </a>
             
         </script>
         
