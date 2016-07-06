@@ -101,21 +101,19 @@ $('#cities').click(function(){
 //regex /\d{4}-\d{2}-\d{2}/   
 //how to i get the ID from the bulk of hotels to call pickHotel??????
 
-function hotelSearch(task){
-    var hotelsUrl = '';
-    var hotelsTemplate = '';
-    var divClassName = '';
+function hotelSearch(){
     
-    if (task == 'searchHotels'){
-        hotelsUrl = 'https://roomkey-frontend-project-ajboyle.c9users.io/api/locations/' + city + '/hotels?checkin=' + checkin + '&checkout=' + checkout;
-        hotelsTemplate = $('#hotelsTemplate');
-        divClassName = 'hotels';
-    }
+    var hotelsUrl = 'https://roomkey-frontend-project-ajboyle.c9users.io/api/locations/' + city + '/hotels?checkin=' + checkin + '&checkout=' + checkout;
+    var hotelsTemplate = $('#hotelsTemplate');
+    var divClassName = 'hotels';
+    
+    /*
     else if (task == 'pickHotel'){
-        hotelsUrl = 'https://roomkey-frontend-project-ajboyle.c9users.io/api/locations/' + id + '/hotels?checkin=' + checkin + '&checkout=' + checkout;
-        hotelsTemplate = $('#oneHotelTemplate');
-        divClassName = 'hotel';
+        var hotelsUrl = 'https://roomkey-frontend-project-ajboyle.c9users.io/api/locations/' + id + '/hotels?checkin=' + checkin + '&checkout=' + checkout;
+        var hotelsTemplate = $('#oneHotelTemplate');
+        var divClassName = 'hotel';
     }
+    */
     
     //hide the home title
     $('#hometitle').hide();
@@ -175,8 +173,41 @@ function hotelSearch(task){
     assemblyHotels.fetch();
     
     
+    
 }
 
+
+function hotelInfo(){
+
+    var hotelsUrl = 'https://roomkey-frontend-project-ajboyle.c9users.io/api/locations/' + id + '/hotels?checkin=' + checkin + '&checkout=' + checkout;
+    var hotelsTemplate = $('#oneHotelTemplate');
+    var divClassName = 'hotel';
+
+//container for hotel model
+    var HotelModel = Backbone.Model.extend({
+        
+    });
+    
+    //basic view for a single hotel
+    var HotelView = Backbone.View.extend({
+        tagName: "div",
+        className: divClassName,
+        template: hotelsTemplate.html(),
+        url: hotelsUrl,
+        render: function(){
+            var tmpl = _.template(this.template);
+            $(this.el).html(tmpl(this.model.toJSON()));
+            
+            return this;
+        }
+    });
+    
+    hotel = new HotelModel();
+    
+    hotel.fetch();
+    
+
+}
 
 
 
@@ -188,6 +219,7 @@ $('#search').click(function(){
     
     
 });
+
 
 //when user clicks contact us in nav bar, everything is hidden except contact us form
 $('#contact').click(function(){
@@ -265,10 +297,8 @@ function validateDate(x, y) {
 
 
 
-
-
 function storeId(hotelId){
     id = hotelId;
-    alert(id);
-    hotelSearch('pickHotel');
+    hotelInfo();
+    
 }
