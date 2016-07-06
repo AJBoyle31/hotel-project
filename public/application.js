@@ -117,11 +117,14 @@ function hotelSearch(task){
         divClassName = 'hotel';
     }
     
-    $('#searchbox').hide();
+    //hide the home title
+    $('#hometitle').hide();
+    
     
     //container for hotel model
     var HotelModel = Backbone.Model.extend({});
     
+    //basic view for a single hotel
     var HotelView = Backbone.View.extend({
         tagName: "div",
         className: divClassName,
@@ -134,11 +137,13 @@ function hotelSearch(task){
         }
     });
     
+    //a collection holding many hotels and responsible for performing the search that fetches them
     var HotelsCollection = Backbone.Collection.extend({
         model: HotelModel,
         url: hotelsUrl
     });
     
+    //rendering of a collection of hotels
     var HotelsView = Backbone.View.extend({
         el: "#hotels",
         initialize: function(options){
@@ -166,7 +171,9 @@ function hotelSearch(task){
     
     $('#hotels').html(assemblyHotelsView.render().el);
     
+    //fetch the data from the server
     assemblyHotels.fetch();
+    
     
 }
 
@@ -191,7 +198,10 @@ $('#contact').click(function(){
 
 //on submit button click, input values stored in variables, dates are validated, if valid hotelSearch function is called
 //need to make the checkin checkout and city variables global
-$('#submit').click(function(e){
+$('#submit').click(searchingHotel);
+
+
+function searchingHotel(e){
     checkin = $('#checkin').val();
     checkout = $('#checkout').val();
     city = $('#selloc').val();
@@ -200,10 +210,13 @@ $('#submit').click(function(e){
         e.preventDefault();
     }
     else {
+        
+        $('select[name="location"]').val(city);
+        $('input[name="checkin"]').val(checkin);
+        $('input[name="checkout"]').val(checkout);
         hotelSearch('searchHotels');
     }
-
-});
+}
 
 //function to validate the check in and out dates entered by user to make sure they are the correct format and the 
 //check out date is after the check in date
@@ -248,6 +261,9 @@ function validateDate(x, y) {
     }
      
 }
+
+
+
 
 
 
