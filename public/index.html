@@ -44,31 +44,30 @@
         </nav>
         </div>
         
+        <div id='page'>
+        
         <div id='searchbox'>
             <div class='container-fluid'>
-            <h2>If you're only looking for a hotel in Chicago, Charlottesville or New York City, then you've come to the right place!</h2>  
+            <h2 id='hometitle'>If you're only looking for a hotel in Chicago, Charlottesville or New York City, then you've come to the right place!</h2>  
             <br>
-            <h4 class='inputHead'>Pick from one of our three cities:</h4>
-            <br>
-            
+            <div class='searchbar'>
                 <select name='location' id='selloc'>
                     <option value='charlottesville'>Charlottesville</option>
                     <option value='newyork'>New York City</optino>
                     <option value='chicago'>Chicago</option>
                 </select>
-                <br>
-                <br>
+                </div>
+                <div class='searchbar'>
                 <h4 class='inputHead'>Check In?</h4>
                 <input type='text' name='checkin' id='checkin' placeholder='YYYY-MM-DD'>
-                <br>
-                <br>
+                </div>
+                <div class='searchbar'>
                 <h4 class='inputHead'>Check Out?</h4>
                 <input type='text' name='checkout' id='checkout' placeholder='YYYY-MM-DD'>
-                <br>
-                <br>
-                <br>
+                </div>
+                <div class='searchbar'>
                 <button type='submit' id='submit'>Find me some rates!</button>
-            
+                </div>
             </div>
         </div>
         
@@ -99,15 +98,17 @@
         <!-- add search items to top of hotels div which shows what the user searched for and then they can change dates and get new results-->
         <div id='hotels'></div>
         
+        </div>
         
         <script id='hotelsTemplate' type='text/template'>
             
             <img src=<%= photos[0]['thumbnail'] %>>
-            <h3><%= name %></h3>
-            <% if (available) { nightly_rate = Number(nightly_rate).toFixed(0); %>
-            <h3><%= nightly_rate %></h3>
+            <% if (name.length > 20){ name = name.slice(0,20) + '...'} %>
+            <h3 class='hotelname'><%= name %></h3>
+            <% if (available) { nightly_rate = '$' + (Number(nightly_rate).toFixed(0)); %>
+            <h3 class='hotelrate'><%= nightly_rate %></h3>
             <% } else { %>
-            <h3>Unavailable</h3>
+            <h3 class='hotelrate'>Unavailable</h3>
             <% } %>
             
         </script>
