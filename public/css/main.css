@@ -3,17 +3,24 @@ html {
     height: 100%;
 }
 
+#page {
+    
+}
+
+
 /* Header */
 
 #webtitle {
     text-align: center;
+    color: white;
+}
+#hometitle{
+    margin-bottom: 20px;
 }
 
 /* Navigation Bar */
 
-nav {
-    
-}
+
 .navlinks {
     font-size: 150%;
     color: black;
@@ -42,7 +49,8 @@ nav {
 
 #head {
     background-color: red;
-    padding-top: 5px;   
+    padding-top: 5px;  
+    padding-bottom: 1px;
 }
 
 /* Search Box */
@@ -57,6 +65,11 @@ nav {
 }
 #submit {
     font-size: 150%;
+}
+.searchbar {
+    display: inline-block;
+    margin-left: 15px;
+    margin-right: 15px;
 }
 
 /* Search Cities */
@@ -95,26 +108,32 @@ nav {
 
 /* Hotel Search Results */
 #hotels {
-    
+    text-align: center;
 }
 
 .hotels {
   display: inline-block;
   vertical-align: top;
-  border: 2px solid black;
   width: 204px;
   height: 300px;
   margin-left: 50px;
+  margin-right: 50px;
   margin-top: 50px;
   text-align: center;
+  border: 2px solid black;
 }
 
 .hotels img {
   width: 200px;
   height: 170px;
-  border: 2px solid blue;
+  
 }
 
-.hotels h3 {
+.hotelname {
     font-size: 15px;
+    
 }
+.hotelrate {
+    vertical-align: bottom;
+}
+
