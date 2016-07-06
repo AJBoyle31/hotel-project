@@ -103,6 +103,8 @@ $('#cities').click(function(){
 
 function hotelSearch(){
     
+    
+    
     var hotelsUrl = 'https://roomkey-frontend-project-ajboyle.c9users.io/api/locations/' + city + '/hotels?checkin=' + checkin + '&checkout=' + checkout;
     var hotelsTemplate = $('#hotelsTemplate');
     var divClassName = 'hotels';
@@ -179,19 +181,20 @@ function hotelSearch(){
 
 function hotelInfo(){
 
-    var hotelsUrl = 'https://roomkey-frontend-project-ajboyle.c9users.io/api/locations/' + id + '/hotels?checkin=' + checkin + '&checkout=' + checkout;
+    $('#hotels').empty();
+    
+    var hotelsUrl = 'https://roomkey-frontend-project-ajboyle.c9users.io/api/locations/' + city + '/hotels/' + id + '?checkin=' + checkin + '&checkout=' + checkout;
     var hotelsTemplate = $('#oneHotelTemplate');
     var divClassName = 'hotel';
 
 //container for hotel model
     var HotelModel = Backbone.Model.extend({
-        
+        url: 'https://roomkey-frontend-project-ajboyle.c9users.io/api/locations/'
     });
     
     //basic view for a single hotel
     var HotelView = Backbone.View.extend({
-        tagName: "div",
-        className: divClassName,
+        el: '#hotels',
         template: hotelsTemplate.html(),
         url: hotelsUrl,
         render: function(){
@@ -202,7 +205,7 @@ function hotelInfo(){
         }
     });
     
-    hotel = new HotelModel();
+    var hotel = new HotelModel({ id: city + '/hotels/' + id + '?checkin=' + checkin + '&checkout=' + checkout});
     
     hotel.fetch();
     
