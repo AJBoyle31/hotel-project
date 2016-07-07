@@ -187,16 +187,14 @@ function hotelInfo(){
     var hotelsTemplate = $('#oneHotelTemplate');
     var divClassName = 'hotel';
 
-//container for hotel model
-    var HotelModel = Backbone.Model.extend({
-        url: 'https://roomkey-frontend-project-ajboyle.c9users.io/api/locations/'
-    });
+    //container for hotel model
+    var HotelModel = Backbone.Model.extend({});
     
     //basic view for a single hotel
     var HotelView = Backbone.View.extend({
-        el: '#hotels',
+        tagName: "div",
+        className: divClassName,
         template: hotelsTemplate.html(),
-        url: hotelsUrl,
         render: function(){
             var tmpl = _.template(this.template);
             $(this.el).html(tmpl(this.model.toJSON()));
@@ -205,9 +203,42 @@ function hotelInfo(){
         }
     });
     
-    var hotel = new HotelModel({ id: city + '/hotels/' + id + '?checkin=' + checkin + '&checkout=' + checkout});
+    //a collection holding many hotels and responsible for performing the search that fetches them
+    var HotelsCollection = Backbone.Collection.extend({
+        model: HotelModel,
+        url: hotelsUrl
+    });
     
-    hotel.fetch();
+    //rendering of a collection of hotels
+    var HotelsView = Backbone.View.extend({
+        el: "#hotels",
+        initialize: function(options){
+            //Bind on initialize rather than rendering. reason we are binding versus rendering is because
+            //we only want to bind to 'add' once.
+            this.collection.bind("add", function(model){
+                var hotelView = new HotelView({
+                    model: model
+                });
+            $(this.el).prepend(hotelView.render().el);
+            }, this);
+        },
+        render: function(){
+            return this;
+        }
+    });
+    
+    var assemblyHotels = new HotelsCollection([],{
+        language: "assembly"
+    });
+    
+    var assemblyHotelsView = new HotelsView({
+        collection: assemblyHotels
+    });
+    
+    $('#hotels').html(assemblyHotelsView.render().el);
+    
+    //fetch the data from the server
+    assemblyHotels.fetch();
     
 
 }
