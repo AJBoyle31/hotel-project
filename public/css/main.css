@@ -137,3 +137,59 @@ html {
     vertical-align: bottom;
 }
 
+/* Single Hotel */
+#hotels {
+  text-align: center;
+  margin-top: 20px;
+}
+.hotelTitle, .rating {
+  margin-top: 20px;
+  display: inline-block;
+  
+}
+#titlerating {
+  width: 100%;
+  
+}
+.rating {
+  margin-left: 50px;
+  font-size: 125%;
+  position: relative;
+  bottom: 30px;
+  
+}
+.hotelTitle {
+  text-align: left;
+  
+}
+
+.pics {
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 250px;
+}
+
+#desc, #amenities {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 50px;
+  margin-top: 50px;
+}
+#desc {
+  width: 500px;
+  text-align: left;
+}
+
+#reviews {
+  margin-top: 50px;
+}
+#amenitiestitle, #reviewtitle, #desctitle {
+  text-decoration: underline;
+}
+
+.usersummary {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
