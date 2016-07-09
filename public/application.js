@@ -329,13 +329,12 @@ function validateDate(x, y) {
      
 }
 
-
-
-
 function storeId(hotelId){
     id = hotelId;
     hotelInfo();
     
 }
+
+
 
 
