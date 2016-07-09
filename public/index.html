@@ -117,6 +117,13 @@
         
         <script id='oneHotelTemplate' type='text/template'>
             
+            <div class="pictures">
+            <% _.each(photos, function(photo){ %>
+                <img class='slideShow' src='<%= photo["url"] %>'>
+            <% }); %>
+            </div>
+            
+            
             
             <div id='titlerating'>    
                 <div class='hotelTitle'>
