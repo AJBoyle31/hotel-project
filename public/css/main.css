@@ -163,12 +163,7 @@ html {
   
 }
 
-.pics {
-  display: inline-block;
-  margin-left: 10px;
-  margin-right: 10px;
-  height: 250px;
-}
+
 
 #desc, #amenities {
   display: inline-block;
