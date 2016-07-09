@@ -116,38 +116,20 @@
         </script>
         
         <script id='oneHotelTemplate' type='text/template'>
-            <div class='pictures'>
-            <% for (var y = 1; y < photos.length; y++){ %>
-                <img class='pics' src=<%= photos[y]['thumbnail'] %>
-            <% } %>
-            </div>
             
-            <div id=titlerating>
+            
+            <div id='titlerating'>    
                 <div class='hotelTitle'>
                     <h2 id='hotelname'><%= name %></h2>
-                    <h5 id='address'><%= address['line1'] %> + ', ' + <%= address['city'] + ' ' + <%= address['region_code'] %> + ' ' + <%= address['postal_code'] %></h5>
+                    <h5 id='address'><%= address["line1"] %>, <%= address["city"] %> <%= address["region_code"] %> <%= address["postal_code"] %></h5>
                 </div>
-                <div class="rating">
-                    <span id='1'>☆</span><span id='2'>☆</span><span id='3'>☆</span><span id='4'>☆</span><span id='5'>☆</span>
-                </div>
-            </div>
             
-            <div id='desc'>
-                <h3 id='desctitle'>Description</h3>
-                <p id='descinfo'></p>
-            </div>
-    
-            <div id='amenities'>
-                <h3 id='amenitiestitle'>Amenities</h3>
-                <div id='list'></div>
-            </div>
-    
-            <div id='reviews'>
-                <h3 id='reviewtitle'>Overall Guest Rating: <span id='rating'></h3>
-                <h4>Recent Reviews:</h5>
-            <br>
-                <div class='userreviews'></div>
-            </div>
+                <div class='rating'>
+                    <span id='1'></span>
+                    
+
+                </div>
+            </div>    
             
         </script>
         
