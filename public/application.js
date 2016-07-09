@@ -178,7 +178,7 @@ function hotelSearch(){
     
 }
 
-
+//called for a single hotel
 function hotelInfo(){
 
     $('#hotels').empty();
@@ -240,7 +240,8 @@ function hotelInfo(){
     //fetch the data from the server
     assemblyHotels.fetch();
     
-
+    
+    
 }
 
 
@@ -336,3 +337,5 @@ function storeId(hotelId){
     hotelInfo();
     
 }
+
+
