@@ -121,7 +121,9 @@
             <% _.each(photos, function(photo){ %>
                 <img class='slideShow' src='<%= photo["url"] %>'>
             <% }); %>
-            </div>
+            <a class="btn-floating" style="position:absolute;top:45%;left:0" onclick="plusDivs(-1)">&#10094;</a>
+            <a class="btn-floating" style="position:absolute;top:45%;right:0" onclick="plusDivs(+1)">&#10095;</a>
+            </div>      
             
             
             
