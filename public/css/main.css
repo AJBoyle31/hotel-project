@@ -163,7 +163,23 @@ html {
   
 }
 
+.pictures {
+    max-width: 800px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+.btn-floating:hover {
+    cursor: pointer;
+    
+}
+.btn-floating {
+    font-size: 200%;
+}
 
+.slideShow {
+    width: 100%;
+}
 
 #desc, #amenities {
   display: inline-block;
