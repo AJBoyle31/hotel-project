@@ -35,9 +35,9 @@
                 <div class='collapse navbar-collapse'>
                     <ul class='nav navbar-nav navbar'>
                         <li class='navlinks'><a href='/'>Home</a></li>
-                        <li class='navlinks'><a href='#' id='cities'>Cities We Represent</a></li>
-                        <li class='navlinks'><a href='#' id='search'>Search Hotels</a></li>
-                        <li class='navlinks'><a href='#' id='contact'>Contact Us</a></li>
+                        <li class='navlinks'><a href='#cities' id='cities'>Cities We Represent</a></li>
+                        <li class='navlinks'><a href='#search' id='search'>Search Hotels</a></li>
+                        <li class='navlinks'><a href='#contact' id='contact'>Contact Us</a></li>
                     </ul>
                 </div>
             </div>        
@@ -48,25 +48,26 @@
         
         <div id='searchbox'>
             <div class='container-fluid'>
-            <h2 id='hometitle'>If you're only looking for a hotel in Chicago, Charlottesville or New York City, then you've come to the right place!</h2>  
+                <h2 id='hometitle'>If you're only looking for a hotel in Chicago, Charlottesville or New York City, then you've come to the right place!</h2>  
             <br>
             <div class='searchbar'>
+                <h4 class='inputHead'>City?</h4>
                 <select name='location' id='selloc'>
                     <option value='charlottesville'>Charlottesville</option>
                     <option value='newyork'>New York City</optino>
                     <option value='chicago'>Chicago</option>
                 </select>
+            </div>
+                <div class='searchbar'>
+                    <h4 class='inputHead'>Check In?</h4>
+                    <input type='text' name='checkin' id='checkin' placeholder='YYYY-MM-DD'>
                 </div>
                 <div class='searchbar'>
-                <h4 class='inputHead'>Check In?</h4>
-                <input type='text' name='checkin' id='checkin' placeholder='YYYY-MM-DD'>
+                    <h4 class='inputHead'>Check Out?</h4>
+                    <input type='text' name='checkout' id='checkout' placeholder='YYYY-MM-DD'>
                 </div>
                 <div class='searchbar'>
-                <h4 class='inputHead'>Check Out?</h4>
-                <input type='text' name='checkout' id='checkout' placeholder='YYYY-MM-DD'>
-                </div>
-                <div class='searchbar'>
-                <button type='submit' id='submit'>Find me some rates!</button>
+                    <button type='submit' id='submit'>Find me some rates!</button>
                 </div>
             </div>
         </div>
@@ -102,16 +103,16 @@
         
         <script id='hotelsTemplate' type='text/template'>
             <% var hotelid = id %>
-            <a href='#' onclick='storeId("<%= id %>")' >
-            <img src=<%= photos[0]['thumbnail'] %>>
+                <a href='#' onclick='storeId("<%= id %>")' >
+                <img src=<%= photos[0]['thumbnail'] %>>
             <% if (name.length > 20){ name = name.slice(0,20) + '...'} %>
-            <h3 class='hotelname'><%= name %></h3>
+                <h3 class='hotelname'><%= name %></h3>
             <% if (available) { nightly_rate = '$' + (Number(nightly_rate).toFixed(0)); %>
-            <h3 class='hotelrate'><%= nightly_rate %></h3>
+                <h3 class='hotelrate'><%= nightly_rate %></h3>
             <% } else { %>
-            <h3 class='hotelrate'>Unavailable</h3>
+                <h3 class='hotelrate'>Unavailable</h3>
             <% } %>
-            </a>
+                </a>
             
         </script>
         
