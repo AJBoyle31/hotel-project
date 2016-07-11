@@ -118,11 +118,11 @@
         <script id='oneHotelTemplate' type='text/template'>
             
             <div class="pictures">
-            <% _.each(photos, function(photo){ %>
-                <img class='slideShow' src='<%= photo["url"] %>'>
-            <% }); %>
-            <a class="btn-floating" style="position:absolute;top:45%;left:0" onclick="plusDivs(-1)">&#10094;</a>
-            <a class="btn-floating" style="position:absolute;top:45%;right:0" onclick="plusDivs(+1)">&#10095;</a>
+                <% _.each(photos, function(photo){ %>
+                    <img class='slideShow' src='<%= photo["url"] %>'>
+                <% }); %>
+                <a class="btn-floating" style="position:absolute;top:45%;left:0" onclick="plusDivs(-1)">&#10094;</a>
+                <a class="btn-floating" style="position:absolute;top:45%;right:0" onclick="plusDivs(+1)">&#10095;</a>
             </div>      
             
             
@@ -133,12 +133,45 @@
                     <h5 id='address'><%= address["line1"] %>, <%= address["city"] %> <%= address["region_code"] %> <%= address["postal_code"] %></h5>
                 </div>
             
-                <div class='rating'>
-                    <span id='1'></span>
-                    
-
+                <div class='stars' id='<%= stars %>'>
+                    <span id='a'>&#9734</span><span id='b'>&#9734</span><span id='c'>&#9734</span><span id='d'>&#9734</span><span id='e'>&#9734</span>
+                </div>
+            </div>
+            
+            <br>
+                
+            <div id="desc">
+                <h3 id='desctitle'>Description</h3>
+                <% if (description.length < 675) { %> 
+                    <p id='descinfo'><%= description %></p>
+                <% } else { description = description.slice(0, 675) %>
+                    <p id='descinfo'><%= description %> NEED TO ADD READ MORE OPTION</p>
+                <% } %>                
+            </div>
+                
+            <div id='amenities'>
+                <h3 id='amenitiestitle'>Amenities</h3>
+                <div id='list'>
+                    <% _.each(amenities, function(amenity){ %>
+                        <p><%= amenity["name"] %></p>    
+                    <% }); %>
                 </div>
             </div>    
+                
+            <div id='reviews'>
+                <h3 id='reviewtitle'>Overall Guest Rating: <%= guest_rating %></h3>
+                <h4>Recent Reviews: </h4>
+                <br>
+                <div class='userreviews'>
+                    <% _.each(guest_reviews, function(review){ %>
+                        <h4 class='usertitle'><%= review["title"] %></h4>
+                        <h5 class='userrating'>Rating: <%= review["rating"] %></h5>
+                        <p class='usersummary'><%= review["summary"] %></p>
+                        <br>
+                    <% }); %>
+                </div>
+                
+            </div>
             
         </script>
         
