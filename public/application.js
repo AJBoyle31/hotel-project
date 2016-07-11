@@ -161,14 +161,17 @@ function hotelSearch(){
         }
     });
     
+    //create a new assembly language repo collection
     var assemblyHotels = new HotelsCollection([],{
         language: "assembly"
     });
     
+    //create a view that will contain the hotels
     var assemblyHotelsView = new HotelsView({
         collection: assemblyHotels
     });
     
+    //Render the view regardless of the fact that it has not been fetched. This might need to change.
     $('#hotels').html(assemblyHotelsView.render().el);
     
     //fetch the data from the server
@@ -227,38 +230,34 @@ function hotelInfo(){
         }
     });
     
+    //create a new assembly language repo collection
     var assemblyHotels = new HotelsCollection([],{
         language: "assembly"
     });
     
+    //create a view that will contain the hotel
     var assemblyHotelsView = new HotelsView({
         collection: assemblyHotels
     });
     
+    //Render the view regardless of the fact that it has not been fetched. This might need to change.
     $('#hotels').html(assemblyHotelsView.render().el);
     
     //fetch the data from the server
     assemblyHotels.fetch({
         success: function(){
             showDivs(slideIndex);
+            stars();
         }
     });
-    
-    
-    
 }
-
-
 
 //when user clicks search hotels in nav bar, everything is hidden except searchbox
 $('#search').click(function(){
     $('#location').hide();
     $('#contactus').hide();
     $('#searchbox').show();
-    
-    
 });
-
 
 //when user clicks contact us in nav bar, everything is hidden except contact us form
 $('#contact').click(function(){
@@ -270,7 +269,6 @@ $('#contact').click(function(){
 //on submit button click, input values stored in variables, dates are validated, if valid hotelSearch function is called
 //need to make the checkin checkout and city variables global
 $('#submit').click(searchingHotel);
-
 
 function searchingHotel(e){
     checkin = $('#checkin').val();
@@ -333,19 +331,20 @@ function validateDate(x, y) {
      
 }
 
+//stores the hotel id in the id variable and then calls hotelInfo()
 function storeId(hotelId){
     id = hotelId;
     hotelInfo();
     
 }
 
+//for slideshow on hotel view
 var slideIndex = 1;
-
 
 function plusDivs(n) {
   showDivs(slideIndex += n);
 }
-
+//handles slideshow of pictures
 function showDivs(n) {
   var i;
   var x = document.getElementsByClassName("slideShow");
@@ -357,5 +356,14 @@ function showDivs(n) {
   x[slideIndex-1].style.display = "block";
 }
 
-
-
+//handles the star rating of the hotel
+function stars() {
+    var star = $('.stars').prop('id');
+    star = Number(star);
+    var arr = ['a','b','c','d','e'];
+    
+    for (var m = 0; m < 6; m++) { 
+        if (m <= star) { $('#' + arr[m]).html("&#9733"); } 
+    }
+    
+}
