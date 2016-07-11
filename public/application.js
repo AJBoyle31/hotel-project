@@ -95,12 +95,7 @@ $('#cities').click(function(){
 });
 
 
-
-
-//add MVC for hotels when a search is run
-//regex /\d{4}-\d{2}-\d{2}/   
-//how to i get the ID from the bulk of hotels to call pickHotel??????
-
+//runs when user selects city, check in and out date after get rates is clicked
 function hotelSearch(){
     
     
@@ -109,13 +104,6 @@ function hotelSearch(){
     var hotelsTemplate = $('#hotelsTemplate');
     var divClassName = 'hotels';
     
-    /*
-    else if (task == 'pickHotel'){
-        var hotelsUrl = 'https://roomkey-frontend-project-ajboyle.c9users.io/api/locations/' + id + '/hotels?checkin=' + checkin + '&checkout=' + checkout;
-        var hotelsTemplate = $('#oneHotelTemplate');
-        var divClassName = 'hotel';
-    }
-    */
     
     //hide the home title
     $('#hometitle').hide();
