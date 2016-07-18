@@ -9,6 +9,7 @@ var id = '';
 $('#cities').click(function(){
     
     $('#searchbox').hide();
+    $('#hotels').empty();
     $('#contactus').hide();
     $('#location').show();
     
@@ -128,7 +129,10 @@ function hotelSearch(){
     //a collection holding many hotels and responsible for performing the search that fetches them
     var HotelsCollection = Backbone.Collection.extend({
         model: HotelModel,
-        url: hotelsUrl
+        url: hotelsUrl,
+        comparator: function(model){
+            return parseInt(model.get("nightly_rate"), 10);
+        }
     });
     
     //rendering of a collection of hotels
