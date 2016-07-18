@@ -201,6 +201,7 @@ function hotelInfo(){
     //a collection holding many hotels and responsible for performing the search that fetches them
     var HotelsCollection = Backbone.Collection.extend({
         model: HotelModel,
+        comparator: "name",
         url: hotelsUrl
     });
     
@@ -221,6 +222,7 @@ function hotelInfo(){
             return this;
         }
     });
+    
     
     //create a new assembly language repo collection
     var assemblyHotels = new HotelsCollection([],{
