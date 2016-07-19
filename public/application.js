@@ -109,43 +109,36 @@ function hotelSearch(){
     //hide the home title
     $('#hometitle').hide();
     
+    //model of the hotel
+    var Hotel = Backbone.Model.extend({});
     
-    //container for hotel model
-    var HotelModel = Backbone.Model.extend({});
-    
-    //basic view for a single hotel
+    //view for one hotel
     var HotelView = Backbone.View.extend({
         tagName: "div",
         className: divClassName,
         template: hotelsTemplate.html(),
+        
         render: function(){
             var tmpl = _.template(this.template);
-            $(this.el).html(tmpl(this.model.toJSON()));
-            
+            this.$el.html(tmpl(this.model.toJSON()));
             return this;
         }
     });
     
-    //a collection holding many hotels and responsible for performing the search that fetches them
-    var HotelsCollection = Backbone.Collection.extend({
-        model: HotelModel,
-        url: hotelsUrl,
-        comparator: function(model){
-            return parseInt(model.get("nightly_rate"), 10);
-        }
+    //collection of hotels
+    var Hotels = Backbone.Collection.extend({
+        model: Hotel,
+        url: hotelsUrl 
     });
     
-    //rendering of a collection of hotels
     var HotelsView = Backbone.View.extend({
-        el: "#hotels",
-        initialize: function(options){
-            //Bind on initialize rather than rendering. reason we are binding versus rendering is because
-            //we only want to bind to 'add' once.
-            this.collection.bind("add", function(model){
+        el: $('#hotels'),
+        initialize: function(){
+            this.collection.bind('add', function(model){
                 var hotelView = new HotelView({
                     model: model
                 });
-            $(this.el).prepend(hotelView.render().el);
+                $(this.el).prepend(hotelView.render().el);
             }, this);
         },
         render: function(){
@@ -153,6 +146,28 @@ function hotelSearch(){
         }
     });
     
+    var hotels = new Hotels();
+    
+    hotels.fetch();
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*
     //create a new assembly language repo collection
     var assemblyHotels = new HotelsCollection([],{
         language: "assembly"
@@ -168,7 +183,7 @@ function hotelSearch(){
     
     //fetch the data from the server
     assemblyHotels.fetch();
-    
+    */
     
     
 }
