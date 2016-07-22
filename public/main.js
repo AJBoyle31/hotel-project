@@ -3,6 +3,48 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var App = React.createClass({
+    render: function(){
+        return(
+            <div>
+            <h1>our app in its entirity</h1>  
+            <Nav />
+            </div>
+        );
+    }
+});
+
+var Nav = React.createClass({
+    render: function(){
+        return (
+            <nav className='nav navbar'>
+            <div className='container-fluid'>
+                <div className='navbar-header'>
+                    <button type='button' className='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
+                        <span className='icon-bar'></span>
+                        <span className='icon-bar'></span>
+                        <span className='icon-bar'></span>
+                        <span className='icon-bar'></span>
+                    </button>
+                    
+                </div>
+                <div className='collapse navbar-collapse'>
+                    <ul className='nav navbar-nav navbar'>
+                        <li className='navlinks'><a href='/'>Home</a></li>
+                        <li className='navlinks'><a href='#cities' id='cities'>Cities We Represent</a></li>
+                        <li className='navlinks'><a href='#search' id='search'>Search Hotels</a></li>
+                        <li className='navlinks'><a href='#contact' id='contact'>Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>        
+        </nav>    
+        );
+    }
+});
+
+
+
+
 var GetRates = React.createClass({
     getHotels: function(event){
         event.preventDefault();
@@ -10,7 +52,7 @@ var GetRates = React.createClass({
             city: this.refs.city.value,
             checkin: this.refs.checkin.value,
             checkout: this.refs.checkout.value
-        }
+        };
         this.props.getHotls(info);
         this.refs.formRates.reset();
     },
@@ -39,7 +81,7 @@ var GetRates = React.createClass({
     }
 });
 
-ReactDOM.render(<GetRates />, document.getElementById("app"));
+ReactDOM.render(<App />, document.getElementById("app"));
 
 
 
