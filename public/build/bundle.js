@@ -51,82 +51,157 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(33);
 
-	var GetRates = React.createClass({
-	    displayName: 'GetRates',
-
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            city: "",
-	            checkin: "",
-	            checkout: "",
-	            hotel: ""
-	        };
-	    },
-	    onSubmit: function onSubmit(event) {
-	        var self = this;
-	        var checkin = this.name.checkin.value;
-	        var checkout = this.name.checkout.value;
-	        var city = this.name.city.value;
-	        var url = 'https://roomkey-frontend-project-ajboyle.c9users.io/api/locations/' + city + '/hotels?checkin=' + checkin + '&checkout=' + checkout;
-	        this.setState({
-	            city: city,
-	            checkin: checkin,
-	            checkout: checkout
-	        });
-	        $.ajax(url).done(function (data) {
-	            self.setState({
-	                hotel: data.map(function (repo) {
-	                    return React.createElement(
-	                        'h5',
-	                        null,
-	                        repo.name
-	                    );
-	                })
-	            });
-	        });
-	    },
+	var App = React.createClass({
+	    displayName: 'App',
 
 	    render: function render() {
 	        return React.createElement(
 	            'div',
 	            null,
 	            React.createElement(
-	                'form',
-	                { onSubmit: this.onSubmit },
-	                React.createElement(
-	                    'select',
-	                    { name: 'city' },
-	                    React.createElement(
-	                        'option',
-	                        { value: 'charlottesville' },
-	                        'Charlottesville'
-	                    ),
-	                    React.createElement(
-	                        'option',
-	                        { value: 'newyork' },
-	                        'New York City'
-	                    ),
-	                    React.createElement(
-	                        'option',
-	                        { value: 'chicago' },
-	                        'Chicago'
-	                    )
-	                ),
-	                React.createElement('input', { type: 'text', name: 'checkin', id: 'checkin', placeholder: 'YYYY-MM-DD' }),
-	                React.createElement('input', { type: 'text', name: 'checkout', id: 'checkout', placeholder: 'YYYY-MM-DD' }),
-	                React.createElement('input', { type: 'submit', value: 'enter' })
+	                'h1',
+	                null,
+	                'our app in its entirity'
 	            ),
+	            React.createElement(Nav, null)
+	        );
+	    }
+	});
+
+	var Nav = React.createClass({
+	    displayName: 'Nav',
+
+	    render: function render() {
+	        return React.createElement(
+	            'nav',
+	            { className: 'nav navbar' },
 	            React.createElement(
 	                'div',
-	                null,
-	                this.state.hotel
+	                { className: 'container-fluid' },
+	                React.createElement(
+	                    'div',
+	                    { className: 'navbar-header' },
+	                    React.createElement(
+	                        'button',
+	                        { type: 'button', className: 'navbar-toggle', 'data-toggle': 'collapse', 'data-target': '.navbar-collapse' },
+	                        React.createElement('span', { className: 'icon-bar' }),
+	                        React.createElement('span', { className: 'icon-bar' }),
+	                        React.createElement('span', { className: 'icon-bar' }),
+	                        React.createElement('span', { className: 'icon-bar' })
+	                    )
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'collapse navbar-collapse' },
+	                    React.createElement(
+	                        'ul',
+	                        { className: 'nav navbar-nav navbar' },
+	                        React.createElement(
+	                            'li',
+	                            { className: 'navlinks' },
+	                            React.createElement(
+	                                'a',
+	                                { href: '/' },
+	                                'Home'
+	                            )
+	                        ),
+	                        React.createElement(
+	                            'li',
+	                            { className: 'navlinks' },
+	                            React.createElement(
+	                                'a',
+	                                { href: '#cities', id: 'cities' },
+	                                'Cities We Represent'
+	                            )
+	                        ),
+	                        React.createElement(
+	                            'li',
+	                            { className: 'navlinks' },
+	                            React.createElement(
+	                                'a',
+	                                { href: '#search', id: 'search' },
+	                                'Search Hotels'
+	                            )
+	                        ),
+	                        React.createElement(
+	                            'li',
+	                            { className: 'navlinks' },
+	                            React.createElement(
+	                                'a',
+	                                { href: '#contact', id: 'contact' },
+	                                'Contact Us'
+	                            )
+	                        )
+	                    )
+	                )
 	            )
 	        );
 	    }
 	});
 
-	ReactDOM.render(React.createElement(GetRates, null), document.getElementById("app"));
+	var GetRates = React.createClass({
+	    displayName: 'GetRates',
+
+	    getHotels: function getHotels(event) {
+	        event.preventDefault();
+	        var info = {
+	            city: this.refs.city.value,
+	            checkin: this.refs.checkin.value,
+	            checkout: this.refs.checkout.value
+	        };
+	        this.props.getHotls(info);
+	        this.refs.formRates.reset();
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            { className: 'form-area' },
+	            React.createElement(
+	                'form',
+	                { onSubmit: this.getHotels, ref: 'formRates', className: 'formRates' },
+	                React.createElement(
+	                    'label',
+	                    null,
+	                    'City',
+	                    React.createElement(
+	                        'select',
+	                        { ref: 'city' },
+	                        React.createElement(
+	                            'option',
+	                            { value: 'charlottesville' },
+	                            'Charlottesville'
+	                        ),
+	                        React.createElement(
+	                            'option',
+	                            { value: 'newyork' },
+	                            'New York City'
+	                        ),
+	                        React.createElement(
+	                            'option',
+	                            { value: 'chicago' },
+	                            'Chicago'
+	                        )
+	                    )
+	                ),
+	                React.createElement(
+	                    'label',
+	                    null,
+	                    'Check In',
+	                    React.createElement('input', { type: 'text', ref: 'checkin', id: 'checkin', onChange: this.checkInSet, placeholder: 'YYYY-MM-DD', required: true })
+	                ),
+	                React.createElement(
+	                    'label',
+	                    null,
+	                    'Check Out',
+	                    React.createElement('input', { type: 'text', ref: 'checkout', id: 'checkout', onChange: this.checkOutSet, placeholder: 'YYYY-MM-DD', required: true })
+	                ),
+	                React.createElement('button', { type: 'submit', value: 'enter', 'class': 'button' })
+	            )
+	        );
+	    }
+	});
+
+	ReactDOM.render(React.createElement(App, null), document.getElementById("app"));
 
 	//function to validate the check in and out dates entered by user to make sure they are the correct format and the 
 	//check out date is after the check in date
