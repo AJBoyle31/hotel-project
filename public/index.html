@@ -1,186 +1,19 @@
 <html>
     <head>
-        <title>Roomkey Challenge</title>
+        <meta charset="utf-8" />
+        <title>HotelsLite.com</title>
         
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
-        
         <link href="/css/main.css" rel="stylesheet" type="text/css"> 
         
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css">
-
+        
     
         
         
     </head>
     <body>
-        <div id='head'>
-        <header>
-            <h1 id='webtitle'>HotelsLite.com: The limited choice in hotels</h1>
-        </header>
+        <div id="app"></div>
+        <script src="build/bundle.js"></script>
         
-        
-        <nav class='nav navbar'>
-            <div class='container-fluid'>
-                <div class='navbar-header'>
-                    <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
-                        <span class='icon-bar'></span>
-                        <span class='icon-bar'></span>
-                        <span class='icon-bar'></span>
-                        <span class='icon-bar'></span>
-                    </button>
-                    
-                </div>
-                <div class='collapse navbar-collapse'>
-                    <ul class='nav navbar-nav navbar'>
-                        <li class='navlinks'><a href='/'>Home</a></li>
-                        <li class='navlinks'><a href='#cities' id='cities'>Cities We Represent</a></li>
-                        <li class='navlinks'><a href='#search' id='search'>Search Hotels</a></li>
-                        <li class='navlinks'><a href='#contact' id='contact'>Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>        
-        </nav>
-        </div>
-        
-        <div id='page'>
-        
-        <div id='searchbox'>
-            <div class='container-fluid'>
-                <h2 id='hometitle'>If you're only looking for a hotel in Chicago, Charlottesville or New York City, then you've come to the right place!</h2>  
-            <br>
-            <div class='searchbar'>
-                <h4 class='inputHead'>City?</h4>
-                <select name='location' id='selloc'>
-                    <option value='charlottesville'>Charlottesville</option>
-                    <option value='newyork'>New York City</optino>
-                    <option value='chicago'>Chicago</option>
-                </select>
-            </div>
-                <div class='searchbar'>
-                    <h4 class='inputHead'>Check In?</h4>
-                    <input type='text' name='checkin' id='checkin' placeholder='YYYY-MM-DD'>
-                </div>
-                <div class='searchbar'>
-                    <h4 class='inputHead'>Check Out?</h4>
-                    <input type='text' name='checkout' id='checkout' placeholder='YYYY-MM-DD'>
-                </div>
-                <div class='searchbar'>
-                    <button type='submit' id='submit'>Find me some rates!</button>
-                </div>
-            </div>
-        </div>
-        
-        <div id='contactus' style='display: none'>
-            <h2 id='contactTitle'>We'd love to hear your thoughts!</h2>
-            
-            <form id='contactform'>
-                <h4>First Name:</h4>
-                <input type='text' name='firstname' id='firstname'>
-                <br>
-                <h4>Last Name:</h4>
-                <input type='text' name='lastname' id='lastname'>
-                <br>
-                <h4>Email Address:</h4>
-                <input type='text' name='email' id='email'>
-                <br>
-                <h4>What's on your mind?</h4>
-                <textarea type='text' name='message' id='message' form='contactform' rows='8' cols='75'></textarea>
-                <br>
-                <input type='submit' id='submitbut' value='Send my message!'>
-            </form>
-        </div>
-        
-        
-
-        <div id='location'></div>
-        
-        <!-- add search items to top of hotels div which shows what the user searched for and then they can change dates and get new results-->
-        <div id='hotels'></div>
-        
-        </div>
-        
-        <script id='hotelsTemplate' type='text/template'>
-            <% var hotelid = id %>
-                <a href='#' onclick='storeId("<%= id %>")' >
-                <img src=<%= photos[0]['thumbnail'] %>>
-            <% if (name.length > 20){ name = name.slice(0,20) + '...'} %>
-                <h3 class='hotelname'><%= name %></h3>
-            <% if (available) { nightly_rate = '$' + (Number(nightly_rate).toFixed(0)); %>
-                <h3 class='hotelrate'><%= nightly_rate %></h3>
-            <% } else { %>
-                <h3 class='hotelrate'>Unavailable</h3>
-            <% } %>
-            </a>
-            
-        </script>
-        
-        <script id='oneHotelTemplate' type='text/template'>
-            
-            <div class="pictures">
-                <% _.each(photos, function(photo){ %>
-                    <img class='slideShow' src='<%= photo["url"] %>'>
-                <% }); %>
-                <a class="btn-floating" style="position:absolute;top:45%;left:0" onclick="plusDivs(-1)">&#10094;</a>
-                <a class="btn-floating" style="position:absolute;top:45%;right:0" onclick="plusDivs(+1)">&#10095;</a>
-            </div>      
-            
-            
-            
-            <div id='titlerating'>    
-                <div class='hotelTitle'>
-                    <h2 id='hotelname'><%= name %></h2>
-                    <h5 id='address'><%= address["line1"] %>, <%= address["city"] %> <%= address["region_code"] %> <%= address["postal_code"] %></h5>
-                </div>
-            
-                <div class='stars' id='<%= stars %>'>
-                    <span id='a'>&#9734</span><span id='b'>&#9734</span><span id='c'>&#9734</span><span id='d'>&#9734</span><span id='e'>&#9734</span>
-                </div>
-            </div>
-            
-            <br>
-                
-            <div id="desc">
-                <h3 id='desctitle'>Description</h3>
-                <% if (description.length < 675) { %> 
-                    <p id='descinfo'><%= description %></p>
-                <% } else { description = description.slice(0, 675) %>
-                    <p id='descinfo'><%= description %> NEED TO ADD READ MORE OPTION</p>
-                <% } %>                
-            </div>
-                
-            <div id='amenities'>
-                <h3 id='amenitiestitle'>Amenities</h3>
-                <div id='list'>
-                    <% _.each(amenities, function(amenity){ %>
-                        <p><%= amenity["name"] %></p>    
-                    <% }); %>
-                </div>
-            </div>    
-                
-            <div id='reviews'>
-                <h3 id='reviewtitle'>Overall Guest Rating: <%= guest_rating %></h3>
-                <h4>Recent Reviews: </h4>
-                <br>
-                <div class='userreviews'>
-                    <% _.each(guest_reviews, function(review){ %>
-                        <h4 class='usertitle'><%= review["title"] %></h4>
-                        <h5 class='userrating'>Rating: <%= review["rating"] %></h5>
-                        <p class='usersummary'><%= review["summary"] %></p>
-                        <br>
-                    <% }); %>
-                </div>
-                
-            </div>
-            
-        </script>
-        
-        
-        <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
-        <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min.js'></script>
-        <script type='text/javascript' src='application.js'></script>
     </body> 
 </html>
