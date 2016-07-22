@@ -4,56 +4,36 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 var GetRates = React.createClass({
-    
-    getInitialState: function(){
-        return {
-            city: "",
-            checkin: "",
-            checkout: "",
-            hotel: ""
-        };
+    getHotels: function(event){
+        event.preventDefault();
+        var info = {
+            city: this.refs.city.value,
+            checkin: this.refs.checkin.value,
+            checkout: this.refs.checkout.value
+        }
+        this.props.getHotls(info);
+        this.refs.formRates.reset();
     },
-    citySet: function(event){
-        this.setState({ city: event.target.value });
-    },
-    checkInSet: function(event){
-      this.setState({ checkin: event.target.value });  
-    },
-    checkOutSet: function(event){
-      this.setState({ checkout: event.target.value });  
-    },
-    onSubmit: function(event){
-        var self = this;
-        var url = 'https://roomkey-frontend-project-ajboyle.c9users.io/api/locations/' + city + '/hotels?checkin=' + checkin + '&checkout=' + checkout;
-        this.setState({
-            city: city,
-            checkin: checkin,
-            checkout: checkout
-        });
-        
-        $.ajax(url).done(function(data){
-            self.setState({
-                hotel: data.map(function(repo){
-                    return(<h5>{repo.name}</h5>);
-                })
-            });
-        });
-    },
-    
     render: function(){
         return (
-            <div>
-            <form onSubmit={this.onSubmit}>
-                <select name='city' onChange={this.citySet}>
+            <div className="form-area">
+            <form onSubmit={this.getHotels} ref="formRates" className="formRates">
+                <label>City
+                <select ref="city">
                     <option value='charlottesville'>Charlottesville</option>
                     <option value='newyork'>New York City</option>
                     <option value='chicago'>Chicago</option>
                 </select>
-                <input type='text' name='checkin' id='checkin' onChange={this.checkInSet} placeholder='YYYY-MM-DD'/>
-                <input type='text' name='checkout' id='checkout' onChange={this.checkOutSet} placeholder='YYYY-MM-DD'/>
-                <input type="submit" value="enter" />
+                </label>
+                <label>Check In
+                <input type='text' ref='checkin' id='checkin' onChange={this.checkInSet} placeholder='YYYY-MM-DD' required />
+                </label>
+                <label>Check Out
+                <input type='text' ref='checkout' id='checkout' onChange={this.checkOutSet} placeholder='YYYY-MM-DD' required />
+                </label>
+                <button type="submit" value="enter" class="button"/>
             </form>
-            <div>{this.state.hotel}</div>
+            
             </div>
         );
     }
