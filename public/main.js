@@ -1,19 +1,52 @@
-//going to redo this in react.js
-
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+//Breakdown of the page
+    //App - holds all other views
+    //Nav - holds the navbar
+    //GetRates - holds the form for city, checkin and checkout
+    //ContactUs - holds the form for contacting us
+    //Cities - holds the view for the cities we represent
+    //HotelsList - holds the view for results after user submits GetRates form
+    //Hotel - holds view for a single hotel a user clicks on
+    //Filters - holds view for filtering HotelsList
+
+var rates = false;
+
+//App
 var App = React.createClass({
+    getInitialState: function(){
+        return {
+            hotels: {}
+        };  
+    },
+    showRates: function(){
+        if (!rates){
+            rates = true;
+            return( <GetRates /> );
+        }
+    },
+    hideRates: function() {
+        if (rates){
+            rates = false;
+            return "";
+        }  
+        
+    },
     render: function(){
         return(
             <div>
-            <h1>our app in its entirity</h1>  
+            <h1 className="title">HotelsLite.com</h1>
+            <h3 className="subtitle">The Limited Choice in Hotels!</h3>
             <Nav />
+            <GetRates />
             </div>
         );
     }
 });
 
+//Nav 
+    //need to figure out how to get collapse to work
 var Nav = React.createClass({
     render: function(){
         return (
@@ -32,7 +65,7 @@ var Nav = React.createClass({
                     <ul className='nav navbar-nav navbar'>
                         <li className='navlinks'><a href='/'>Home</a></li>
                         <li className='navlinks'><a href='#cities' id='cities'>Cities We Represent</a></li>
-                        <li className='navlinks'><a href='#search' id='search'>Search Hotels</a></li>
+                        <li className='navlinks'><a href='#search' onclick={this.props.showRates} id='search'>Search Hotels</a></li>
                         <li className='navlinks'><a href='#contact' id='contact'>Contact Us</a></li>
                     </ul>
                 </div>
@@ -58,10 +91,11 @@ var GetRates = React.createClass({
     },
     render: function(){
         return (
-            <div className="form-area">
+            <div className="searchBox">
+            <h3 className="searchHotels">Search Hotels</h3>
             <form onSubmit={this.getHotels} ref="formRates" className="formRates">
                 <label>City
-                <select ref="city">
+                <select ref="city" id="city">
                     <option value='charlottesville'>Charlottesville</option>
                     <option value='newyork'>New York City</option>
                     <option value='chicago'>Chicago</option>
@@ -73,7 +107,7 @@ var GetRates = React.createClass({
                 <label>Check Out
                 <input type='text' ref='checkout' id='checkout' onChange={this.checkOutSet} placeholder='YYYY-MM-DD' required />
                 </label>
-                <button type="submit" value="enter" class="button"/>
+                <button type="submit" class="button">Get Rates</button>
             </form>
             
             </div>
