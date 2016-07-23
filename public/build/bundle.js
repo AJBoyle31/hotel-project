@@ -46,28 +46,64 @@
 
 	'use strict';
 
-	//going to redo this in react.js
-
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(33);
 
+	//Breakdown of the page
+	//App - holds all other views
+	//Nav - holds the navbar
+	//GetRates - holds the form for city, checkin and checkout
+	//ContactUs - holds the form for contacting us
+	//Cities - holds the view for the cities we represent
+	//HotelsList - holds the view for results after user submits GetRates form
+	//Hotel - holds view for a single hotel a user clicks on
+	//Filters - holds view for filtering HotelsList
+
+	var rates = false;
+
+	//App
 	var App = React.createClass({
 	    displayName: 'App',
 
+	    getInitialState: function getInitialState() {
+	        return {
+	            hotels: {}
+	        };
+	    },
+	    showRates: function showRates() {
+	        if (!rates) {
+	            rates = true;
+	            return React.createElement(GetRates, null);
+	        }
+	    },
+	    hideRates: function hideRates() {
+	        if (rates) {
+	            rates = false;
+	            return "";
+	        }
+	    },
 	    render: function render() {
 	        return React.createElement(
 	            'div',
 	            null,
 	            React.createElement(
 	                'h1',
-	                null,
-	                'our app in its entirity'
+	                { className: 'title' },
+	                'HotelsLite.com'
 	            ),
-	            React.createElement(Nav, null)
+	            React.createElement(
+	                'h3',
+	                { className: 'subtitle' },
+	                'The Limited Choice in Hotels!'
+	            ),
+	            React.createElement(Nav, null),
+	            React.createElement(GetRates, null)
 	        );
 	    }
 	});
 
+	//Nav 
+	//need to figure out how to get collapse to work
 	var Nav = React.createClass({
 	    displayName: 'Nav',
 
@@ -119,7 +155,7 @@
 	                            { className: 'navlinks' },
 	                            React.createElement(
 	                                'a',
-	                                { href: '#search', id: 'search' },
+	                                { href: '#search', onclick: this.props.showRates, id: 'search' },
 	                                'Search Hotels'
 	                            )
 	                        ),
@@ -155,7 +191,12 @@
 	    render: function render() {
 	        return React.createElement(
 	            'div',
-	            { className: 'form-area' },
+	            { className: 'searchBox' },
+	            React.createElement(
+	                'h3',
+	                { className: 'searchHotels' },
+	                'Search Hotels'
+	            ),
 	            React.createElement(
 	                'form',
 	                { onSubmit: this.getHotels, ref: 'formRates', className: 'formRates' },
@@ -165,7 +206,7 @@
 	                    'City',
 	                    React.createElement(
 	                        'select',
-	                        { ref: 'city' },
+	                        { ref: 'city', id: 'city' },
 	                        React.createElement(
 	                            'option',
 	                            { value: 'charlottesville' },
@@ -195,7 +236,11 @@
 	                    'Check Out',
 	                    React.createElement('input', { type: 'text', ref: 'checkout', id: 'checkout', onChange: this.checkOutSet, placeholder: 'YYYY-MM-DD', required: true })
 	                ),
-	                React.createElement('button', { type: 'submit', value: 'enter', 'class': 'button' })
+	                React.createElement(
+	                    'button',
+	                    { type: 'submit', 'class': 'button' },
+	                    'Get Rates'
+	                )
 	            )
 	        );
 	    }
