@@ -10,12 +10,13 @@ html {
 
 /* Header */
 
-#webtitle {
+.title {
     text-align: center;
-    color: white;
+    
 }
-#hometitle{
+.subtitle{
     margin-bottom: 20px;
+    text-align: center;
 }
 
 /* Navigation Bar */
@@ -54,23 +55,27 @@ html {
 }
 
 /* Search Box */
-#searchbox {
+.formRates {
     text-align: center;
+    margin-top: 20px;
 }
-#selloc {
-    font-size: 150%;
+
+.searchBox {
+    margin-top: 10px;
+    padding: 10px 10px 10px 10px;
+    border: 2px solid black;
+    text-align: center;
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
 }
-.inputHead {
-    font-size: 150%;
+
+#city, #checkin, #checkout {
+    margin-left: 10px;
+    margin-right: 10px;
 }
-#submit {
-    font-size: 150%;
-}
-.searchbar {
-    display: inline-block;
-    margin-left: 15px;
-    margin-right: 15px;
-}
+
+
 
 /* Search Cities */
 #location{
