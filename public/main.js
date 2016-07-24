@@ -17,7 +17,8 @@ var rates = false;
 var App = React.createClass({
     getInitialState: function(){
         return {
-            hotels: {}
+            hotels: {},
+            information: {}
         };  
     },
     showRates: function(){
@@ -33,14 +34,34 @@ var App = React.createClass({
         }  
         
     },
+    getHotels: function(info){
+        var test = info;
+        this.setState({ information: test});
+        
+        /*
+        this.setState({ info: info });
+        var url = 'https://hotel-project-ajboyle.c9users.io/api/locations/' + this.state.information.city + '/hotels?checkin=' + this.state.information.checkin + '&checkout=' + this.state.information.checkout;
+        $.ajax(url).done(function(data){
+            this.setState({
+                hotels: data
+            });
+        });
+        */
+    },
+    renderHotels: function(key){
+        return (<HotelsList key={key} details={this.state.hotels[key]} />);
+    },
     render: function(){
         return(
             <div>
-            <h1 className="title">HotelsLite.com</h1>
-            <h3 className="subtitle">The Limited Choice in Hotels!</h3>
-            <Nav />
-            <GetRates />
-            </div>
+                <h1 className="title">HotelsLite.com</h1>
+                <h3 className="subtitle">The Limited Choice in Hotels!</h3>
+                <Nav />
+                <GetRates />
+                <div className="listOfHotels">
+                    <h1>{this.state.information.city}</h1>   
+                </div>
+                </div>
         );
     }
 });
@@ -79,21 +100,21 @@ var Nav = React.createClass({
 
 
 var GetRates = React.createClass({
-    getHotels: function(event){
+    getInfo: function(event){
         event.preventDefault();
         var info = {
             city: this.refs.city.value,
             checkin: this.refs.checkin.value,
             checkout: this.refs.checkout.value
         };
-        this.props.getHotls(info);
-        this.refs.formRates.reset();
+        this.props.getHotels(info);
+        //this.refs.formRates.reset();
     },
     render: function(){
         return (
             <div className="searchBox">
             <h3 className="searchHotels">Search Hotels</h3>
-            <form onSubmit={this.getHotels} ref="formRates" className="formRates">
+            <form onSubmit={this.getInfo} ref="formRates" className="formRates">
                 <label>City
                 <select ref="city" id="city">
                     <option value='charlottesville'>Charlottesville</option>
@@ -102,15 +123,24 @@ var GetRates = React.createClass({
                 </select>
                 </label>
                 <label>Check In
-                <input type='text' ref='checkin' id='checkin' onChange={this.checkInSet} placeholder='YYYY-MM-DD' required />
+                <input type='text' ref='checkin' id='checkin' placeholder='YYYY-MM-DD' required />
                 </label>
                 <label>Check Out
-                <input type='text' ref='checkout' id='checkout' onChange={this.checkOutSet} placeholder='YYYY-MM-DD' required />
+                <input type='text' ref='checkout' id='checkout' placeholder='YYYY-MM-DD' required />
                 </label>
                 <button type="submit" class="button">Get Rates</button>
             </form>
             
             </div>
+        );
+    }
+});
+
+var HotelsList = React.createClass({
+    render: function(){
+        var details = this.props.details;
+        return (
+            <h2>{details.name}</h2>
         );
     }
 });
