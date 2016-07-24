@@ -67,7 +67,8 @@
 
 	    getInitialState: function getInitialState() {
 	        return {
-	            hotels: {}
+	            hotels: {},
+	            information: {}
 	        };
 	    },
 	    showRates: function showRates() {
@@ -81,6 +82,23 @@
 	            rates = false;
 	            return "";
 	        }
+	    },
+	    getHotels: function getHotels(info) {
+	        var test = info;
+	        this.setState({ information: test });
+
+	        /*
+	        this.setState({ info: info });
+	        var url = 'https://hotel-project-ajboyle.c9users.io/api/locations/' + this.state.information.city + '/hotels?checkin=' + this.state.information.checkin + '&checkout=' + this.state.information.checkout;
+	        $.ajax(url).done(function(data){
+	            this.setState({
+	                hotels: data
+	            });
+	        });
+	        */
+	    },
+	    renderHotels: function renderHotels(key) {
+	        return React.createElement(HotelsList, { key: key, details: this.state.hotels[key] });
 	    },
 	    render: function render() {
 	        return React.createElement(
@@ -97,7 +115,16 @@
 	                'The Limited Choice in Hotels!'
 	            ),
 	            React.createElement(Nav, null),
-	            React.createElement(GetRates, null)
+	            React.createElement(GetRates, null),
+	            React.createElement(
+	                'div',
+	                { className: 'listOfHotels' },
+	                React.createElement(
+	                    'h1',
+	                    null,
+	                    this.state.information.city
+	                )
+	            )
 	        );
 	    }
 	});
@@ -178,15 +205,15 @@
 	var GetRates = React.createClass({
 	    displayName: 'GetRates',
 
-	    getHotels: function getHotels(event) {
+	    getInfo: function getInfo(event) {
 	        event.preventDefault();
 	        var info = {
 	            city: this.refs.city.value,
 	            checkin: this.refs.checkin.value,
 	            checkout: this.refs.checkout.value
 	        };
-	        this.props.getHotls(info);
-	        this.refs.formRates.reset();
+	        this.props.getHotels(info);
+	        //this.refs.formRates.reset();
 	    },
 	    render: function render() {
 	        return React.createElement(
@@ -199,7 +226,7 @@
 	            ),
 	            React.createElement(
 	                'form',
-	                { onSubmit: this.getHotels, ref: 'formRates', className: 'formRates' },
+	                { onSubmit: this.getInfo, ref: 'formRates', className: 'formRates' },
 	                React.createElement(
 	                    'label',
 	                    null,
@@ -228,13 +255,13 @@
 	                    'label',
 	                    null,
 	                    'Check In',
-	                    React.createElement('input', { type: 'text', ref: 'checkin', id: 'checkin', onChange: this.checkInSet, placeholder: 'YYYY-MM-DD', required: true })
+	                    React.createElement('input', { type: 'text', ref: 'checkin', id: 'checkin', placeholder: 'YYYY-MM-DD', required: true })
 	                ),
 	                React.createElement(
 	                    'label',
 	                    null,
 	                    'Check Out',
-	                    React.createElement('input', { type: 'text', ref: 'checkout', id: 'checkout', onChange: this.checkOutSet, placeholder: 'YYYY-MM-DD', required: true })
+	                    React.createElement('input', { type: 'text', ref: 'checkout', id: 'checkout', placeholder: 'YYYY-MM-DD', required: true })
 	                ),
 	                React.createElement(
 	                    'button',
@@ -242,6 +269,19 @@
 	                    'Get Rates'
 	                )
 	            )
+	        );
+	    }
+	});
+
+	var HotelsList = React.createClass({
+	    displayName: 'HotelsList',
+
+	    render: function render() {
+	        var details = this.props.details;
+	        return React.createElement(
+	            'h2',
+	            null,
+	            details.name
 	        );
 	    }
 	});
