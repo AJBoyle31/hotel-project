@@ -17,9 +17,16 @@ var rates = false;
 var App = React.createClass({
     getInitialState: function(){
         return {
-            hotels: {},
-            information: {}
+            hotels: [],
+            information: {},
+            hotel: {}
         };  
+    },
+    updateInfo: function(info){
+        this.setState({ information: info});
+    },
+    updateHotels: function(hotel){
+        this.setState({ hotels: hotel });
     },
     showRates: function(){
         if (!rates){
@@ -34,22 +41,8 @@ var App = React.createClass({
         }  
         
     },
-    getHotels: function(info){
-        var test = info;
-        this.setState({ information: test});
-        
-        /*
-        this.setState({ info: info });
-        var url = 'https://hotel-project-ajboyle.c9users.io/api/locations/' + this.state.information.city + '/hotels?checkin=' + this.state.information.checkin + '&checkout=' + this.state.information.checkout;
-        $.ajax(url).done(function(data){
-            this.setState({
-                hotels: data
-            });
-        });
-        */
-    },
     renderHotels: function(key){
-        return (<HotelsList key={key} details={this.state.hotels[key]} />);
+        return (<Hotels key={key} details={this.state.hotels[key]} />);
     },
     render: function(){
         return(
@@ -57,9 +50,9 @@ var App = React.createClass({
                 <h1 className="title">HotelsLite.com</h1>
                 <h3 className="subtitle">The Limited Choice in Hotels!</h3>
                 <Nav />
-                <GetRates />
+                <GetRates updateInfo={this.updateInfo} updateHotels={this.updateHotels} />
                 <div className="listOfHotels">
-                    <h1>{this.state.information.city}</h1>   
+                    <h1>{this.state.hotels}</h1>      
                 </div>
                 </div>
         );
@@ -96,9 +89,6 @@ var Nav = React.createClass({
     }
 });
 
-
-
-
 var GetRates = React.createClass({
     getInfo: function(event){
         event.preventDefault();
@@ -107,7 +97,18 @@ var GetRates = React.createClass({
             checkin: this.refs.checkin.value,
             checkout: this.refs.checkout.value
         };
-        this.props.getHotels(info);
+        this.props.updateInfo(info);
+      
+        var url = 'https://hotel-project-ajboyle.c9users.io/api/locations/' + info.city + '/hotels?checkin=' + info.checkin + '&checkout=' + info.checkout;
+        
+        //api call works, need to store result in app hotels state
+        $.ajax(url).done(function(data){
+            var hotels = data;
+            
+            this.props.updateHotels(hotels);
+            
+        });
+        
         //this.refs.formRates.reset();
     },
     render: function(){
@@ -136,7 +137,7 @@ var GetRates = React.createClass({
     }
 });
 
-var HotelsList = React.createClass({
+var Hotels = React.createClass({
     render: function(){
         var details = this.props.details;
         return (
@@ -144,6 +145,8 @@ var HotelsList = React.createClass({
         );
     }
 });
+
+
 
 ReactDOM.render(<App />, document.getElementById("app"));
 
