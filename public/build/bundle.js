@@ -67,9 +67,16 @@
 
 	    getInitialState: function getInitialState() {
 	        return {
-	            hotels: {},
-	            information: {}
+	            hotels: [],
+	            information: {},
+	            hotel: {}
 	        };
+	    },
+	    updateInfo: function updateInfo(info) {
+	        this.setState({ information: info });
+	    },
+	    updateHotels: function updateHotels(hotel) {
+	        this.setState({ hotels: hotel });
 	    },
 	    showRates: function showRates() {
 	        if (!rates) {
@@ -83,22 +90,8 @@
 	            return "";
 	        }
 	    },
-	    getHotels: function getHotels(info) {
-	        var test = info;
-	        this.setState({ information: test });
-
-	        /*
-	        this.setState({ info: info });
-	        var url = 'https://hotel-project-ajboyle.c9users.io/api/locations/' + this.state.information.city + '/hotels?checkin=' + this.state.information.checkin + '&checkout=' + this.state.information.checkout;
-	        $.ajax(url).done(function(data){
-	            this.setState({
-	                hotels: data
-	            });
-	        });
-	        */
-	    },
 	    renderHotels: function renderHotels(key) {
-	        return React.createElement(HotelsList, { key: key, details: this.state.hotels[key] });
+	        return React.createElement(Hotels, { key: key, details: this.state.hotels[key] });
 	    },
 	    render: function render() {
 	        return React.createElement(
@@ -115,14 +108,14 @@
 	                'The Limited Choice in Hotels!'
 	            ),
 	            React.createElement(Nav, null),
-	            React.createElement(GetRates, null),
+	            React.createElement(GetRates, { updateInfo: this.updateInfo, updateHotels: this.updateHotels }),
 	            React.createElement(
 	                'div',
 	                { className: 'listOfHotels' },
 	                React.createElement(
 	                    'h1',
 	                    null,
-	                    this.state.information.city
+	                    this.state.hotels
 	                )
 	            )
 	        );
@@ -212,7 +205,17 @@
 	            checkin: this.refs.checkin.value,
 	            checkout: this.refs.checkout.value
 	        };
-	        this.props.getHotels(info);
+	        this.props.updateInfo(info);
+
+	        var url = 'https://hotel-project-ajboyle.c9users.io/api/locations/' + info.city + '/hotels?checkin=' + info.checkin + '&checkout=' + info.checkout;
+
+	        //api call works, need to store result in app hotels state
+	        $.ajax(url).done(function (data) {
+	            var hotels = data;
+	            alert(hotels[0].name);
+	            this.props.updateHotels(hotels);
+	        });
+
 	        //this.refs.formRates.reset();
 	    },
 	    render: function render() {
@@ -273,8 +276,8 @@
 	    }
 	});
 
-	var HotelsList = React.createClass({
-	    displayName: 'HotelsList',
+	var Hotels = React.createClass({
+	    displayName: 'Hotels',
 
 	    render: function render() {
 	        var details = this.props.details;
