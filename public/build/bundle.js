@@ -269,9 +269,12 @@
 	var FilteredHotels = React.createClass({
 	    displayName: 'FilteredHotels',
 
-	    filterHotels: function filterHotels() {
+	    filterHotels: function filterHotels(event) {
 	        var updatedHotels = this.state.hotelsResult;
-	        updatedHotels = updatedHotels.filter(function () {});
+	        updatedHotels = updatedHotels.filter(function (text) {
+	            return text.toLowerCase().search(event.target.value.toLowerCase()) !== -1;
+	        });
+	        this.setState({ filteredHotels: updatedHotels });
 	    },
 	    getInitialState: function getInitialState() {
 	        return {
@@ -288,10 +291,16 @@
 	            }
 	            return React.createElement(Hotels, { photo: hotel.photos[0]['thumbnail'], name: hotel.name, rate: rate });
 	        });
+
 	        return React.createElement(
 	            'div',
-	            { id: 'hotels' },
-	            hotelNodes
+	            { className: 'results' },
+	            React.createElement(FilterOptions, { filterList: this.filterList }),
+	            React.createElement(
+	                'div',
+	                { id: 'hotels' },
+	                hotelNodes
+	            )
 	        );
 	    }
 	});
@@ -317,6 +326,28 @@
 	                    { className: 'hotelrate' },
 	                    this.props.rate
 	                )
+	            )
+	        );
+	    }
+	});
+
+	var FilterOptions = React.createClass({
+	    displayName: 'FilterOptions',
+
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            { className: 'filter' },
+	            React.createElement(
+	                'form',
+	                null,
+	                React.createElement('input', { type: 'text', ref: 'name', onChange: this.props.filterList, placeholder: 'Hotel Name Contains..' }),
+	                React.createElement('input', { type: 'text', ref: 'minprice', placeholder: 'Min Price' }),
+	                React.createElement('input', { type: 'text', ref: 'maxprice', placeholder: 'Max Price' }),
+	                React.createElement('input', { type: 'checkbox', ref: 'pet', name: 'amenities', value: 'pet' }),
+	                ' Pet Friendly',
+	                React.createElement('input', { type: 'checkbox', ref: 'wifi', name: 'amenities', value: 'wifi' }),
+	                ' Wifi'
 	            )
 	        );
 	    }
