@@ -107,6 +107,7 @@ var GetRates = React.createClass({
             checkout: this.refs.checkout.value
         };
         this.props.updateInfo(info);
+        
     },
     render: function(){
         return (
@@ -135,11 +136,12 @@ var GetRates = React.createClass({
 });
 
 var FilteredHotels = React.createClass({
-    filterHotels: function(){
+    filterHotels: function(event){
         var updatedHotels = this.state.hotelsResult;
-        updatedHotels = updatedHotels.filter(function(){
-            
+        updatedHotels = updatedHotels.filter(function(text){
+            return text.toLowerCase().search(event.target.value.toLowerCase()) !== -1;
         });
+        this.setState({ filteredHotels: updatedHotels });
     },
     getInitialState: function(){
         return {
@@ -158,8 +160,12 @@ var FilteredHotels = React.createClass({
                 <Hotels photo={hotel.photos[0]['thumbnail']} name={hotel.name} rate={rate} />
             );
         });
+       
         return (
+            <div className="results">
+            <FilterOptions filterList={this.filterList} />
             <div id='hotels'>{hotelNodes}</div>
+            </div>
         );
     }
 });
@@ -175,6 +181,23 @@ var Hotels = React.createClass({
             </a>
             </div>
         );
+    }
+});
+
+
+var FilterOptions = React.createClass({
+    render: function(){
+        return (
+        <div className="filter">
+        <form>
+            <input type='text' ref='name' onChange={this.props.filterList} placeholder='Hotel Name Contains..' />
+            <input type='text' ref='minprice' placeholder='Min Price' />
+            <input type='text' ref='maxprice' placeholder='Max Price' />
+            <input type='checkbox' ref='pet' name='amenities' value='pet' /> Pet Friendly
+            <input type='checkbox' ref='wifi' name='amenities' value='wifi' /> Wifi
+        </form>
+        </div>
+    );
     }
 });
 
