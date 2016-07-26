@@ -139,7 +139,7 @@ var FilteredHotels = React.createClass({
         var updatedHotels = this.state.hotelsResult;
         updatedHotels = updatedHotels.filter(function(){
             
-        })
+        });
     },
     getInitialState: function(){
         return {
