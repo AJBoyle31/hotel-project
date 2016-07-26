@@ -207,8 +207,6 @@
 	            checkout: this.refs.checkout.value
 	        };
 	        this.props.updateInfo(info);
-
-	        //this.refs.formRates.reset();
 	    },
 	    render: function render() {
 	        return React.createElement(
@@ -221,7 +219,7 @@
 	            ),
 	            React.createElement(
 	                'form',
-	                { onSubmit: this.getInfo, ref: 'formRates', className: 'formRates' },
+	                { ref: 'formRates', className: 'formRates', onSubmit: this.getInfo },
 	                React.createElement(
 	                    'label',
 	                    null,
@@ -258,11 +256,7 @@
 	                    'Check Out',
 	                    React.createElement('input', { type: 'text', ref: 'checkout', id: 'checkout', placeholder: 'YYYY-MM-DD', required: true })
 	                ),
-	                React.createElement(
-	                    'button',
-	                    { type: 'submit', 'class': 'button' },
-	                    'Get Rates'
-	                )
+	                React.createElement('input', { type: 'submit', value: 'Get Rates' })
 	            )
 	        );
 	    }
