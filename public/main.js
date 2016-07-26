@@ -11,6 +11,10 @@ var ReactDOM = require('react-dom');
     //Hotel - holds view for a single hotel a user clicks on
     //Filters - holds view for filtering HotelsList
 
+//Known issues
+    //have to click form submit twice to get results
+    //nav collapse doesn't work
+
 
 //App
 var App = React.createClass({
@@ -55,7 +59,7 @@ var App = React.createClass({
                 <Nav />
                 <GetRates updateInfo={this.updateInfo} />
                 <div className="listOfHotels">
-                    <Hotels data={this.state.hotels} />      
+                    <FilteredHotels data={this.state.hotels} />      
                 </div>
                 </div>
         );
@@ -130,19 +134,49 @@ var GetRates = React.createClass({
     }
 });
 
-var Hotels = React.createClass({
+var FilteredHotels = React.createClass({
+    filterHotels: function(){
+        var updatedHotels = this.state.hotelsResult;
+        updatedHotels = updatedHotels.filter(function(){
+            
+        })
+    },
+    getInitialState: function(){
+        return {
+            hotelsResult: this.props.data,
+            filteredHotels: []
+        };
+    },
     render: function(){
         var hotelNodes = this.props.data.map(function(hotel){
+            if (hotel.available) {
+                var rate = '$' + (Number(hotel['nightly_rate']).toFixed(0));
+            } else {
+                var rate = "Unavailable"; 
+            }
             return (
-                <li>{hotel.name}</li>
+                <Hotels photo={hotel.photos[0]['thumbnail']} name={hotel.name} rate={rate} />
             );
         });
         return (
-            <ul>{hotelNodes}</ul>
+            <div id='hotels'>{hotelNodes}</div>
         );
     }
 });
 
+var Hotels = React.createClass({
+    render: function(){
+        return (
+            <div className="hotels">
+            <a href='#'>
+            <img src={this.props.photo} />
+            <h3 className='hotelname'>{this.props.name}</h3>
+            <h3 className='hotelrate'>{this.props.rate}</h3>
+            </a>
+            </div>
+        );
+    }
+});
 
 
 ReactDOM.render(<App />, document.getElementById("app"));
