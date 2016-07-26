@@ -11,10 +11,23 @@ var ReactDOM = require('react-dom');
     //Hotel - holds view for a single hotel a user clicks on
     //Filters - holds view for filtering HotelsList
 
-var rates = false;
 
 //App
 var App = React.createClass({
+    getHotelsFromServer: function(){
+        var url = 'https://hotel-project-ajboyle.c9users.io/api/locations/' + this.state.information.city + '/hotels?checkin=' + this.state.information.checkin + '&checkout=' + this.state.information.checkout;
+        $.ajax({
+            url: url, 
+            dataType: 'json',
+            cache: false,
+            success: function(data){
+                this.setState({ hotels: data });
+            }.bind(this),
+            error: function(xhr, status, err){
+                console.error(url, status, err.toString());
+            }.bind(this) 
+        });
+    },
     getInitialState: function(){
         return {
             hotels: [],
@@ -22,24 +35,14 @@ var App = React.createClass({
             hotel: {}
         };  
     },
-    updateInfo: function(info){
-        this.setState({ information: info});
-    },
-    updateHotels: function(hotel){
-        this.setState({ hotels: hotel });
-    },
-    showRates: function(){
-        if (!rates){
-            rates = true;
-            return( <GetRates /> );
-        }
-    },
-    hideRates: function() {
-        if (rates){
-            rates = false;
-            return "";
-        }  
+    componentDidMount: function(){
+        this.getHotelsFromServer();
         
+    },
+    
+    updateInfo: function(info){
+        this.setState({ information: info });
+        this.getHotelsFromServer();
     },
     renderHotels: function(key){
         return (<Hotels key={key} details={this.state.hotels[key]} />);
@@ -50,15 +53,16 @@ var App = React.createClass({
                 <h1 className="title">HotelsLite.com</h1>
                 <h3 className="subtitle">The Limited Choice in Hotels!</h3>
                 <Nav />
-                <GetRates updateInfo={this.updateInfo} updateHotels={this.updateHotels} />
+                <GetRates updateInfo={this.updateInfo} />
                 <div className="listOfHotels">
-                    <h1>{this.state.hotels}</h1>      
+                    <Hotels data={this.state.hotels} />      
                 </div>
                 </div>
         );
     }
 });
 
+//<Hotels details={this.state.hotels} />
 //Nav 
     //need to figure out how to get collapse to work
 var Nav = React.createClass({
@@ -89,6 +93,7 @@ var Nav = React.createClass({
     }
 });
 
+//Get information from user regarding city, checkin and checkout dates. 
 var GetRates = React.createClass({
     getInfo: function(event){
         event.preventDefault();
@@ -99,15 +104,7 @@ var GetRates = React.createClass({
         };
         this.props.updateInfo(info);
       
-        var url = 'https://hotel-project-ajboyle.c9users.io/api/locations/' + info.city + '/hotels?checkin=' + info.checkin + '&checkout=' + info.checkout;
         
-        //api call works, need to store result in app hotels state
-        $.ajax(url).done(function(data){
-            var hotels = data;
-            
-            this.props.updateHotels(hotels);
-            
-        });
         
         //this.refs.formRates.reset();
     },
@@ -139,9 +136,13 @@ var GetRates = React.createClass({
 
 var Hotels = React.createClass({
     render: function(){
-        var details = this.props.details;
+        var hotelNodes = this.props.data.map(function(hotel){
+            return (
+                <li>{hotel.name}</li>
+            );
+        });
         return (
-            <h2>{details.name}</h2>
+            <ul>{hotelNodes}</ul>
         );
     }
 });
