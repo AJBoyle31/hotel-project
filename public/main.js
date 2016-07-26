@@ -103,16 +103,12 @@ var GetRates = React.createClass({
             checkout: this.refs.checkout.value
         };
         this.props.updateInfo(info);
-      
-        
-        
-        //this.refs.formRates.reset();
     },
     render: function(){
         return (
             <div className="searchBox">
             <h3 className="searchHotels">Search Hotels</h3>
-            <form onSubmit={this.getInfo} ref="formRates" className="formRates">
+            <form ref="formRates" className="formRates" onSubmit={this.getInfo}>
                 <label>City
                 <select ref="city" id="city">
                     <option value='charlottesville'>Charlottesville</option>
@@ -126,7 +122,7 @@ var GetRates = React.createClass({
                 <label>Check Out
                 <input type='text' ref='checkout' id='checkout' placeholder='YYYY-MM-DD' required />
                 </label>
-                <button type="submit" class="button">Get Rates</button>
+                <input type="submit" value="Get Rates" />
             </form>
             
             </div>
