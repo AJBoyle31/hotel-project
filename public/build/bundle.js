@@ -59,6 +59,10 @@
 	//Hotel - holds view for a single hotel a user clicks on
 	//Filters - holds view for filtering HotelsList
 
+	//Known issues
+	//have to click form submit twice to get results
+	//nav collapse doesn't work
+
 
 	//App
 	var App = React.createClass({
@@ -115,7 +119,7 @@
 	            React.createElement(
 	                'div',
 	                { className: 'listOfHotels' },
-	                React.createElement(Hotels, { data: this.state.hotels })
+	                React.createElement(FilteredHotels, { data: this.state.hotels })
 	            )
 	        );
 	    }
@@ -262,21 +266,58 @@
 	    }
 	});
 
+	var FilteredHotels = React.createClass({
+	    displayName: 'FilteredHotels',
+
+	    filterHotels: function filterHotels() {
+	        var updatedHotels = this.state.hotelsResult;
+	        updatedHotels = updatedHotels.filter(function () {});
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            hotelsResult: this.props.data,
+	            filteredHotels: []
+	        };
+	    },
+	    render: function render() {
+	        var hotelNodes = this.props.data.map(function (hotel) {
+	            if (hotel.available) {
+	                var rate = '$' + Number(hotel['nightly_rate']).toFixed(0);
+	            } else {
+	                var rate = "Unavailable";
+	            }
+	            return React.createElement(Hotels, { photo: hotel.photos[0]['thumbnail'], name: hotel.name, rate: rate });
+	        });
+	        return React.createElement(
+	            'div',
+	            { id: 'hotels' },
+	            hotelNodes
+	        );
+	    }
+	});
+
 	var Hotels = React.createClass({
 	    displayName: 'Hotels',
 
 	    render: function render() {
-	        var hotelNodes = this.props.data.map(function (hotel) {
-	            return React.createElement(
-	                'li',
-	                null,
-	                hotel.name
-	            );
-	        });
 	        return React.createElement(
-	            'ul',
-	            null,
-	            hotelNodes
+	            'div',
+	            { className: 'hotels' },
+	            React.createElement(
+	                'a',
+	                { href: '#' },
+	                React.createElement('img', { src: this.props.photo }),
+	                React.createElement(
+	                    'h3',
+	                    { className: 'hotelname' },
+	                    this.props.name
+	                ),
+	                React.createElement(
+	                    'h3',
+	                    { className: 'hotelrate' },
+	                    this.props.rate
+	                )
+	            )
 	        );
 	    }
 	});
