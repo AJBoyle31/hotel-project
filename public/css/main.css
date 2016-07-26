@@ -134,12 +134,19 @@ html {
   
 }
 
+.filter, #hotels {
+    display: inline-block;
+}
+
 .hotelname {
     font-size: 15px;
     
 }
 .hotelrate {
     vertical-align: bottom;
+}
+.results {
+    text-align: center;
 }
 
 /* Single Hotel */
