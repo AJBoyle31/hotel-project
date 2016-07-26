@@ -59,12 +59,25 @@
 	//Hotel - holds view for a single hotel a user clicks on
 	//Filters - holds view for filtering HotelsList
 
-	var rates = false;
 
 	//App
 	var App = React.createClass({
 	    displayName: 'App',
 
+	    getHotelsFromServer: function getHotelsFromServer() {
+	        var url = 'https://hotel-project-ajboyle.c9users.io/api/locations/' + this.state.information.city + '/hotels?checkin=' + this.state.information.checkin + '&checkout=' + this.state.information.checkout;
+	        $.ajax({
+	            url: url,
+	            dataType: 'json',
+	            cache: false,
+	            success: function (data) {
+	                this.setState({ hotels: data });
+	            }.bind(this),
+	            error: function (xhr, status, err) {
+	                console.error(url, status, err.toString());
+	            }.bind(this)
+	        });
+	    },
 	    getInitialState: function getInitialState() {
 	        return {
 	            hotels: [],
@@ -72,23 +85,13 @@
 	            hotel: {}
 	        };
 	    },
+	    componentDidMount: function componentDidMount() {
+	        this.getHotelsFromServer();
+	    },
+
 	    updateInfo: function updateInfo(info) {
 	        this.setState({ information: info });
-	    },
-	    updateHotels: function updateHotels(hotel) {
-	        this.setState({ hotels: hotel });
-	    },
-	    showRates: function showRates() {
-	        if (!rates) {
-	            rates = true;
-	            return React.createElement(GetRates, null);
-	        }
-	    },
-	    hideRates: function hideRates() {
-	        if (rates) {
-	            rates = false;
-	            return "";
-	        }
+	        this.getHotelsFromServer();
 	    },
 	    renderHotels: function renderHotels(key) {
 	        return React.createElement(Hotels, { key: key, details: this.state.hotels[key] });
@@ -108,20 +111,17 @@
 	                'The Limited Choice in Hotels!'
 	            ),
 	            React.createElement(Nav, null),
-	            React.createElement(GetRates, { updateInfo: this.updateInfo, updateHotels: this.updateHotels }),
+	            React.createElement(GetRates, { updateInfo: this.updateInfo }),
 	            React.createElement(
 	                'div',
 	                { className: 'listOfHotels' },
-	                React.createElement(
-	                    'h1',
-	                    null,
-	                    this.state.hotels
-	                )
+	                React.createElement(Hotels, { data: this.state.hotels })
 	            )
 	        );
 	    }
 	});
 
+	//<Hotels details={this.state.hotels} />
 	//Nav 
 	//need to figure out how to get collapse to work
 	var Nav = React.createClass({
@@ -195,6 +195,7 @@
 	    }
 	});
 
+	//Get information from user regarding city, checkin and checkout dates. 
 	var GetRates = React.createClass({
 	    displayName: 'GetRates',
 
@@ -206,15 +207,6 @@
 	            checkout: this.refs.checkout.value
 	        };
 	        this.props.updateInfo(info);
-
-	        var url = 'https://hotel-project-ajboyle.c9users.io/api/locations/' + info.city + '/hotels?checkin=' + info.checkin + '&checkout=' + info.checkout;
-
-	        //api call works, need to store result in app hotels state
-	        $.ajax(url).done(function (data) {
-	            var hotels = data;
-	            alert(hotels[0].name);
-	            this.props.updateHotels(hotels);
-	        });
 
 	        //this.refs.formRates.reset();
 	    },
@@ -280,11 +272,17 @@
 	    displayName: 'Hotels',
 
 	    render: function render() {
-	        var details = this.props.details;
+	        var hotelNodes = this.props.data.map(function (hotel) {
+	            return React.createElement(
+	                'li',
+	                null,
+	                hotel.name
+	            );
+	        });
 	        return React.createElement(
-	            'h2',
+	            'ul',
 	            null,
-	            details.name
+	            hotelNodes
 	        );
 	    }
 	});
