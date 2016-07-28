@@ -1,6 +1,6 @@
 module.exports = {
   // entry file
-  entry: './main.js',
+  entry: './source/App.js',
   output: {
     path: __dirname + '/build',
     publicPath: '/build/',
