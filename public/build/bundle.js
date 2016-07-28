@@ -48,6 +48,10 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(33);
+	var Nav = __webpack_require__(172);
+	var GetRates = __webpack_require__(173);
+	var FilteredHotels = __webpack_require__(174);
+	var FilterOptions = __webpack_require__(176);
 
 	//Breakdown of the page
 	//App - holds all other views
@@ -120,234 +124,6 @@
 	                'div',
 	                { className: 'listOfHotels' },
 	                React.createElement(FilteredHotels, { data: this.state.hotels })
-	            )
-	        );
-	    }
-	});
-
-	//<Hotels details={this.state.hotels} />
-	//Nav 
-	//need to figure out how to get collapse to work
-	var Nav = React.createClass({
-	    displayName: 'Nav',
-
-	    render: function render() {
-	        return React.createElement(
-	            'nav',
-	            { className: 'nav navbar' },
-	            React.createElement(
-	                'div',
-	                { className: 'container-fluid' },
-	                React.createElement(
-	                    'div',
-	                    { className: 'navbar-header' },
-	                    React.createElement(
-	                        'button',
-	                        { type: 'button', className: 'navbar-toggle', 'data-toggle': 'collapse', 'data-target': '.navbar-collapse' },
-	                        React.createElement('span', { className: 'icon-bar' }),
-	                        React.createElement('span', { className: 'icon-bar' }),
-	                        React.createElement('span', { className: 'icon-bar' }),
-	                        React.createElement('span', { className: 'icon-bar' })
-	                    )
-	                ),
-	                React.createElement(
-	                    'div',
-	                    { className: 'collapse navbar-collapse' },
-	                    React.createElement(
-	                        'ul',
-	                        { className: 'nav navbar-nav navbar' },
-	                        React.createElement(
-	                            'li',
-	                            { className: 'navlinks' },
-	                            React.createElement(
-	                                'a',
-	                                { href: '/' },
-	                                'Home'
-	                            )
-	                        ),
-	                        React.createElement(
-	                            'li',
-	                            { className: 'navlinks' },
-	                            React.createElement(
-	                                'a',
-	                                { href: '#cities', id: 'cities' },
-	                                'Cities We Represent'
-	                            )
-	                        ),
-	                        React.createElement(
-	                            'li',
-	                            { className: 'navlinks' },
-	                            React.createElement(
-	                                'a',
-	                                { href: '#search', onclick: this.props.showRates, id: 'search' },
-	                                'Search Hotels'
-	                            )
-	                        ),
-	                        React.createElement(
-	                            'li',
-	                            { className: 'navlinks' },
-	                            React.createElement(
-	                                'a',
-	                                { href: '#contact', id: 'contact' },
-	                                'Contact Us'
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	//Get information from user regarding city, checkin and checkout dates. 
-	var GetRates = React.createClass({
-	    displayName: 'GetRates',
-
-	    getInfo: function getInfo(event) {
-	        event.preventDefault();
-	        var info = {
-	            city: this.refs.city.value,
-	            checkin: this.refs.checkin.value,
-	            checkout: this.refs.checkout.value
-	        };
-	        this.props.updateInfo(info);
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'div',
-	            { className: 'searchBox' },
-	            React.createElement(
-	                'h3',
-	                { className: 'searchHotels' },
-	                'Search Hotels'
-	            ),
-	            React.createElement(
-	                'form',
-	                { ref: 'formRates', className: 'formRates', onSubmit: this.getInfo },
-	                React.createElement(
-	                    'label',
-	                    null,
-	                    'City',
-	                    React.createElement(
-	                        'select',
-	                        { ref: 'city', id: 'city' },
-	                        React.createElement(
-	                            'option',
-	                            { value: 'charlottesville' },
-	                            'Charlottesville'
-	                        ),
-	                        React.createElement(
-	                            'option',
-	                            { value: 'newyork' },
-	                            'New York City'
-	                        ),
-	                        React.createElement(
-	                            'option',
-	                            { value: 'chicago' },
-	                            'Chicago'
-	                        )
-	                    )
-	                ),
-	                React.createElement(
-	                    'label',
-	                    null,
-	                    'Check In',
-	                    React.createElement('input', { type: 'text', ref: 'checkin', id: 'checkin', placeholder: 'YYYY-MM-DD', required: true })
-	                ),
-	                React.createElement(
-	                    'label',
-	                    null,
-	                    'Check Out',
-	                    React.createElement('input', { type: 'text', ref: 'checkout', id: 'checkout', placeholder: 'YYYY-MM-DD', required: true })
-	                ),
-	                React.createElement('input', { type: 'submit', value: 'Get Rates' })
-	            )
-	        );
-	    }
-	});
-
-	var FilteredHotels = React.createClass({
-	    displayName: 'FilteredHotels',
-
-	    filterHotels: function filterHotels(event) {
-	        var updatedHotels = this.state.hotelsResult;
-	        updatedHotels = updatedHotels.filter(function (text) {
-	            return text.toLowerCase().search(event.target.value.toLowerCase()) !== -1;
-	        });
-	        this.setState({ filteredHotels: updatedHotels });
-	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            hotelsResult: this.props.data,
-	            filteredHotels: []
-	        };
-	    },
-	    render: function render() {
-	        var hotelNodes = this.props.data.map(function (hotel) {
-	            if (hotel.available) {
-	                var rate = '$' + Number(hotel['nightly_rate']).toFixed(0);
-	            } else {
-	                var rate = "Unavailable";
-	            }
-	            return React.createElement(Hotels, { photo: hotel.photos[0]['thumbnail'], name: hotel.name, rate: rate });
-	        });
-
-	        return React.createElement(
-	            'div',
-	            { className: 'results' },
-	            React.createElement(FilterOptions, { filterList: this.filterList }),
-	            React.createElement(
-	                'div',
-	                { id: 'hotels' },
-	                hotelNodes
-	            )
-	        );
-	    }
-	});
-
-	var Hotels = React.createClass({
-	    displayName: 'Hotels',
-
-	    render: function render() {
-	        return React.createElement(
-	            'div',
-	            { className: 'hotels' },
-	            React.createElement(
-	                'a',
-	                { href: '#' },
-	                React.createElement('img', { src: this.props.photo }),
-	                React.createElement(
-	                    'h3',
-	                    { className: 'hotelname' },
-	                    this.props.name
-	                ),
-	                React.createElement(
-	                    'h3',
-	                    { className: 'hotelrate' },
-	                    this.props.rate
-	                )
-	            )
-	        );
-	    }
-	});
-
-	var FilterOptions = React.createClass({
-	    displayName: 'FilterOptions',
-
-	    render: function render() {
-	        return React.createElement(
-	            'div',
-	            { className: 'filter' },
-	            React.createElement(
-	                'form',
-	                null,
-	                React.createElement('input', { type: 'text', ref: 'name', onChange: this.props.filterList, placeholder: 'Hotel Name Contains..' }),
-	                React.createElement('input', { type: 'text', ref: 'minprice', placeholder: 'Min Price' }),
-	                React.createElement('input', { type: 'text', ref: 'maxprice', placeholder: 'Max Price' }),
-	                React.createElement('input', { type: 'checkbox', ref: 'pet', name: 'amenities', value: 'pet' }),
-	                ' Pet Friendly',
-	                React.createElement('input', { type: 'checkbox', ref: 'wifi', name: 'amenities', value: 'wifi' }),
-	                ' Wifi'
 	            )
 	        );
 	    }
@@ -21462,6 +21238,283 @@
 	var ReactMount = __webpack_require__(164);
 
 	module.exports = ReactMount.renderSubtreeIntoContainer;
+
+/***/ },
+/* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+
+	var Nav = React.createClass({
+	    displayName: 'Nav',
+
+	    render: function render() {
+	        return React.createElement(
+	            'nav',
+	            { className: 'nav navbar' },
+	            React.createElement(
+	                'div',
+	                { className: 'container-fluid' },
+	                React.createElement(
+	                    'div',
+	                    { className: 'navbar-header' },
+	                    React.createElement(
+	                        'button',
+	                        { type: 'button', className: 'navbar-toggle', 'data-toggle': 'collapse', 'data-target': '.navbar-collapse' },
+	                        React.createElement('span', { className: 'icon-bar' }),
+	                        React.createElement('span', { className: 'icon-bar' }),
+	                        React.createElement('span', { className: 'icon-bar' }),
+	                        React.createElement('span', { className: 'icon-bar' })
+	                    )
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'collapse navbar-collapse' },
+	                    React.createElement(
+	                        'ul',
+	                        { className: 'nav navbar-nav navbar' },
+	                        React.createElement(
+	                            'li',
+	                            { className: 'navlinks' },
+	                            React.createElement(
+	                                'a',
+	                                { href: '/' },
+	                                'Home'
+	                            )
+	                        ),
+	                        React.createElement(
+	                            'li',
+	                            { className: 'navlinks' },
+	                            React.createElement(
+	                                'a',
+	                                { href: '#cities', id: 'cities' },
+	                                'Cities We Represent'
+	                            )
+	                        ),
+	                        React.createElement(
+	                            'li',
+	                            { className: 'navlinks' },
+	                            React.createElement(
+	                                'a',
+	                                { href: '#search', onclick: this.props.showRates, id: 'search' },
+	                                'Search Hotels'
+	                            )
+	                        ),
+	                        React.createElement(
+	                            'li',
+	                            { className: 'navlinks' },
+	                            React.createElement(
+	                                'a',
+	                                { href: '#contact', id: 'contact' },
+	                                'Contact Us'
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Nav;
+
+/***/ },
+/* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(1);
+
+	//Get information from user regarding city, checkin and checkout dates. 
+	var GetRates = React.createClass({
+	    displayName: "GetRates",
+
+	    getInfo: function getInfo(event) {
+	        event.preventDefault();
+	        var info = {
+	            city: this.refs.city.value,
+	            checkin: this.refs.checkin.value,
+	            checkout: this.refs.checkout.value
+	        };
+	        this.props.updateInfo(info);
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            "div",
+	            { className: "searchBox" },
+	            React.createElement(
+	                "h3",
+	                { className: "searchHotels" },
+	                "Search Hotels"
+	            ),
+	            React.createElement(
+	                "form",
+	                { ref: "formRates", className: "formRates", onSubmit: this.getInfo },
+	                React.createElement(
+	                    "label",
+	                    null,
+	                    "City",
+	                    React.createElement(
+	                        "select",
+	                        { ref: "city", id: "city" },
+	                        React.createElement(
+	                            "option",
+	                            { value: "charlottesville" },
+	                            "Charlottesville"
+	                        ),
+	                        React.createElement(
+	                            "option",
+	                            { value: "newyork" },
+	                            "New York City"
+	                        ),
+	                        React.createElement(
+	                            "option",
+	                            { value: "chicago" },
+	                            "Chicago"
+	                        )
+	                    )
+	                ),
+	                React.createElement(
+	                    "label",
+	                    null,
+	                    "Check In",
+	                    React.createElement("input", { type: "text", ref: "checkin", id: "checkin", placeholder: "YYYY-MM-DD", required: true })
+	                ),
+	                React.createElement(
+	                    "label",
+	                    null,
+	                    "Check Out",
+	                    React.createElement("input", { type: "text", ref: "checkout", id: "checkout", placeholder: "YYYY-MM-DD", required: true })
+	                ),
+	                React.createElement("input", { type: "submit", value: "Get Rates" })
+	            )
+	        );
+	    }
+	});
+
+	module.exports = GetRates;
+
+/***/ },
+/* 174 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var Hotels = __webpack_require__(175);
+	var FilterOptions = __webpack_require__(176);
+
+	var FilteredHotels = React.createClass({
+	    displayName: 'FilteredHotels',
+
+	    filterHotels: function filterHotels(event) {
+	        var updatedHotels = this.state.hotelsResult;
+	        updatedHotels = updatedHotels.filter(function (text) {
+	            return text.toLowerCase().search(event.target.value.toLowerCase()) !== -1;
+	        });
+	        this.setState({ filteredHotels: updatedHotels });
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            hotelsResult: this.props.data,
+	            filteredHotels: []
+	        };
+	    },
+	    render: function render() {
+	        var hotelNodes = this.props.data.map(function (hotel) {
+	            if (hotel.available) {
+	                var rate = '$' + Number(hotel['nightly_rate']).toFixed(0);
+	            } else {
+	                var rate = "Unavailable";
+	            }
+	            return React.createElement(Hotels, { photo: hotel.photos[0]['thumbnail'], name: hotel.name, rate: rate });
+	        });
+
+	        return React.createElement(
+	            'div',
+	            { className: 'results' },
+	            React.createElement(FilterOptions, { filterList: this.filterList }),
+	            React.createElement(
+	                'div',
+	                { id: 'hotels' },
+	                hotelNodes
+	            )
+	        );
+	    }
+	});
+
+	module.exports = FilteredHotels;
+
+/***/ },
+/* 175 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+
+	var Hotels = React.createClass({
+	    displayName: 'Hotels',
+
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            { className: 'hotels' },
+	            React.createElement(
+	                'a',
+	                { href: '#' },
+	                React.createElement('img', { src: this.props.photo }),
+	                React.createElement(
+	                    'h3',
+	                    { className: 'hotelname' },
+	                    this.props.name
+	                ),
+	                React.createElement(
+	                    'h3',
+	                    { className: 'hotelrate' },
+	                    this.props.rate
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Hotels;
+
+/***/ },
+/* 176 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+
+	var FilterOptions = React.createClass({
+	    displayName: 'FilterOptions',
+
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            { className: 'filter' },
+	            React.createElement(
+	                'form',
+	                null,
+	                React.createElement('input', { type: 'text', ref: 'name', onChange: this.props.filterList, placeholder: 'Hotel Name Contains..' }),
+	                React.createElement('input', { type: 'text', ref: 'minprice', placeholder: 'Min Price' }),
+	                React.createElement('input', { type: 'text', ref: 'maxprice', placeholder: 'Max Price' }),
+	                React.createElement('input', { type: 'checkbox', ref: 'pet', name: 'amenities', value: 'pet' }),
+	                ' Pet Friendly',
+	                React.createElement('input', { type: 'checkbox', ref: 'wifi', name: 'amenities', value: 'wifi' }),
+	                ' Wifi'
+	            )
+	        );
+	    }
+	});
+
+	module.exports = FilterOptions;
 
 /***/ }
 /******/ ]);
