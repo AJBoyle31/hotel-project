@@ -21333,13 +21333,13 @@
 	    displayName: "GetRates",
 
 	    getInfo: function getInfo(event) {
-	        event.preventDefault();
 	        var info = {
-	            city: this.refs.city.value,
-	            checkin: this.refs.checkin.value,
-	            checkout: this.refs.checkout.value
+	            city: event.target.city.value,
+	            checkin: event.target.checkin.value,
+	            checkout: event.target.checkout.value
 	        };
 	        this.props.updateInfo(info);
+	        event.preventDefault();
 	    },
 	    render: function render() {
 	        return React.createElement(
@@ -21359,7 +21359,7 @@
 	                    "City",
 	                    React.createElement(
 	                        "select",
-	                        { ref: "city", id: "city" },
+	                        { name: "city", id: "city" },
 	                        React.createElement(
 	                            "option",
 	                            { value: "charlottesville" },
@@ -21381,15 +21381,19 @@
 	                    "label",
 	                    null,
 	                    "Check In",
-	                    React.createElement("input", { type: "text", ref: "checkin", id: "checkin", placeholder: "YYYY-MM-DD", required: true })
+	                    React.createElement("input", { type: "text", name: "checkin", id: "checkin", placeholder: "YYYY-MM-DD", required: true })
 	                ),
 	                React.createElement(
 	                    "label",
 	                    null,
 	                    "Check Out",
-	                    React.createElement("input", { type: "text", ref: "checkout", id: "checkout", placeholder: "YYYY-MM-DD", required: true })
+	                    React.createElement("input", { type: "text", name: "checkout", id: "checkout", placeholder: "YYYY-MM-DD", required: true })
 	                ),
-	                React.createElement("input", { type: "submit", value: "Get Rates" })
+	                React.createElement(
+	                    "button",
+	                    { type: "submit" },
+	                    "Get Rates"
+	                )
 	            )
 	        );
 	    }
