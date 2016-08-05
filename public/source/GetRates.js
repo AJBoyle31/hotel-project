@@ -12,7 +12,10 @@ class GetRates extends Component {
     constructor(){
         super();
         this.state = {
-            hotels: []
+            hotels: [],
+            city: '',
+            checkin: '',
+            checkout: '',
         };
     }
     getHotels(checkin, checkout, city){
@@ -22,7 +25,11 @@ class GetRates extends Component {
         fetch(API_URL + urlRemainder, {headers: API_HEADERS})
         .then((response) => response.json())
         .then((responseData) => {
-            this.setState({hotels: responseData});
+            this.setState({ hotels: responseData, 
+                            city: city,
+                            checkin: checkin,
+                            checkout: checkout
+            });
         })
         .catch((error) => {
             console.log('Error fetching and parsing data', error);
@@ -55,7 +62,7 @@ class GetRates extends Component {
                 </label>
                 <button type="submit">Get Rates</button>
             </form>
-            <HotelsList data={this.state.hotels} />
+            <HotelsList data={this.state.hotels} info={{city: this.state.city, checkin: this.state.checkin, checkout: this.state.checkout}} />
             </div>
         );
     }
