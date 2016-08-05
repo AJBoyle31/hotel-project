@@ -6,6 +6,7 @@ import FilterOptions from './FilterOptions';
 
 
 class HotelsList extends Component {
+   
     render(){
         var city = this.props.info.city;
         var checkin = this.props.info.checkin;
@@ -15,9 +16,9 @@ class HotelsList extends Component {
             return (
                 <HotelsIndv 
                     key={hotel.id} 
-                    link={'https://hotel-project-ajboyle.c9users.io/api/locations/' + city + '/hotels/' + hotel.id + '?checkin=' + checkin + '&checkout=' + checkout} 
+                    link={'#api/locations/' + city + '/hotels/' + hotel.id + '?checkin=' + checkin + '&checkout=' + checkout} 
                     photo={hotel.photos[0]['thumbnail']} 
-                    name={hotel.name} rate={hotel.available ? '$' + (Number(hotel['nightly_rate']).toFixed(0)) : "Unavailable"} 
+                    name={hotel.name} rate={hotel.available ? '$' + (Number(hotel['nightly_rate']).toFixed(0)) : "Unavailable"}
                 />
             );
         });
