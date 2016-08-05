@@ -21231,6 +21231,14 @@
 
 	var _GetRates2 = _interopRequireDefault(_GetRates);
 
+	var _Contact = __webpack_require__(178);
+
+	var _Contact2 = _interopRequireDefault(_Contact);
+
+	var _Cities = __webpack_require__(179);
+
+	var _Cities2 = _interopRequireDefault(_Cities);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21245,12 +21253,55 @@
 	    function Nav() {
 	        _classCallCheck(this, Nav);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Nav).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Nav).call(this));
+
+	        _this.state = {
+	            showCities: false,
+	            showSearch: true,
+	            showContact: false
+	        };
+	        return _this;
 	    }
 
 	    _createClass(Nav, [{
+	        key: 'toggleCities',
+	        value: function toggleCities() {
+	            this.setState({
+	                showCities: true,
+	                showSearch: false,
+	                showContact: false
+	            });
+	        }
+	    }, {
+	        key: 'toggleSearch',
+	        value: function toggleSearch() {
+	            this.setState({
+	                showCities: false,
+	                showSearch: true,
+	                showContact: false
+	            });
+	        }
+	    }, {
+	        key: 'toggleContact',
+	        value: function toggleContact() {
+	            this.setState({
+	                showCities: false,
+	                showSearch: false,
+	                showContact: true
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var homepage = '';
+	            if (this.state.showCities) {
+	                homepage = _react2.default.createElement(_Cities2.default, null);
+	            } else if (this.state.showContact) {
+	                homepage = _react2.default.createElement(_Contact2.default, null);
+	            } else {
+	                homepage = _react2.default.createElement(_GetRates2.default, null);
+	            }
+
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'navsearch' },
@@ -21292,7 +21343,7 @@
 	                                    { className: 'navlinks' },
 	                                    _react2.default.createElement(
 	                                        'a',
-	                                        { href: '#cities', id: 'cities' },
+	                                        { href: '#cities', id: 'cities', onClick: this.toggleCities.bind(this) },
 	                                        'Cities We Represent'
 	                                    )
 	                                ),
@@ -21301,7 +21352,7 @@
 	                                    { className: 'navlinks' },
 	                                    _react2.default.createElement(
 	                                        'a',
-	                                        { href: '#search', id: 'search' },
+	                                        { href: '#search', id: 'search', onClick: this.toggleSearch.bind(this) },
 	                                        'Search Hotels'
 	                                    )
 	                                ),
@@ -21310,7 +21361,7 @@
 	                                    { className: 'navlinks' },
 	                                    _react2.default.createElement(
 	                                        'a',
-	                                        { href: '#contact', id: 'contact' },
+	                                        { href: '#contact', id: 'contact', onClick: this.toggleContact.bind(this) },
 	                                        'Contact Us'
 	                                    )
 	                                )
@@ -21318,7 +21369,7 @@
 	                        )
 	                    )
 	                ),
-	                _react2.default.createElement(_GetRates2.default, null)
+	                homepage
 	            );
 	        }
 	    }]);
@@ -21530,7 +21581,7 @@
 	            var hotelNodes = this.props.data.map(function (hotel) {
 	                return _react2.default.createElement(_HotelsIndv2.default, {
 	                    key: hotel.id,
-	                    link: 'https://hotel-project-ajboyle.c9users.io/api/locations/' + city + '/hotels/' + hotel.id + '?checkin=' + checkin + '&checkout=' + checkout,
+	                    link: '#api/locations/' + city + '/hotels/' + hotel.id + '?checkin=' + checkin + '&checkout=' + checkout,
 	                    photo: hotel.photos[0]['thumbnail'],
 	                    name: hotel.name, rate: hotel.available ? '$' + Number(hotel['nightly_rate']).toFixed(0) : "Unavailable"
 	                });
@@ -21593,7 +21644,6 @@
 	    _createClass(HotelsIndv, [{
 	        key: 'render',
 	        value: function render() {
-
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'hotels' },
@@ -22119,6 +22169,104 @@
 	  self.fetch.polyfill = true
 	})(typeof self !== 'undefined' ? self : this);
 
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Contact = function (_Component) {
+	    _inherits(Contact, _Component);
+
+	    function Contact() {
+	        _classCallCheck(this, Contact);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Contact).apply(this, arguments));
+	    }
+
+	    _createClass(Contact, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'h5',
+	                null,
+	                'Contact Me'
+	            );
+	        }
+	    }]);
+
+	    return Contact;
+	}(_react.Component);
+
+	exports.default = Contact;
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Cities = function (_Component) {
+	    _inherits(Cities, _Component);
+
+	    function Cities() {
+	        _classCallCheck(this, Cities);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Cities).apply(this, arguments));
+	    }
+
+	    _createClass(Cities, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'h5',
+	                null,
+	                'Cities'
+	            );
+	        }
+	    }]);
+
+	    return Cities;
+	}(_react.Component);
+
+	exports.default = Cities;
 
 /***/ }
 /******/ ]);
