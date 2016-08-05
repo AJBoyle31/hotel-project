@@ -1,82 +1,20 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Nav = require('./Nav');
-var GetRates = require('./GetRates');
-var FilteredHotels = require('./FilteredHotels');
-var FilterOptions = require('./FilterOptions');
+import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
+import Nav from './Nav';
 
-//Breakdown of the page
-    //App - holds all other views
-    //Nav - holds the navbar
-    //GetRates - holds the form for city, checkin and checkout
-    //ContactUs - holds the form for contacting us
-    //Cities - holds the view for the cities we represent
-    //HotelsList - holds the view for results after user submits GetRates form
-    //Hotel - holds view for a single hotel a user clicks on
-    //Filters - holds view for filtering HotelsList
-
-//Known issues
-    //have to click form submit twice to get results
-    //nav collapse doesn't work
-
-
-//App
-var App = React.createClass({
-    getHotelsFromServer: function(){
-        var url = 'https://hotel-project-ajboyle.c9users.io/api/locations/' + this.state.information.city + '/hotels?checkin=' + this.state.information.checkin + '&checkout=' + this.state.information.checkout;
-        $.ajax({
-            url: url, 
-            dataType: 'json',
-            cache: false,
-            success: function(data){
-                this.setState({ hotels: data });
-            }.bind(this),
-            error: function(xhr, status, err){
-                console.error(url, status, err.toString());
-            }.bind(this) 
-        });
-    },
-    getInitialState: function(){
-        return {
-            hotels: [],
-            information: {},
-            hotel: {}
-        };  
-    },
-    componentDidMount: function(){
-        this.getHotelsFromServer();
-        
-    },
-    
-    updateInfo: function(info){
-        this.setState({ information: info });
-        this.getHotelsFromServer();
-    },
-    renderHotels: function(key){
-        return (<Hotels key={key} details={this.state.hotels[key]} />);
-    },
-    render: function(){
+class App extends Component {
+    render(){
         return(
             <div>
                 <h1 className="title">HotelsLite.com</h1>
                 <h3 className="subtitle">The Limited Choice in Hotels!</h3>
+                
                 <Nav />
-                <GetRates updateInfo={this.updateInfo} />
-                <div className="listOfHotels">
-                    <FilteredHotels data={this.state.hotels} />      
-                </div>
-                </div>
+                
+            </div>
         );
     }
-});
-
-
-
-
-
-
-
-
+}
 
 
 
