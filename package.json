@@ -11,6 +11,7 @@
     "ip": "^0.3.3",
     "lodash": "^2.4.1",
     "path": "^0.11.14",
-    "random-seed": "^0.2.0"
+    "random-seed": "^0.2.0",
+    "whatwg-fetch": "^1.0.0"
   }
 }

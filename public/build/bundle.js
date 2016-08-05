@@ -46,90 +46,62 @@
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(33);
-	var Nav = __webpack_require__(172);
-	var GetRates = __webpack_require__(173);
-	var FilteredHotels = __webpack_require__(174);
-	var FilterOptions = __webpack_require__(176);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	//Breakdown of the page
-	//App - holds all other views
-	//Nav - holds the navbar
-	//GetRates - holds the form for city, checkin and checkout
-	//ContactUs - holds the form for contacting us
-	//Cities - holds the view for the cities we represent
-	//HotelsList - holds the view for results after user submits GetRates form
-	//Hotel - holds view for a single hotel a user clicks on
-	//Filters - holds view for filtering HotelsList
+	var _react = __webpack_require__(1);
 
-	//Known issues
-	//have to click form submit twice to get results
-	//nav collapse doesn't work
+	var _react2 = _interopRequireDefault(_react);
 
+	var _reactDom = __webpack_require__(33);
 
-	//App
-	var App = React.createClass({
-	    displayName: 'App',
+	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	    getHotelsFromServer: function getHotelsFromServer() {
-	        var url = 'https://hotel-project-ajboyle.c9users.io/api/locations/' + this.state.information.city + '/hotels?checkin=' + this.state.information.checkin + '&checkout=' + this.state.information.checkout;
-	        $.ajax({
-	            url: url,
-	            dataType: 'json',
-	            cache: false,
-	            success: function (data) {
-	                this.setState({ hotels: data });
-	            }.bind(this),
-	            error: function (xhr, status, err) {
-	                console.error(url, status, err.toString());
-	            }.bind(this)
-	        });
-	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            hotels: [],
-	            information: {},
-	            hotel: {}
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        this.getHotelsFromServer();
-	    },
+	var _Nav = __webpack_require__(172);
 
-	    updateInfo: function updateInfo(info) {
-	        this.setState({ information: info });
-	        this.getHotelsFromServer();
-	    },
-	    renderHotels: function renderHotels(key) {
-	        return React.createElement(Hotels, { key: key, details: this.state.hotels[key] });
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'div',
-	            null,
-	            React.createElement(
-	                'h1',
-	                { className: 'title' },
-	                'HotelsLite.com'
-	            ),
-	            React.createElement(
-	                'h3',
-	                { className: 'subtitle' },
-	                'The Limited Choice in Hotels!'
-	            ),
-	            React.createElement(Nav, null),
-	            React.createElement(GetRates, { updateInfo: this.updateInfo }),
-	            React.createElement(
-	                'div',
-	                { className: 'listOfHotels' },
-	                React.createElement(FilteredHotels, { data: this.state.hotels })
-	            )
-	        );
+	var _Nav2 = _interopRequireDefault(_Nav);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var App = function (_Component) {
+	    _inherits(App, _Component);
+
+	    function App() {
+	        _classCallCheck(this, App);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
 	    }
-	});
 
-	ReactDOM.render(React.createElement(App, null), document.getElementById("app"));
+	    _createClass(App, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'h1',
+	                    { className: 'title' },
+	                    'HotelsLite.com'
+	                ),
+	                _react2.default.createElement(
+	                    'h3',
+	                    { className: 'subtitle' },
+	                    'The Limited Choice in Hotels!'
+	                ),
+	                _react2.default.createElement(_Nav2.default, null)
+	            );
+	        }
+	    }]);
+
+	    return App;
+	}(_react.Component);
+
+	_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById("app"));
 
 	//function to validate the check in and out dates entered by user to make sure they are the correct format and the 
 	//check out date is after the check in date
@@ -21245,161 +21217,257 @@
 
 	'use strict';
 
-	var React = __webpack_require__(1);
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 
-	var Nav = React.createClass({
-	    displayName: 'Nav',
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	    render: function render() {
-	        return React.createElement(
-	            'nav',
-	            { className: 'nav navbar' },
-	            React.createElement(
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _GetRates = __webpack_require__(173);
+
+	var _GetRates2 = _interopRequireDefault(_GetRates);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Nav = function (_Component) {
+	    _inherits(Nav, _Component);
+
+	    function Nav() {
+	        _classCallCheck(this, Nav);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Nav).apply(this, arguments));
+	    }
+
+	    _createClass(Nav, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
 	                'div',
-	                { className: 'container-fluid' },
-	                React.createElement(
-	                    'div',
-	                    { className: 'navbar-header' },
-	                    React.createElement(
-	                        'button',
-	                        { type: 'button', className: 'navbar-toggle', 'data-toggle': 'collapse', 'data-target': '.navbar-collapse' },
-	                        React.createElement('span', { className: 'icon-bar' }),
-	                        React.createElement('span', { className: 'icon-bar' }),
-	                        React.createElement('span', { className: 'icon-bar' }),
-	                        React.createElement('span', { className: 'icon-bar' })
-	                    )
-	                ),
-	                React.createElement(
-	                    'div',
-	                    { className: 'collapse navbar-collapse' },
-	                    React.createElement(
-	                        'ul',
-	                        { className: 'nav navbar-nav navbar' },
-	                        React.createElement(
-	                            'li',
-	                            { className: 'navlinks' },
-	                            React.createElement(
-	                                'a',
-	                                { href: '/' },
-	                                'Home'
+	                { className: 'navsearch' },
+	                _react2.default.createElement(
+	                    'nav',
+	                    { className: 'nav navbar' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'container-fluid' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'navbar-header' },
+	                            _react2.default.createElement(
+	                                'button',
+	                                { type: 'button', className: 'navbar-toggle', 'data-toggle': 'collapse', 'data-target': '.navbar-collapse' },
+	                                _react2.default.createElement('span', { className: 'icon-bar' }),
+	                                _react2.default.createElement('span', { className: 'icon-bar' }),
+	                                _react2.default.createElement('span', { className: 'icon-bar' }),
+	                                _react2.default.createElement('span', { className: 'icon-bar' })
 	                            )
 	                        ),
-	                        React.createElement(
-	                            'li',
-	                            { className: 'navlinks' },
-	                            React.createElement(
-	                                'a',
-	                                { href: '#cities', id: 'cities' },
-	                                'Cities We Represent'
-	                            )
-	                        ),
-	                        React.createElement(
-	                            'li',
-	                            { className: 'navlinks' },
-	                            React.createElement(
-	                                'a',
-	                                { href: '#search', onclick: this.props.showRates, id: 'search' },
-	                                'Search Hotels'
-	                            )
-	                        ),
-	                        React.createElement(
-	                            'li',
-	                            { className: 'navlinks' },
-	                            React.createElement(
-	                                'a',
-	                                { href: '#contact', id: 'contact' },
-	                                'Contact Us'
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'collapse navbar-collapse' },
+	                            _react2.default.createElement(
+	                                'ul',
+	                                { className: 'nav navbar-nav navbar' },
+	                                _react2.default.createElement(
+	                                    'li',
+	                                    { className: 'navlinks' },
+	                                    _react2.default.createElement(
+	                                        'a',
+	                                        { href: '/' },
+	                                        'Home'
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'li',
+	                                    { className: 'navlinks' },
+	                                    _react2.default.createElement(
+	                                        'a',
+	                                        { href: '#cities', id: 'cities' },
+	                                        'Cities We Represent'
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'li',
+	                                    { className: 'navlinks' },
+	                                    _react2.default.createElement(
+	                                        'a',
+	                                        { href: '#search', id: 'search' },
+	                                        'Search Hotels'
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'li',
+	                                    { className: 'navlinks' },
+	                                    _react2.default.createElement(
+	                                        'a',
+	                                        { href: '#contact', id: 'contact' },
+	                                        'Contact Us'
+	                                    )
+	                                )
 	                            )
 	                        )
 	                    )
-	                )
-	            )
-	        );
-	    }
-	});
+	                ),
+	                _react2.default.createElement(_GetRates2.default, null)
+	            );
+	        }
+	    }]);
 
-	module.exports = Nav;
+	    return Nav;
+	}(_react.Component);
+
+	exports.default = Nav;
 
 /***/ },
 /* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
-	var React = __webpack_require__(1);
-
-	//Get information from user regarding city, checkin and checkout dates. 
-	var GetRates = React.createClass({
-	    displayName: "GetRates",
-
-	    getInfo: function getInfo(event) {
-	        var info = {
-	            city: event.target.city.value,
-	            checkin: event.target.checkin.value,
-	            checkout: event.target.checkout.value
-	        };
-	        this.props.updateInfo(info);
-	        event.preventDefault();
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            "div",
-	            { className: "searchBox" },
-	            React.createElement(
-	                "h3",
-	                { className: "searchHotels" },
-	                "Search Hotels"
-	            ),
-	            React.createElement(
-	                "form",
-	                { ref: "formRates", className: "formRates", onSubmit: this.getInfo },
-	                React.createElement(
-	                    "label",
-	                    null,
-	                    "City",
-	                    React.createElement(
-	                        "select",
-	                        { name: "city", id: "city" },
-	                        React.createElement(
-	                            "option",
-	                            { value: "charlottesville" },
-	                            "Charlottesville"
-	                        ),
-	                        React.createElement(
-	                            "option",
-	                            { value: "newyork" },
-	                            "New York City"
-	                        ),
-	                        React.createElement(
-	                            "option",
-	                            { value: "chicago" },
-	                            "Chicago"
-	                        )
-	                    )
-	                ),
-	                React.createElement(
-	                    "label",
-	                    null,
-	                    "Check In",
-	                    React.createElement("input", { type: "text", name: "checkin", id: "checkin", placeholder: "YYYY-MM-DD", required: true })
-	                ),
-	                React.createElement(
-	                    "label",
-	                    null,
-	                    "Check Out",
-	                    React.createElement("input", { type: "text", name: "checkout", id: "checkout", placeholder: "YYYY-MM-DD", required: true })
-	                ),
-	                React.createElement(
-	                    "button",
-	                    { type: "submit" },
-	                    "Get Rates"
-	                )
-	            )
-	        );
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
 
-	module.exports = GetRates;
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _HotelsList = __webpack_require__(174);
+
+	var _HotelsList2 = _interopRequireDefault(_HotelsList);
+
+	__webpack_require__(177);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var API_URL = 'https://hotel-project-ajboyle.c9users.io/api/locations/';
+	var API_HEADERS = {
+	    'Content-Type': 'application/json'
+	};
+
+	//Get information from user regarding city, checkin and checkout dates. 
+
+	var GetRates = function (_Component) {
+	    _inherits(GetRates, _Component);
+
+	    function GetRates() {
+	        _classCallCheck(this, GetRates);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(GetRates).call(this));
+
+	        _this.state = {
+	            hotels: []
+	        };
+	        return _this;
+	    }
+
+	    _createClass(GetRates, [{
+	        key: 'getHotels',
+	        value: function getHotels(checkin, checkout, city) {
+	            var _this2 = this;
+
+	            var urlRemainder = city + '/hotels?checkin=' + checkin + '&checkout=' + checkout;
+
+	            fetch(API_URL + urlRemainder, { headers: API_HEADERS }).then(function (response) {
+	                return response.json();
+	            }).then(function (responseData) {
+	                _this2.setState({ hotels: responseData });
+	            }).catch(function (error) {
+	                console.log('Error fetching and parsing data', error);
+	            });
+	        }
+	    }, {
+	        key: 'handleSubmit',
+	        value: function handleSubmit(event) {
+	            var city = event.target.city.value;
+	            var checkin = event.target.checkin.value;
+	            var checkout = event.target.checkout.value;
+	            this.getHotels(checkin, checkout, city);
+	            event.preventDefault();
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'searchBox' },
+	                _react2.default.createElement(
+	                    'h3',
+	                    { className: 'searchHotels' },
+	                    'Search Hotels'
+	                ),
+	                _react2.default.createElement(
+	                    'form',
+	                    { ref: 'formRates', className: 'formRates', onSubmit: this.handleSubmit.bind(this) },
+	                    _react2.default.createElement(
+	                        'label',
+	                        null,
+	                        'City',
+	                        _react2.default.createElement(
+	                            'select',
+	                            { name: 'city', id: 'city' },
+	                            _react2.default.createElement(
+	                                'option',
+	                                { value: 'charlottesville' },
+	                                'Charlottesville'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { value: 'newyork' },
+	                                'New York City'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { value: 'chicago' },
+	                                'Chicago'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'label',
+	                        null,
+	                        'Check In',
+	                        _react2.default.createElement('input', { type: 'text', name: 'checkin', id: 'checkin', placeholder: 'YYYY-MM-DD', required: true })
+	                    ),
+	                    _react2.default.createElement(
+	                        'label',
+	                        null,
+	                        'Check Out',
+	                        _react2.default.createElement('input', { type: 'text', name: 'checkout', id: 'checkout', placeholder: 'YYYY-MM-DD', required: true })
+	                    ),
+	                    _react2.default.createElement(
+	                        'button',
+	                        { type: 'submit' },
+	                        'Get Rates'
+	                    )
+	                ),
+	                _react2.default.createElement(_HotelsList2.default, { data: this.state.hotels })
+	            );
+	        }
+	    }]);
+
+	    return GetRates;
+	}(_react.Component);
+
+	exports.default = GetRates;
 
 /***/ },
 /* 174 */
@@ -21407,50 +21475,73 @@
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	var Hotels = __webpack_require__(175);
-	var FilterOptions = __webpack_require__(176);
-
-	var FilteredHotels = React.createClass({
-	    displayName: 'FilteredHotels',
-
-	    filterHotels: function filterHotels(event) {
-	        var updatedHotels = this.state.hotelsResult;
-	        updatedHotels = updatedHotels.filter(function (text) {
-	            return text.toLowerCase().search(event.target.value.toLowerCase()) !== -1;
-	        });
-	        this.setState({ filteredHotels: updatedHotels });
-	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            hotelsResult: this.props.data,
-	            filteredHotels: []
-	        };
-	    },
-	    render: function render() {
-	        var hotelNodes = this.props.data.map(function (hotel) {
-	            if (hotel.available) {
-	                var rate = '$' + Number(hotel['nightly_rate']).toFixed(0);
-	            } else {
-	                var rate = "Unavailable";
-	            }
-	            return React.createElement(Hotels, { photo: hotel.photos[0]['thumbnail'], name: hotel.name, rate: rate });
-	        });
-
-	        return React.createElement(
-	            'div',
-	            { className: 'results' },
-	            React.createElement(FilterOptions, { filterList: this.filterList }),
-	            React.createElement(
-	                'div',
-	                { id: 'hotels' },
-	                hotelNodes
-	            )
-	        );
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
 
-	module.exports = FilteredHotels;
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _HotelsIndv = __webpack_require__(175);
+
+	var _HotelsIndv2 = _interopRequireDefault(_HotelsIndv);
+
+	var _FilterOptions = __webpack_require__(176);
+
+	var _FilterOptions2 = _interopRequireDefault(_FilterOptions);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var HotelsList = function (_Component) {
+	    _inherits(HotelsList, _Component);
+
+	    function HotelsList() {
+	        _classCallCheck(this, HotelsList);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(HotelsList).apply(this, arguments));
+	    }
+
+	    _createClass(HotelsList, [{
+	        key: 'render',
+	        value: function render() {
+	            var hotelNodes = this.props.data.map(function (hotel) {
+	                if (hotel.available) {
+	                    var rate = '$' + Number(hotel['nightly_rate']).toFixed(0);
+	                } else {
+	                    var rate = "Unavailable";
+	                }
+	                return _react2.default.createElement(_HotelsIndv2.default, { key: hotel.id, photo: hotel.photos[0]['thumbnail'], name: hotel.name, rate: rate });
+	            });
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'results' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { id: 'hotels' },
+	                    hotelNodes
+	                )
+	            );
+	        }
+	    }]);
+
+	    return HotelsList;
+	}(_react.Component);
+
+	exports.default = HotelsList;
+	/*
+
+
+	        
+	*/
 
 /***/ },
 /* 175 */
@@ -21458,35 +21549,62 @@
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-
-	var Hotels = React.createClass({
-	    displayName: 'Hotels',
-
-	    render: function render() {
-	        return React.createElement(
-	            'div',
-	            { className: 'hotels' },
-	            React.createElement(
-	                'a',
-	                { href: '#' },
-	                React.createElement('img', { src: this.props.photo }),
-	                React.createElement(
-	                    'h3',
-	                    { className: 'hotelname' },
-	                    this.props.name
-	                ),
-	                React.createElement(
-	                    'h3',
-	                    { className: 'hotelrate' },
-	                    this.props.rate
-	                )
-	            )
-	        );
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
 
-	module.exports = Hotels;
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var HotelsIndv = function (_Component) {
+	    _inherits(HotelsIndv, _Component);
+
+	    function HotelsIndv() {
+	        _classCallCheck(this, HotelsIndv);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(HotelsIndv).apply(this, arguments));
+	    }
+
+	    _createClass(HotelsIndv, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'hotels' },
+	                _react2.default.createElement(
+	                    'a',
+	                    { href: '#' },
+	                    _react2.default.createElement('img', { src: this.props.photo }),
+	                    _react2.default.createElement(
+	                        'h3',
+	                        { className: 'hotelname' },
+	                        this.props.name
+	                    ),
+	                    _react2.default.createElement(
+	                        'h3',
+	                        { className: 'hotelrate' },
+	                        this.props.rate
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return HotelsIndv;
+	}(_react.Component);
+
+	exports.default = HotelsIndv;
 
 /***/ },
 /* 176 */
@@ -21494,31 +21612,498 @@
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-
-	var FilterOptions = React.createClass({
-	    displayName: 'FilterOptions',
-
-	    render: function render() {
-	        return React.createElement(
-	            'div',
-	            { className: 'filter' },
-	            React.createElement(
-	                'form',
-	                null,
-	                React.createElement('input', { type: 'text', ref: 'name', onChange: this.props.filterList, placeholder: 'Hotel Name Contains..' }),
-	                React.createElement('input', { type: 'text', ref: 'minprice', placeholder: 'Min Price' }),
-	                React.createElement('input', { type: 'text', ref: 'maxprice', placeholder: 'Max Price' }),
-	                React.createElement('input', { type: 'checkbox', ref: 'pet', name: 'amenities', value: 'pet' }),
-	                ' Pet Friendly',
-	                React.createElement('input', { type: 'checkbox', ref: 'wifi', name: 'amenities', value: 'wifi' }),
-	                ' Wifi'
-	            )
-	        );
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
 
-	module.exports = FilterOptions;
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //do not use yet
+
+
+	var FilterOptions = function (_Component) {
+	    _inherits(FilterOptions, _Component);
+
+	    function FilterOptions() {
+	        _classCallCheck(this, FilterOptions);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(FilterOptions).apply(this, arguments));
+	    }
+
+	    _createClass(FilterOptions, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'filter' },
+	                _react2.default.createElement(
+	                    'form',
+	                    null,
+	                    _react2.default.createElement('input', { type: 'text', ref: 'name', onChange: this.props.filterList, placeholder: 'Hotel Name Contains..' }),
+	                    _react2.default.createElement('input', { type: 'text', ref: 'minprice', placeholder: 'Min Price' }),
+	                    _react2.default.createElement('input', { type: 'text', ref: 'maxprice', placeholder: 'Max Price' }),
+	                    _react2.default.createElement('input', { type: 'checkbox', ref: 'pet', name: 'amenities', value: 'pet' }),
+	                    ' Pet Friendly',
+	                    _react2.default.createElement('input', { type: 'checkbox', ref: 'wifi', name: 'amenities', value: 'wifi' }),
+	                    ' Wifi'
+	                )
+	            );
+	        }
+	    }]);
+
+	    return FilterOptions;
+	}(_react.Component);
+
+	exports.default = FilterOptions;
+
+/***/ },
+/* 177 */
+/***/ function(module, exports) {
+
+	(function(self) {
+	  'use strict';
+
+	  if (self.fetch) {
+	    return
+	  }
+
+	  var support = {
+	    searchParams: 'URLSearchParams' in self,
+	    iterable: 'Symbol' in self && 'iterator' in Symbol,
+	    blob: 'FileReader' in self && 'Blob' in self && (function() {
+	      try {
+	        new Blob()
+	        return true
+	      } catch(e) {
+	        return false
+	      }
+	    })(),
+	    formData: 'FormData' in self,
+	    arrayBuffer: 'ArrayBuffer' in self
+	  }
+
+	  function normalizeName(name) {
+	    if (typeof name !== 'string') {
+	      name = String(name)
+	    }
+	    if (/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(name)) {
+	      throw new TypeError('Invalid character in header field name')
+	    }
+	    return name.toLowerCase()
+	  }
+
+	  function normalizeValue(value) {
+	    if (typeof value !== 'string') {
+	      value = String(value)
+	    }
+	    return value
+	  }
+
+	  // Build a destructive iterator for the value list
+	  function iteratorFor(items) {
+	    var iterator = {
+	      next: function() {
+	        var value = items.shift()
+	        return {done: value === undefined, value: value}
+	      }
+	    }
+
+	    if (support.iterable) {
+	      iterator[Symbol.iterator] = function() {
+	        return iterator
+	      }
+	    }
+
+	    return iterator
+	  }
+
+	  function Headers(headers) {
+	    this.map = {}
+
+	    if (headers instanceof Headers) {
+	      headers.forEach(function(value, name) {
+	        this.append(name, value)
+	      }, this)
+
+	    } else if (headers) {
+	      Object.getOwnPropertyNames(headers).forEach(function(name) {
+	        this.append(name, headers[name])
+	      }, this)
+	    }
+	  }
+
+	  Headers.prototype.append = function(name, value) {
+	    name = normalizeName(name)
+	    value = normalizeValue(value)
+	    var list = this.map[name]
+	    if (!list) {
+	      list = []
+	      this.map[name] = list
+	    }
+	    list.push(value)
+	  }
+
+	  Headers.prototype['delete'] = function(name) {
+	    delete this.map[normalizeName(name)]
+	  }
+
+	  Headers.prototype.get = function(name) {
+	    var values = this.map[normalizeName(name)]
+	    return values ? values[0] : null
+	  }
+
+	  Headers.prototype.getAll = function(name) {
+	    return this.map[normalizeName(name)] || []
+	  }
+
+	  Headers.prototype.has = function(name) {
+	    return this.map.hasOwnProperty(normalizeName(name))
+	  }
+
+	  Headers.prototype.set = function(name, value) {
+	    this.map[normalizeName(name)] = [normalizeValue(value)]
+	  }
+
+	  Headers.prototype.forEach = function(callback, thisArg) {
+	    Object.getOwnPropertyNames(this.map).forEach(function(name) {
+	      this.map[name].forEach(function(value) {
+	        callback.call(thisArg, value, name, this)
+	      }, this)
+	    }, this)
+	  }
+
+	  Headers.prototype.keys = function() {
+	    var items = []
+	    this.forEach(function(value, name) { items.push(name) })
+	    return iteratorFor(items)
+	  }
+
+	  Headers.prototype.values = function() {
+	    var items = []
+	    this.forEach(function(value) { items.push(value) })
+	    return iteratorFor(items)
+	  }
+
+	  Headers.prototype.entries = function() {
+	    var items = []
+	    this.forEach(function(value, name) { items.push([name, value]) })
+	    return iteratorFor(items)
+	  }
+
+	  if (support.iterable) {
+	    Headers.prototype[Symbol.iterator] = Headers.prototype.entries
+	  }
+
+	  function consumed(body) {
+	    if (body.bodyUsed) {
+	      return Promise.reject(new TypeError('Already read'))
+	    }
+	    body.bodyUsed = true
+	  }
+
+	  function fileReaderReady(reader) {
+	    return new Promise(function(resolve, reject) {
+	      reader.onload = function() {
+	        resolve(reader.result)
+	      }
+	      reader.onerror = function() {
+	        reject(reader.error)
+	      }
+	    })
+	  }
+
+	  function readBlobAsArrayBuffer(blob) {
+	    var reader = new FileReader()
+	    reader.readAsArrayBuffer(blob)
+	    return fileReaderReady(reader)
+	  }
+
+	  function readBlobAsText(blob) {
+	    var reader = new FileReader()
+	    reader.readAsText(blob)
+	    return fileReaderReady(reader)
+	  }
+
+	  function Body() {
+	    this.bodyUsed = false
+
+	    this._initBody = function(body) {
+	      this._bodyInit = body
+	      if (typeof body === 'string') {
+	        this._bodyText = body
+	      } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
+	        this._bodyBlob = body
+	      } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
+	        this._bodyFormData = body
+	      } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+	        this._bodyText = body.toString()
+	      } else if (!body) {
+	        this._bodyText = ''
+	      } else if (support.arrayBuffer && ArrayBuffer.prototype.isPrototypeOf(body)) {
+	        // Only support ArrayBuffers for POST method.
+	        // Receiving ArrayBuffers happens via Blobs, instead.
+	      } else {
+	        throw new Error('unsupported BodyInit type')
+	      }
+
+	      if (!this.headers.get('content-type')) {
+	        if (typeof body === 'string') {
+	          this.headers.set('content-type', 'text/plain;charset=UTF-8')
+	        } else if (this._bodyBlob && this._bodyBlob.type) {
+	          this.headers.set('content-type', this._bodyBlob.type)
+	        } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+	          this.headers.set('content-type', 'application/x-www-form-urlencoded;charset=UTF-8')
+	        }
+	      }
+	    }
+
+	    if (support.blob) {
+	      this.blob = function() {
+	        var rejected = consumed(this)
+	        if (rejected) {
+	          return rejected
+	        }
+
+	        if (this._bodyBlob) {
+	          return Promise.resolve(this._bodyBlob)
+	        } else if (this._bodyFormData) {
+	          throw new Error('could not read FormData body as blob')
+	        } else {
+	          return Promise.resolve(new Blob([this._bodyText]))
+	        }
+	      }
+
+	      this.arrayBuffer = function() {
+	        return this.blob().then(readBlobAsArrayBuffer)
+	      }
+
+	      this.text = function() {
+	        var rejected = consumed(this)
+	        if (rejected) {
+	          return rejected
+	        }
+
+	        if (this._bodyBlob) {
+	          return readBlobAsText(this._bodyBlob)
+	        } else if (this._bodyFormData) {
+	          throw new Error('could not read FormData body as text')
+	        } else {
+	          return Promise.resolve(this._bodyText)
+	        }
+	      }
+	    } else {
+	      this.text = function() {
+	        var rejected = consumed(this)
+	        return rejected ? rejected : Promise.resolve(this._bodyText)
+	      }
+	    }
+
+	    if (support.formData) {
+	      this.formData = function() {
+	        return this.text().then(decode)
+	      }
+	    }
+
+	    this.json = function() {
+	      return this.text().then(JSON.parse)
+	    }
+
+	    return this
+	  }
+
+	  // HTTP methods whose capitalization should be normalized
+	  var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT']
+
+	  function normalizeMethod(method) {
+	    var upcased = method.toUpperCase()
+	    return (methods.indexOf(upcased) > -1) ? upcased : method
+	  }
+
+	  function Request(input, options) {
+	    options = options || {}
+	    var body = options.body
+	    if (Request.prototype.isPrototypeOf(input)) {
+	      if (input.bodyUsed) {
+	        throw new TypeError('Already read')
+	      }
+	      this.url = input.url
+	      this.credentials = input.credentials
+	      if (!options.headers) {
+	        this.headers = new Headers(input.headers)
+	      }
+	      this.method = input.method
+	      this.mode = input.mode
+	      if (!body) {
+	        body = input._bodyInit
+	        input.bodyUsed = true
+	      }
+	    } else {
+	      this.url = input
+	    }
+
+	    this.credentials = options.credentials || this.credentials || 'omit'
+	    if (options.headers || !this.headers) {
+	      this.headers = new Headers(options.headers)
+	    }
+	    this.method = normalizeMethod(options.method || this.method || 'GET')
+	    this.mode = options.mode || this.mode || null
+	    this.referrer = null
+
+	    if ((this.method === 'GET' || this.method === 'HEAD') && body) {
+	      throw new TypeError('Body not allowed for GET or HEAD requests')
+	    }
+	    this._initBody(body)
+	  }
+
+	  Request.prototype.clone = function() {
+	    return new Request(this)
+	  }
+
+	  function decode(body) {
+	    var form = new FormData()
+	    body.trim().split('&').forEach(function(bytes) {
+	      if (bytes) {
+	        var split = bytes.split('=')
+	        var name = split.shift().replace(/\+/g, ' ')
+	        var value = split.join('=').replace(/\+/g, ' ')
+	        form.append(decodeURIComponent(name), decodeURIComponent(value))
+	      }
+	    })
+	    return form
+	  }
+
+	  function headers(xhr) {
+	    var head = new Headers()
+	    var pairs = (xhr.getAllResponseHeaders() || '').trim().split('\n')
+	    pairs.forEach(function(header) {
+	      var split = header.trim().split(':')
+	      var key = split.shift().trim()
+	      var value = split.join(':').trim()
+	      head.append(key, value)
+	    })
+	    return head
+	  }
+
+	  Body.call(Request.prototype)
+
+	  function Response(bodyInit, options) {
+	    if (!options) {
+	      options = {}
+	    }
+
+	    this.type = 'default'
+	    this.status = options.status
+	    this.ok = this.status >= 200 && this.status < 300
+	    this.statusText = options.statusText
+	    this.headers = options.headers instanceof Headers ? options.headers : new Headers(options.headers)
+	    this.url = options.url || ''
+	    this._initBody(bodyInit)
+	  }
+
+	  Body.call(Response.prototype)
+
+	  Response.prototype.clone = function() {
+	    return new Response(this._bodyInit, {
+	      status: this.status,
+	      statusText: this.statusText,
+	      headers: new Headers(this.headers),
+	      url: this.url
+	    })
+	  }
+
+	  Response.error = function() {
+	    var response = new Response(null, {status: 0, statusText: ''})
+	    response.type = 'error'
+	    return response
+	  }
+
+	  var redirectStatuses = [301, 302, 303, 307, 308]
+
+	  Response.redirect = function(url, status) {
+	    if (redirectStatuses.indexOf(status) === -1) {
+	      throw new RangeError('Invalid status code')
+	    }
+
+	    return new Response(null, {status: status, headers: {location: url}})
+	  }
+
+	  self.Headers = Headers
+	  self.Request = Request
+	  self.Response = Response
+
+	  self.fetch = function(input, init) {
+	    return new Promise(function(resolve, reject) {
+	      var request
+	      if (Request.prototype.isPrototypeOf(input) && !init) {
+	        request = input
+	      } else {
+	        request = new Request(input, init)
+	      }
+
+	      var xhr = new XMLHttpRequest()
+
+	      function responseURL() {
+	        if ('responseURL' in xhr) {
+	          return xhr.responseURL
+	        }
+
+	        // Avoid security warnings on getResponseHeader when not allowed by CORS
+	        if (/^X-Request-URL:/m.test(xhr.getAllResponseHeaders())) {
+	          return xhr.getResponseHeader('X-Request-URL')
+	        }
+
+	        return
+	      }
+
+	      xhr.onload = function() {
+	        var options = {
+	          status: xhr.status,
+	          statusText: xhr.statusText,
+	          headers: headers(xhr),
+	          url: responseURL()
+	        }
+	        var body = 'response' in xhr ? xhr.response : xhr.responseText
+	        resolve(new Response(body, options))
+	      }
+
+	      xhr.onerror = function() {
+	        reject(new TypeError('Network request failed'))
+	      }
+
+	      xhr.ontimeout = function() {
+	        reject(new TypeError('Network request failed'))
+	      }
+
+	      xhr.open(request.method, request.url, true)
+
+	      if (request.credentials === 'include') {
+	        xhr.withCredentials = true
+	      }
+
+	      if ('responseType' in xhr && support.blob) {
+	        xhr.responseType = 'blob'
+	      }
+
+	      request.headers.forEach(function(value, name) {
+	        xhr.setRequestHeader(name, value)
+	      })
+
+	      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
+	    })
+	  }
+	  self.fetch.polyfill = true
+	})(typeof self !== 'undefined' ? self : this);
+
 
 /***/ }
 /******/ ]);

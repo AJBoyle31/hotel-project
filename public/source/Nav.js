@@ -1,8 +1,10 @@
-var React = require('react');
+import React, {Component} from 'react';
+import GetRates from './GetRates';
 
-var Nav = React.createClass({
-    render: function(){
+class Nav extends Component {
+    render(){
         return (
+            <div className='navsearch'>
             <nav className='nav navbar'>
             <div className='container-fluid'>
                 <div className='navbar-header'>
@@ -18,14 +20,19 @@ var Nav = React.createClass({
                     <ul className='nav navbar-nav navbar'>
                         <li className='navlinks'><a href='/'>Home</a></li>
                         <li className='navlinks'><a href='#cities' id='cities'>Cities We Represent</a></li>
-                        <li className='navlinks'><a href='#search' onclick={this.props.showRates} id='search'>Search Hotels</a></li>
+                        <li className='navlinks'><a href='#search' id='search'>Search Hotels</a></li>
                         <li className='navlinks'><a href='#contact' id='contact'>Contact Us</a></li>
                     </ul>
                 </div>
             </div>        
-        </nav>    
+        </nav> 
+        
+        <GetRates />
+        
+        </div>
         );
     }
-});
+}
 
-module.exports = Nav;
+
+export default Nav;

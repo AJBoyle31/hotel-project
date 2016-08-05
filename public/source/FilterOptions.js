@@ -1,7 +1,8 @@
-var React = require('react');
+//do not use yet
+import React, {Component} from 'react';
 
-var FilterOptions = React.createClass({
-    render: function(){
+class FilterOptions extends Component {
+    render(){
         return (
         <div className="filter">
         <form>
@@ -12,8 +13,9 @@ var FilterOptions = React.createClass({
             <input type='checkbox' ref='wifi' name='amenities' value='wifi' /> Wifi
         </form>
         </div>
-    );
+        );
     }
-});
+}
 
-module.exports = FilterOptions;
+
+export default FilterOptions;
