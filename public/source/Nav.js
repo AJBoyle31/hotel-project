@@ -33,8 +33,10 @@ class Nav extends Component {
             showContact: true
         });
     }
+    
     render(){
         var homepage = '';
+        
         if (this.state.showCities) {
             homepage = <Cities />;
         }
@@ -58,7 +60,7 @@ class Nav extends Component {
                 </div>
                 <div className='collapse navbar-collapse'>
                     <ul className='nav navbar-nav navbar'>
-                        <li className='navlinks'><a href='/'>Home</a></li>
+                        <li className='navlinks'><a href='#' onClick={this.toggleSearch.bind(this)} >Home</a></li>
                         <li className='navlinks'><a href='#cities' id='cities' onClick={this.toggleCities.bind(this)} >Cities We Represent</a></li>
                         <li className='navlinks'><a href='#search' id='search' onClick={this.toggleSearch.bind(this)} >Search Hotels</a></li>
                         <li className='navlinks'><a href='#contact' id='contact' onClick={this.toggleContact.bind(this)} >Contact Us</a></li>
