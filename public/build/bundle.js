@@ -21294,6 +21294,7 @@
 	        key: 'render',
 	        value: function render() {
 	            var homepage = '';
+
 	            if (this.state.showCities) {
 	                homepage = _react2.default.createElement(_Cities2.default, null);
 	            } else if (this.state.showContact) {
@@ -21334,7 +21335,7 @@
 	                                    { className: 'navlinks' },
 	                                    _react2.default.createElement(
 	                                        'a',
-	                                        { href: '/' },
+	                                        { href: '#', onClick: this.toggleSearch.bind(this) },
 	                                        'Home'
 	                                    )
 	                                ),
