@@ -21374,7 +21374,10 @@
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(GetRates).call(this));
 
 	        _this.state = {
-	            hotels: []
+	            hotels: [],
+	            city: '',
+	            checkin: '',
+	            checkout: ''
 	        };
 	        return _this;
 	    }
@@ -21389,7 +21392,11 @@
 	            fetch(API_URL + urlRemainder, { headers: API_HEADERS }).then(function (response) {
 	                return response.json();
 	            }).then(function (responseData) {
-	                _this2.setState({ hotels: responseData });
+	                _this2.setState({ hotels: responseData,
+	                    city: city,
+	                    checkin: checkin,
+	                    checkout: checkout
+	                });
 	            }).catch(function (error) {
 	                console.log('Error fetching and parsing data', error);
 	            });
@@ -21459,7 +21466,7 @@
 	                        'Get Rates'
 	                    )
 	                ),
-	                _react2.default.createElement(_HotelsList2.default, { data: this.state.hotels })
+	                _react2.default.createElement(_HotelsList2.default, { data: this.state.hotels, info: { city: this.state.city, checkin: this.state.checkin, checkout: this.state.checkout } })
 	            );
 	        }
 	    }]);
@@ -21501,6 +21508,9 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	//'https://hotel-project-ajboyle.c9users.io/api/locations/' + city + '/hotels/' + hotel.id + '?checkin=' + checkin + '&checkout=' + checkout
+
+
 	var HotelsList = function (_Component) {
 	    _inherits(HotelsList, _Component);
 
@@ -21513,13 +21523,17 @@
 	    _createClass(HotelsList, [{
 	        key: 'render',
 	        value: function render() {
+	            var city = this.props.info.city;
+	            var checkin = this.props.info.checkin;
+	            var checkout = this.props.info.checkout;
+
 	            var hotelNodes = this.props.data.map(function (hotel) {
-	                if (hotel.available) {
-	                    var rate = '$' + Number(hotel['nightly_rate']).toFixed(0);
-	                } else {
-	                    var rate = "Unavailable";
-	                }
-	                return _react2.default.createElement(_HotelsIndv2.default, { key: hotel.id, photo: hotel.photos[0]['thumbnail'], name: hotel.name, rate: rate });
+	                return _react2.default.createElement(_HotelsIndv2.default, {
+	                    key: hotel.id,
+	                    link: 'https://hotel-project-ajboyle.c9users.io/api/locations/' + city + '/hotels/' + hotel.id + '?checkin=' + checkin + '&checkout=' + checkout,
+	                    photo: hotel.photos[0]['thumbnail'],
+	                    name: hotel.name, rate: hotel.available ? '$' + Number(hotel['nightly_rate']).toFixed(0) : "Unavailable"
+	                });
 	            });
 	            return _react2.default.createElement(
 	                'div',
@@ -21579,17 +21593,18 @@
 	    _createClass(HotelsIndv, [{
 	        key: 'render',
 	        value: function render() {
+
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'hotels' },
 	                _react2.default.createElement(
 	                    'a',
-	                    { href: '#' },
+	                    { href: this.props.link },
 	                    _react2.default.createElement('img', { src: this.props.photo }),
 	                    _react2.default.createElement(
 	                        'h3',
 	                        { className: 'hotelname' },
-	                        this.props.name
+	                        this.props.name.length > 20 ? this.props.name.slice(0, 20) + '...' : this.props.name
 	                    ),
 	                    _react2.default.createElement(
 	                        'h3',
