@@ -99,9 +99,13 @@ html {
 /* Contact Us */
 #contactus {
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 25px;
+    border: 2px solid black;
+    width: 50%;
 }
-#contactus h4 {
+#contactTitle {
     margin-top: 20px;
 }
 
