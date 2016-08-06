@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 
 class Cities extends Component {
     render(){
-        return <h5>Cities</h5>;
+        return (
+            <h3>{this.props.name}, {this.props.state}</h3>
+        );
     }
 }
 
