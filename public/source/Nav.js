@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import GetRates from './GetRates';
 import Contact from './Contact';
-import Cities from './Cities';
+import CitiesList from './CitiesList';
 
 class Nav extends Component {
     constructor(){
@@ -38,7 +38,7 @@ class Nav extends Component {
         var homepage = '';
         
         if (this.state.showCities) {
-            homepage = <Cities />;
+            homepage = <CitiesList />;
         }
         else if (this.state.showContact){
             homepage = <Contact />;
