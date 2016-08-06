@@ -21235,9 +21235,9 @@
 
 	var _Contact2 = _interopRequireDefault(_Contact);
 
-	var _Cities = __webpack_require__(179);
+	var _CitiesList = __webpack_require__(179);
 
-	var _Cities2 = _interopRequireDefault(_Cities);
+	var _CitiesList2 = _interopRequireDefault(_CitiesList);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21296,7 +21296,7 @@
 	            var homepage = '';
 
 	            if (this.state.showCities) {
-	                homepage = _react2.default.createElement(_Cities2.default, null);
+	                homepage = _react2.default.createElement(_CitiesList2.default, null);
 	            } else if (this.state.showContact) {
 	                homepage = _react2.default.createElement(_Contact2.default, null);
 	            } else {
@@ -22175,7 +22175,7 @@
 /* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -22205,12 +22205,56 @@
 	    }
 
 	    _createClass(Contact, [{
-	        key: 'render',
+	        key: "handleSubmit",
+	        value: function handleSubmit(event) {
+	            var reply = "Thank you " + event.target.firstname.value + ", we will get back to you shortly!";
+	            alert(reply);
+	            event.preventDefault();
+	        }
+	    }, {
+	        key: "render",
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'h5',
-	                null,
-	                'Contact Me'
+	                "div",
+	                { id: "contactus" },
+	                _react2.default.createElement(
+	                    "h2",
+	                    { id: "contactTitle" },
+	                    "We'd love to hear your thoughts!"
+	                ),
+	                _react2.default.createElement(
+	                    "form",
+	                    { id: "contactform", onSubmit: this.handleSubmit.bind(this) },
+	                    _react2.default.createElement(
+	                        "h4",
+	                        null,
+	                        "First Name:"
+	                    ),
+	                    _react2.default.createElement("input", { type: "text", name: "firstname", id: "firstname" }),
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement(
+	                        "h4",
+	                        null,
+	                        "Last Name:"
+	                    ),
+	                    _react2.default.createElement("input", { type: "text", name: "lastname", id: "lastname" }),
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement(
+	                        "h4",
+	                        null,
+	                        "Email Address:"
+	                    ),
+	                    _react2.default.createElement("input", { type: "text", name: "email", id: "email" }),
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement(
+	                        "h4",
+	                        null,
+	                        "What's on your mind?"
+	                    ),
+	                    _react2.default.createElement("textarea", { type: "text", name: "message", id: "message", form: "contactform", rows: "8", cols: "75" }),
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement("input", { type: "submit", id: "submitbut", value: "Send my message!" })
+	                )
 	            );
 	        }
 	    }]);
@@ -22222,6 +22266,83 @@
 
 /***/ },
 /* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Cities = __webpack_require__(180);
+
+	var _Cities2 = _interopRequireDefault(_Cities);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var API_URL = 'https://hotel-project-ajboyle.c9users.io/api/locations';
+	var API_HEADERS = {
+	    'Content-Type': 'application/json'
+	};
+
+	var CitiesList = function (_Component) {
+	    _inherits(CitiesList, _Component);
+
+	    function CitiesList() {
+	        _classCallCheck(this, CitiesList);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CitiesList).call(this));
+
+	        _this.state = {
+	            cities: []
+	        };
+	        return _this;
+	    }
+
+	    _createClass(CitiesList, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+
+	            fetch(API_URL, { headers: API_HEADERS }).then(function (response) {
+	                return response.json();
+	            }).then(function (responseData) {
+	                _this2.setState({ cities: responseData });
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var cityData = this.state.cities.map(function (city) {
+	                return _react2.default.createElement(_Cities2.default, { key: city.name, name: city.name, state: city.region_code });
+	            });
+	            return _react2.default.createElement(
+	                'div',
+	                { id: 'location' },
+	                cityData
+	            );
+	        }
+	    }]);
+
+	    return CitiesList;
+	}(_react.Component);
+
+	exports.default = CitiesList;
+
+/***/ },
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22257,9 +22378,11 @@
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'h5',
+	                'h3',
 	                null,
-	                'Cities'
+	                this.props.name,
+	                ', ',
+	                this.props.state
 	            );
 	        }
 	    }]);
