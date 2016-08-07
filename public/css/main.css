@@ -153,6 +153,11 @@ html {
     text-align: center;
 }
 
+.hotelsHide {
+    display: none;
+}
+
+
 /* Single Hotel */
 #hotels {
   text-align: center;
