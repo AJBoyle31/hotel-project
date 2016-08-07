@@ -22365,6 +22365,12 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var cityPics = {
+	    "Charlottesville": 'http://az616578.vo.msecnd.net/files/2016/03/19/635939924999229260-1043665980_1400-charlottesville-va-downtown.imgcache.rev1409086909867.web.jpg',
+	    "New York": "http://www.nationalgeographic.com/new-york-city-skyline-tallest-midtown-manhattan/assets/img/articleImg/01nyskyline1536.jpg",
+	    "Chicago": "http://chicagoraffaello.com/wp-content/uploads/2013/08/chicago-skyline.jpg"
+	};
+
 	var Cities = function (_Component) {
 	    _inherits(Cities, _Component);
 
@@ -22378,11 +22384,16 @@
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'h3',
-	                null,
-	                this.props.name,
-	                ', ',
-	                this.props.state
+	                'div',
+	                { className: 'loc' },
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    this.props.name,
+	                    ', ',
+	                    this.props.state
+	                ),
+	                _react2.default.createElement('img', { id: 'pic', src: cityPics[this.props.name] })
 	            );
 	        }
 	    }]);
