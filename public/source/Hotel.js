@@ -2,13 +2,24 @@ import React, {Component} from 'react';
 
 class Hotel extends Component {
     render(){
-        
+        /*
         var photos = this.props.hotel.photos.map((photo) => {
             return <img className="slideShow" src={photo.url} />;
         });
         var amenities = this.props.hotel.amenities.map((item) => {
             return <p>item['name']</p>;
         });
+        var reviews = this.props.hotel["guest_reviews"].map((review) => {
+            return (
+                <div>
+                    <h4 className="usertitle">{review.title}</h4>
+                    <h5 className="userrating">Rating: {review.rating}</h5>
+                    <p className="usersummary">{review.summary}</p>
+                    <br />
+                </div>
+            );
+        });
+        */
         
         return (
             <div>
@@ -40,6 +51,15 @@ class Hotel extends Component {
                     <h3 id='amenitiestitle'>Amenities</h3>
                     <div id='list'>
                         {amenities}
+                    </div>
+                </div>
+                
+                <div id="reviews">
+                    <h3 id='reviewtitle'>Overall Guest Rating: {this.props.hotel["guest_rating"]}</h3>
+                    <h4>Recent Reviews: </h4>
+                    <br/>
+                    <div className="userreviews">
+                        {reviews}
                     </div>
                 </div>
                 
