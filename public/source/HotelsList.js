@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import HotelsIndv from './HotelsIndv';
 import FilterOptions from './FilterOptions';
+import Hotel from './Hotel';
 import 'whatwg-fetch';
 
 const API_URL = 'https://hotel-project-ajboyle.c9users.io/api/locations/';
@@ -14,14 +15,18 @@ class HotelsList extends Component {
     constructor(){
         super();
         this.state = {
-            hotel: []
+            hotel: [],
+            showHotel: false
         };
     }
     getHotel(){
         fetch(API_URL + this.props.info.city + '/hotels/' + this.hotel.id + '?checkin=' + this.props.info.checkin + '&checkout=' + this.props.info.checkout, {headers: API_HEADERS})
         .then((response) => response.json())
         .then((responseData) => {
-            this.setState({ hotel: responseData });
+            this.setState({ 
+                hotel: responseData, 
+                showHotel: true
+            });
         })
         .catch((error) => {
             console.log('Error fetching and parsing data', error);
@@ -35,7 +40,8 @@ class HotelsList extends Component {
         let hotelNodes = this.props.data.map((hotel) => {
             return (
                 <HotelsIndv 
-                    key={hotel.id} 
+                    key={hotel.id}
+                    id={hotel.id}
                     link={'#api/locations/' + city + '/hotels/' + hotel.id + '?checkin=' + checkin + '&checkout=' + checkout} 
                     photo={hotel.photos[0]['thumbnail']} 
                     name={hotel.name} rate={hotel.available ? '$' + (Number(hotel['nightly_rate']).toFixed(0)) : "Unavailable"}
@@ -43,10 +49,11 @@ class HotelsList extends Component {
                 />
             );
         });
+                
         return (
             <div className="results">
-            <div id='hotels'>{hotelNodes}</div>
-            <Hotel hotel={this.state.hotel} />
+            <div id='hotels' className={this.state.showHotel ? "hotelsHide" : ""}>{hotelNodes}</div>
+            
             </div>
         );
     }   
