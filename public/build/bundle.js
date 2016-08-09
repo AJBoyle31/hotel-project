@@ -21231,11 +21231,11 @@
 
 	var _GetRates2 = _interopRequireDefault(_GetRates);
 
-	var _Contact = __webpack_require__(179);
+	var _Contact = __webpack_require__(184);
 
 	var _Contact2 = _interopRequireDefault(_Contact);
 
-	var _CitiesList = __webpack_require__(180);
+	var _CitiesList = __webpack_require__(185);
 
 	var _CitiesList2 = _interopRequireDefault(_CitiesList);
 
@@ -21400,7 +21400,7 @@
 
 	var _HotelsList2 = _interopRequireDefault(_HotelsList);
 
-	__webpack_require__(178);
+	__webpack_require__(183);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21556,7 +21556,7 @@
 
 	var _Hotel2 = _interopRequireDefault(_Hotel);
 
-	__webpack_require__(178);
+	__webpack_require__(183);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21571,6 +21571,7 @@
 	    'Content-Type': 'application/json'
 	};
 	//'https://hotel-project-ajboyle.c9users.io/api/locations/' + city + '/hotels/' + hotel.id + '?checkin=' + checkin + '&checkout=' + checkout
+	//http://localhost:9696/api/locations/ charlottesville /hotels/ 0ZEzgGG4W04s8EP05g9krVMw ?checkin= 2015-05-02 &checkout= 2015-05-04
 
 
 	var HotelsList = function (_Component) {
@@ -21590,18 +21591,19 @@
 
 	    _createClass(HotelsList, [{
 	        key: 'getHotel',
-	        value: function getHotel() {
+	        value: function getHotel(hotelId) {
 	            var _this2 = this;
 
-	            fetch(API_URL + this.props.info.city + '/hotels/' + this.hotel.id + '?checkin=' + this.props.info.checkin + '&checkout=' + this.props.info.checkout, { headers: API_HEADERS }).then(function (response) {
+	            fetch(API_URL + this.props.info.city + "/hotels/" + hotelId + "?checkin=" + this.props.info.checkin + "&checkout=" + this.props.info.checkout, { headers: API_HEADERS }).then(function (response) {
 	                return response.json();
 	            }).then(function (responseData) {
 	                _this2.setState({
-	                    hotel: responseData,
+	                    hotel: _react2.default.createElement(_Hotel2.default, { hotel: responseData }),
 	                    showHotel: true
 	                });
 	            }).catch(function (error) {
-	                console.log('Error fetching and parsing data', error);
+
+	                console.log('Error fetching and parsing data hotel ' + hotelId, error);
 	            });
 	        }
 	    }, {
@@ -21631,7 +21633,8 @@
 	                    'div',
 	                    { id: 'hotels', className: this.state.showHotel ? "hotelsHide" : "" },
 	                    hotelNodes
-	                )
+	                ),
+	                this.state.hotel
 	            );
 	        }
 	    }]);
@@ -21677,12 +21680,13 @@
 	    _createClass(HotelsIndv, [{
 	        key: 'render',
 	        value: function render() {
+	            var hotelId = this.props.id;
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'hotels', id: this.props.id },
 	                _react2.default.createElement(
 	                    'a',
-	                    { href: this.props.link, onClick: this.props.hotelCallback.bind(this) },
+	                    { href: this.props.link, onClick: this.props.hotelCallback.bind(this, this.props.id) },
 	                    _react2.default.createElement('img', { src: this.props.photo }),
 	                    _react2.default.createElement(
 	                        'h3',
@@ -21768,6 +21772,108 @@
 /* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Photos = __webpack_require__(178);
+
+	var _Photos2 = _interopRequireDefault(_Photos);
+
+	var _Amenities = __webpack_require__(179);
+
+	var _Amenities2 = _interopRequireDefault(_Amenities);
+
+	var _Reviews = __webpack_require__(180);
+
+	var _Reviews2 = _interopRequireDefault(_Reviews);
+
+	var _Stars = __webpack_require__(181);
+
+	var _Stars2 = _interopRequireDefault(_Stars);
+
+	var _Address = __webpack_require__(182);
+
+	var _Address2 = _interopRequireDefault(_Address);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Hotel = function (_Component) {
+	    _inherits(Hotel, _Component);
+
+	    function Hotel() {
+	        _classCallCheck(this, Hotel);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Hotel).apply(this, arguments));
+	    }
+
+	    _createClass(Hotel, [{
+	        key: 'render',
+	        value: function render() {
+
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(_Photos2.default, { pics: this.props.hotel.photos }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { id: 'titlerating' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'hotelTitle' },
+	                        _react2.default.createElement(
+	                            'h2',
+	                            { id: 'hotelname' },
+	                            this.props.hotel.name
+	                        ),
+	                        _react2.default.createElement(_Address2.default, { address: this.props.hotel.address })
+	                    ),
+	                    _react2.default.createElement(_Stars2.default, { star: this.props.hotel.stars })
+	                ),
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement(
+	                    'div',
+	                    { id: 'desc' },
+	                    _react2.default.createElement(
+	                        'h3',
+	                        { id: 'desctitle' },
+	                        'Description'
+	                    ),
+	                    _react2.default.createElement(
+	                        'p',
+	                        { id: 'descinfo' },
+	                        this.props.hotel.description > 675 ? this.props.hotel.description.slice(0, 675) : this.props.hotel.description
+	                    )
+	                ),
+	                _react2.default.createElement(_Amenities2.default, { amenity: this.props.hotel.amenities }),
+	                _react2.default.createElement(_Reviews2.default, { review: this.props.hotel["guest_reviews"] })
+	            );
+	        }
+	    }]);
+
+	    return Hotel;
+	}(_react.Component);
+
+	exports.default = Hotel;
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
@@ -21788,169 +21894,347 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Hotel = function (_Component) {
-	    _inherits(Hotel, _Component);
+	var slideIndex = 1;
 
-	    function Hotel() {
-	        _classCallCheck(this, Hotel);
+	var Photos = function (_Component) {
+	    _inherits(Photos, _Component);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Hotel).apply(this, arguments));
+	    function Photos() {
+	        _classCallCheck(this, Photos);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Photos).apply(this, arguments));
 	    }
 
-	    _createClass(Hotel, [{
+	    _createClass(Photos, [{
+	        key: "plusDivs",
+	        value: function plusDivs(n) {
+	            this.showDivs(slideIndex = +n);
+	        }
+	    }, {
+	        key: "showDivs",
+	        value: function showDivs(n) {
+	            var i;
+	            var x = this.props.pics;
+	            if (n > x.length) {
+	                slideIndex = 1;
+	            }
+	            if (n < 1) {
+	                slideIndex = x.length;
+	            }
+	            for (i = 0; i < x.length; i++) {
+	                x[i].style.display = "none";
+	            }
+	            x[slideIndex - 1].style.display = "block";
+	        }
+	    }, {
 	        key: "render",
 	        value: function render() {
-	            /*
-	            var photos = this.props.hotel.photos.map((photo) => {
-	                return <img className="slideShow" src={photo.url} />;
+	            var photos = this.props.pics.map(function (photo) {
+	                return _react2.default.createElement("img", { className: "slideShow", src: photo.url });
 	            });
-	            var amenities = this.props.hotel.amenities.map((item) => {
-	                return <p>item['name']</p>;
-	            });
-	            var reviews = this.props.hotel["guest_reviews"].map((review) => {
-	                return (
-	                    <div>
-	                        <h4 className="usertitle">{review.title}</h4>
-	                        <h5 className="userrating">Rating: {review.rating}</h5>
-	                        <p className="usersummary">{review.summary}</p>
-	                        <br />
-	                    </div>
-	                );
-	            });
-	            */
 
 	            return _react2.default.createElement(
 	                "div",
-	                null,
+	                { className: "picture" },
+	                photos,
 	                _react2.default.createElement(
-	                    "div",
-	                    { className: "picture" },
-	                    photos,
-	                    _react2.default.createElement(
-	                        "a",
-	                        { "class": "btn-floating", style: "position:absolute;top:45%;left:0", onClick: "plusDivs(-1)" },
-	                        "❮"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { "class": "btn-floating", style: "position:absolute;top:45%;right:0", onClick: "plusDivs(+1)" },
-	                        "❯"
-	                    )
+	                    "a",
+	                    { "class": "btn-floating", style: "position:absolute;top:45%;left:0", onClick: this.plusDivs(-1).bind(this) },
+	                    "❮"
 	                ),
 	                _react2.default.createElement(
-	                    "div",
-	                    { id: "titlerating" },
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "hotelTitle" },
-	                        _react2.default.createElement(
-	                            "h2",
-	                            { id: "hotelname" },
-	                            this.props.hotel.name
-	                        ),
-	                        _react2.default.createElement(
-	                            "h5",
-	                            { id: "address" },
-	                            this.props.hotel.address["line1"],
-	                            ", ",
-	                            this.props.hotel.address["city"],
-	                            " ",
-	                            this.props.hotel.address["region_code"],
-	                            " ",
-	                            this.props.hotel.address["postal_code"]
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "stars", id: this.props.hotel.stars },
-	                        _react2.default.createElement(
-	                            "span",
-	                            { id: "a" },
-	                            "&#9734"
-	                        ),
-	                        _react2.default.createElement(
-	                            "span",
-	                            { id: "b" },
-	                            "&#9734"
-	                        ),
-	                        _react2.default.createElement(
-	                            "span",
-	                            { id: "c" },
-	                            "&#9734"
-	                        ),
-	                        _react2.default.createElement(
-	                            "span",
-	                            { id: "d" },
-	                            "&#9734"
-	                        ),
-	                        _react2.default.createElement(
-	                            "span",
-	                            { id: "e" },
-	                            "&#9734"
-	                        )
-	                    )
-	                ),
-	                _react2.default.createElement("br", null),
-	                _react2.default.createElement(
-	                    "div",
-	                    { id: "desc" },
-	                    _react2.default.createElement(
-	                        "h3",
-	                        { id: "desctitle" },
-	                        "Description"
-	                    ),
-	                    _react2.default.createElement(
-	                        "p",
-	                        { id: "descinfo" },
-	                        this.props.hotel.description > 675 ? this.props.hotel.description.slice(0, 675) : this.props.hotel.description
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    "div",
-	                    { id: "amenities" },
-	                    _react2.default.createElement(
-	                        "h3",
-	                        { id: "amenitiestitle" },
-	                        "Amenities"
-	                    ),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { id: "list" },
-	                        amenities
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    "div",
-	                    { id: "reviews" },
-	                    _react2.default.createElement(
-	                        "h3",
-	                        { id: "reviewtitle" },
-	                        "Overall Guest Rating: ",
-	                        this.props.hotel["guest_rating"]
-	                    ),
-	                    _react2.default.createElement(
-	                        "h4",
-	                        null,
-	                        "Recent Reviews: "
-	                    ),
-	                    _react2.default.createElement("br", null),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "userreviews" },
-	                        reviews
-	                    )
+	                    "a",
+	                    { "class": "btn-floating", style: "position:absolute;top:45%;right:0", onClick: this.plusDivs(+1).bind(this) },
+	                    "❯"
 	                )
 	            );
 	        }
 	    }]);
 
-	    return Hotel;
+	    return Photos;
 	}(_react.Component);
 
-	exports.default = Hotel;
+	exports.default = Photos;
 
 /***/ },
-/* 178 */
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Amenities = function (_Component) {
+	    _inherits(Amenities, _Component);
+
+	    function Amenities() {
+	        _classCallCheck(this, Amenities);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Amenities).apply(this, arguments));
+	    }
+
+	    _createClass(Amenities, [{
+	        key: 'render',
+	        value: function render() {
+	            var amenities = this.props.amenity.map(function (item) {
+	                return _react2.default.createElement(
+	                    'p',
+	                    null,
+	                    item['name']
+	                );
+	            });
+	            return _react2.default.createElement(
+	                'div',
+	                { id: 'amenities' },
+	                _react2.default.createElement(
+	                    'h3',
+	                    { id: 'amenitiestitle' },
+	                    'Amenities'
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { id: 'list' },
+	                    amenities
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Amenities;
+	}(_react.Component);
+
+	exports.default = Amenities;
+
+/***/ },
+/* 180 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Reviews = function (_Component) {
+	    _inherits(Reviews, _Component);
+
+	    function Reviews() {
+	        _classCallCheck(this, Reviews);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Reviews).apply(this, arguments));
+	    }
+
+	    _createClass(Reviews, [{
+	        key: "render",
+	        value: function render() {
+	            var reviews = this.props.hotel["guest_reviews"].map(function (review) {
+	                return _react2.default.createElement(
+	                    "div",
+	                    null,
+	                    _react2.default.createElement(
+	                        "h4",
+	                        { className: "usertitle" },
+	                        review.title
+	                    ),
+	                    _react2.default.createElement(
+	                        "h5",
+	                        { className: "userrating" },
+	                        "Rating: ",
+	                        review.rating
+	                    ),
+	                    _react2.default.createElement(
+	                        "p",
+	                        { className: "usersummary" },
+	                        review.summary
+	                    ),
+	                    _react2.default.createElement("br", null)
+	                );
+	            });
+
+	            return _react2.default.createElement(
+	                "div",
+	                { id: "reviews" },
+	                _react2.default.createElement(
+	                    "h3",
+	                    { id: "reviewtitle" },
+	                    "Overall Guest Rating: ",
+	                    this.props.hotel["guest_rating"]
+	                ),
+	                _react2.default.createElement(
+	                    "h4",
+	                    null,
+	                    "Recent Reviews: "
+	                ),
+	                _react2.default.createElement("br", null),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "userreviews" },
+	                    reviews
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Reviews;
+	}(_react.Component);
+
+	exports.default = Reviews;
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Stars = function (_Component) {
+	    _inherits(Stars, _Component);
+
+	    function Stars() {
+	        _classCallCheck(this, Stars);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Stars).apply(this, arguments));
+	    }
+
+	    _createClass(Stars, [{
+	        key: "render",
+	        value: function render() {
+	            var star = this.props.star;
+	            var starsResult;
+	            for (var m = 0; m < 6; m++) {
+	                if (m <= star) {
+	                    starsResult += _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        "&#9733"
+	                    );
+	                }
+	                if (m > star) {
+	                    starsResult += _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        "&#9734"
+	                    );
+	                }
+	            }
+
+	            return _react2.default.createElement(
+	                "div",
+	                { className: "stars" },
+	                starsResult
+	            );
+	        }
+	    }]);
+
+	    return Stars;
+	}(_react.Component);
+
+	exports.default = Stars;
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Address = function (_Component) {
+	    _inherits(Address, _Component);
+
+	    function Address() {
+	        _classCallCheck(this, Address);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Address).apply(this, arguments));
+	    }
+
+	    _createClass(Address, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "h5",
+	                { id: "address" },
+	                this.props.address.line1,
+	                ", ",
+	                this.props.address.city,
+	                " ",
+	                this.props.hotel.address.region_code,
+	                " ",
+	                this.props.hotel.address.postal_code
+	            );
+	        }
+	    }]);
+
+	    return Address;
+	}(_react.Component);
+
+	exports.default = Address;
+
+/***/ },
+/* 183 */
 /***/ function(module, exports) {
 
 	(function(self) {
@@ -22389,7 +22673,7 @@
 
 
 /***/ },
-/* 179 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -22482,7 +22766,7 @@
 	exports.default = Contact;
 
 /***/ },
-/* 180 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22497,7 +22781,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Cities = __webpack_require__(181);
+	var _Cities = __webpack_require__(186);
 
 	var _Cities2 = _interopRequireDefault(_Cities);
 
@@ -22559,7 +22843,7 @@
 	exports.default = CitiesList;
 
 /***/ },
-/* 181 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
