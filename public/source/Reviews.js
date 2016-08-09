@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 
 class Reviews extends Component {
     render(){
-        var reviews = this.props.hotel["guest_reviews"].map((review) => {
+        /*
+        var reviews = this.props.review.guest_reviews.map((review) => {
             return (
                 <div>
                     <h4 className="usertitle">{review.title}</h4>
@@ -12,14 +13,14 @@ class Reviews extends Component {
                 </div>
             );
         });
-        
+        */
         return (
             <div id="reviews">
-                <h3 id='reviewtitle'>Overall Guest Rating: {this.props.hotel["guest_rating"]}</h3>
+                <h3 id='reviewtitle'>Overall Guest Rating: {this.props.review["guest_rating"]}</h3>
                 <h4>Recent Reviews: </h4>
                 <br/>
                 <div className="userreviews">
-                    {reviews}
+                    
                 </div>
             </div>
         );
