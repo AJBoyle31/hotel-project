@@ -1,43 +1,28 @@
 import React, {Component} from 'react';
+import Photos from './Photos';
+import Amenities from './Amenities';
+import Reviews from './Reviews';
+import Stars from './Stars';
+import Address from './Address';
 
 class Hotel extends Component {
     render(){
-        /*
-        var photos = this.props.hotel.photos.map((photo) => {
-            return <img className="slideShow" src={photo.url} />;
-        });
-        var amenities = this.props.hotel.amenities.map((item) => {
-            return <p>item['name']</p>;
-        });
-        var reviews = this.props.hotel["guest_reviews"].map((review) => {
-            return (
-                <div>
-                    <h4 className="usertitle">{review.title}</h4>
-                    <h5 className="userrating">Rating: {review.rating}</h5>
-                    <p className="usersummary">{review.summary}</p>
-                    <br />
-                </div>
-            );
-        });
-        */
         
         return (
             <div>
-            
-                <div className="picture">
-                    {photos}
-                    <a class="btn-floating" style="position:absolute;top:45%;left:0" onClick="plusDivs(-1)">&#10094;</a>
-                    <a class="btn-floating" style="position:absolute;top:45%;right:0" onClick="plusDivs(+1)">&#10095;</a>
-                </div>
+                
+                <Photos pics={this.props.hotel.photos} />
+                
                 
                 <div id="titlerating">
                     <div className="hotelTitle">
                         <h2 id="hotelname">{this.props.hotel.name}</h2>
-                        <h5 id="address">{this.props.hotel.address["line1"]}, {this.props.hotel.address["city"]} {this.props.hotel.address["region_code"]} {this.props.hotel.address["postal_code"]}</h5>
+                        <Address address={this.props.hotel.address} />
                     </div>
-                    <div className="stars" id={this.props.hotel.stars}>
-                        <span id='a'>&#9734</span><span id='b'>&#9734</span><span id='c'>&#9734</span><span id='d'>&#9734</span><span id='e'>&#9734</span>
-                    </div>
+                    
+                    <Stars star={this.props.hotel.stars} />
+                    
+                    
                 </div>
                 
                 <br/>
@@ -47,21 +32,11 @@ class Hotel extends Component {
                     <p id="descinfo">{this.props.hotel.description > 675 ? this.props.hotel.description.slice(0, 675) : this.props.hotel.description}</p>
                 </div>
                 
-                <div id="amenities">
-                    <h3 id='amenitiestitle'>Amenities</h3>
-                    <div id='list'>
-                        {amenities}
-                    </div>
-                </div>
+                <Amenities amenity={this.props.hotel.amenities} />
                 
-                <div id="reviews">
-                    <h3 id='reviewtitle'>Overall Guest Rating: {this.props.hotel["guest_rating"]}</h3>
-                    <h4>Recent Reviews: </h4>
-                    <br/>
-                    <div className="userreviews">
-                        {reviews}
-                    </div>
-                </div>
+                <Reviews review={this.props.hotel["guest_reviews"]} /> 
+                
+                
                 
             </div>
         );
