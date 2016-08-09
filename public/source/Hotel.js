@@ -10,7 +10,7 @@ class Hotel extends Component {
         
         return (
             <div>
-                
+               
                 <Photos pics={this.props.hotel.photos} />
                 
                 
