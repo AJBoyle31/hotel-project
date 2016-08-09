@@ -21840,7 +21840,7 @@
 	                            { id: 'hotelname' },
 	                            this.props.hotel.name
 	                        ),
-	                        _react2.default.createElement(_Address2.default, { address: this.props.hotel.address })
+	                        _react2.default.createElement(_Address2.default, { key: this.props.hotel.address.line1, address: this.props.hotel.address })
 	                    ),
 	                    _react2.default.createElement(_Stars2.default, { star: this.props.hotel.stars })
 	                ),
@@ -21859,7 +21859,7 @@
 	                        this.props.hotel.description > 675 ? this.props.hotel.description.slice(0, 675) : this.props.hotel.description
 	                    )
 	                ),
-	                _react2.default.createElement(_Amenities2.default, { amenity: this.props.hotel.amenities }),
+	                _react2.default.createElement(_Amenities2.default, { key: this.props.hotel.id, amenity: this.props.hotel.amenities }),
 	                _react2.default.createElement(_Reviews2.default, { review: this.props.hotel["guest_reviews"] })
 	            );
 	        }
@@ -22036,7 +22036,7 @@
 /* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -22066,52 +22066,36 @@
 	    }
 
 	    _createClass(Reviews, [{
-	        key: "render",
+	        key: 'render',
 	        value: function render() {
-	            var reviews = this.props.hotel["guest_reviews"].map(function (review) {
-	                return _react2.default.createElement(
-	                    "div",
-	                    null,
-	                    _react2.default.createElement(
-	                        "h4",
-	                        { className: "usertitle" },
-	                        review.title
-	                    ),
-	                    _react2.default.createElement(
-	                        "h5",
-	                        { className: "userrating" },
-	                        "Rating: ",
-	                        review.rating
-	                    ),
-	                    _react2.default.createElement(
-	                        "p",
-	                        { className: "usersummary" },
-	                        review.summary
-	                    ),
-	                    _react2.default.createElement("br", null)
+	            /*
+	            var reviews = this.props.review.guest_reviews.map((review) => {
+	                return (
+	                    <div>
+	                        <h4 className="usertitle">{review.title}</h4>
+	                        <h5 className="userrating">Rating: {review.rating}</h5>
+	                        <p className="usersummary">{review.summary}</p>
+	                        <br />
+	                    </div>
 	                );
 	            });
-
+	            */
 	            return _react2.default.createElement(
-	                "div",
-	                { id: "reviews" },
+	                'div',
+	                { id: 'reviews' },
 	                _react2.default.createElement(
-	                    "h3",
-	                    { id: "reviewtitle" },
-	                    "Overall Guest Rating: ",
-	                    this.props.hotel["guest_rating"]
+	                    'h3',
+	                    { id: 'reviewtitle' },
+	                    'Overall Guest Rating: ',
+	                    this.props.review["guest_rating"]
 	                ),
 	                _react2.default.createElement(
-	                    "h4",
+	                    'h4',
 	                    null,
-	                    "Recent Reviews: "
+	                    'Recent Reviews: '
 	                ),
-	                _react2.default.createElement("br", null),
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "userreviews" },
-	                    reviews
-	                )
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement('div', { className: 'userreviews' })
 	            );
 	        }
 	    }]);
@@ -22232,9 +22216,9 @@
 	                ", ",
 	                this.props.address.city,
 	                " ",
-	                this.props.hotel.address.region_code,
+	                this.props.address.region_code,
 	                " ",
-	                this.props.hotel.address.postal_code
+	                this.props.address.postal_code
 	            );
 	        }
 	    }]);
