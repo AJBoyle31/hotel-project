@@ -9,37 +9,11 @@ const API_HEADERS = {
 
 //Get information from user regarding city, checkin and checkout dates. 
 class GetRates extends Component {
-    constructor(){
-        super();
-        this.state = {
-            hotels: [],
-            city: '',
-            checkin: '',
-            checkout: '',
-        };
-    }
-    getHotels(checkin, checkout, city){
-        
-        let urlRemainder = city + '/hotels?checkin=' + checkin + '&checkout=' + checkout;
-        
-        fetch(API_URL + urlRemainder, {headers: API_HEADERS})
-        .then((response) => response.json())
-        .then((responseData) => {
-            this.setState({ hotels: responseData, 
-                            city: city,
-                            checkin: checkin,
-                            checkout: checkout
-            });
-        })
-        .catch((error) => {
-            console.log('Error fetching and parsing data', error);
-        });
-    }
     handleSubmit(event){
         let city = event.target.city.value;
         let checkin = event.target.checkin.value;
         let checkout = event.target.checkout.value;
-        this.getHotels(checkin, checkout, city);
+        this.props.taskCallbacks.getHotelsSearch(city, checkin, checkout);
         event.preventDefault();
     }
     render(){
@@ -62,7 +36,9 @@ class GetRates extends Component {
                 </label>
                 <button type="submit">Get Rates</button>
             </form>
-            <HotelsList data={this.state.hotels} info={{city: this.state.city, checkin: this.state.checkin, checkout: this.state.checkout}} />
+            
+            <HotelsList taskCallbacks={this.props.taskCallbacks} hotelData={this.props.hotelData} />
+            
             </div>
         );
     }
