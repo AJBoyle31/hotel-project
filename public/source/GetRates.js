@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import HotelsList from './HotelsList';
+import Hotel from './Hotel';
 import 'whatwg-fetch';
 
 const API_URL = 'https://hotel-project-ajboyle.c9users.io/api/locations/';
@@ -9,6 +10,7 @@ const API_HEADERS = {
 
 //Get information from user regarding city, checkin and checkout dates. 
 class GetRates extends Component {
+    
     handleSubmit(event){
         let city = event.target.city.value;
         let checkin = event.target.checkin.value;
@@ -17,6 +19,7 @@ class GetRates extends Component {
         event.preventDefault();
     }
     render(){
+        
         return (
             <div className="searchBox">
             <h3 className="searchHotels">Search Hotels</h3>
@@ -38,6 +41,7 @@ class GetRates extends Component {
             </form>
             
             <HotelsList taskCallbacks={this.props.taskCallbacks} hotelData={this.props.hotelData} />
+            
             
             </div>
         );
