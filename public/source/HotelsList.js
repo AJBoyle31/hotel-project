@@ -23,7 +23,8 @@ class HotelsList extends Component {
                     link={'#api/locations/' + city + '/hotels/' + hotel.id + '?checkin=' + checkin + '&checkout=' + checkout} 
                     photo={hotel.photos[0]['thumbnail']} 
                     name={hotel.name} rate={hotel.available ? '$' + (Number(hotel['nightly_rate']).toFixed(0)) : "Unavailable"}
-                    
+                    taskCallbacks={this.props.taskCallbacks}
+                    hotelData={this.props.hotelData}
                 />
             );
         });
