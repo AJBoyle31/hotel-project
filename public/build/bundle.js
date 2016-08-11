@@ -60,6 +60,8 @@
 
 	var _Nav2 = _interopRequireDefault(_Nav);
 
+	__webpack_require__(183);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -68,16 +70,86 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var API_URL = 'https://hotel-project-ajboyle.c9users.io/api/locations/';
+	var API_HEADERS = {
+	    'Content-Type': 'application/json'
+	};
+
 	var App = function (_Component) {
 	    _inherits(App, _Component);
 
 	    function App() {
 	        _classCallCheck(this, App);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this));
+
+	        _this.getHotelsSearch = _this.getHotelsSearch.bind(_this);
+	        _this.getHotel = _this.getHotel.bind(_this);
+	        _this.clearHotel = _this.clearHotel.bind(_this);
+	        _this.clearHotelsSearch = _this.clearHotelsSearch.bind(_this);
+
+	        _this.state = {
+	            hotel: [],
+	            hotelsSearch: [],
+	            city: "",
+	            checkin: "",
+	            checkout: ""
+	        };
+
+	        return _this;
 	    }
 
 	    _createClass(App, [{
+	        key: 'getHotelsSearch',
+	        value: function getHotelsSearch(city, checkin, checkout) {
+	            var _this2 = this;
+
+	            var urlRemainder = city + '/hotels?checkin=' + checkin + '&checkout=' + checkout;
+
+	            fetch(API_URL + urlRemainder, { headers: API_HEADERS }).then(function (response) {
+	                return response.json();
+	            }).then(function (responseData) {
+	                _this2.setState({
+	                    hotelsSearch: responseData,
+	                    city: city,
+	                    checkin: checkin,
+	                    checkout: checkout
+	                });
+	            }).catch(function (error) {
+	                console.log('Error fetching and parsing data hotels', error);
+	            });
+	        }
+	    }, {
+	        key: 'getHotel',
+	        value: function getHotel(hotelId) {
+	            var _this3 = this;
+
+	            fetch(API_URL + this.state.city + "/hotels/" + hotelId + "?checkin=" + this.state.checkin + "&checkout=" + this.state.checkout, { headers: API_HEADERS }).then(function (response) {
+	                return response.json();
+	            }).then(function (responseData) {
+	                _this3.setState({
+	                    hotel: responseData
+	                });
+	            }).catch(function (error) {
+
+	                console.log('Error fetching and parsing data hotel ', error);
+	            });
+	        }
+	    }, {
+	        key: 'clearHotel',
+	        value: function clearHotel() {
+	            this.setState({
+	                hotel: []
+	            });
+	        }
+	    }, {
+	        key: 'clearHotelsSearch',
+	        value: function clearHotelsSearch() {
+	            this.setState({
+	                hotelsSearch: []
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
@@ -93,7 +165,20 @@
 	                    { className: 'subtitle' },
 	                    'The Limited Choice in Hotels!'
 	                ),
-	                _react2.default.createElement(_Nav2.default, null)
+	                _react2.default.createElement(_Nav2.default, { taskCallbacks: {
+	                        getHotel: this.getHotel,
+	                        getHotelsSearch: this.getHotelsSearch,
+	                        clearHotel: this.clearHotel,
+	                        clearHotelsSearch: this.clearHotelsSearch },
+
+	                    hotelData: {
+	                        hotel: this.state.hotel,
+	                        hotelsSearch: this.state.hotelsSearch,
+	                        city: this.state.city,
+	                        checkin: this.state.checkin,
+	                        checkout: this.state.checkout
+	                    }
+	                })
 	            );
 	        }
 	    }]);
@@ -21280,6 +21365,7 @@
 	                showSearch: true,
 	                showContact: false
 	            });
+	            this.props.taskCallbacks.clearHotelsSearch();
 	        }
 	    }, {
 	        key: 'toggleContact',
@@ -21300,7 +21386,7 @@
 	            } else if (this.state.showContact) {
 	                homepage = _react2.default.createElement(_Contact2.default, null);
 	            } else {
-	                homepage = _react2.default.createElement(_GetRates2.default, null);
+	                homepage = _react2.default.createElement(_GetRates2.default, { taskCallbacks: this.props.taskCallbacks, hotelData: this.props.hotelData });
 	            }
 
 	            return _react2.default.createElement(
@@ -21335,7 +21421,7 @@
 	                                    { className: 'navlinks' },
 	                                    _react2.default.createElement(
 	                                        'a',
-	                                        { href: '#', onClick: this.toggleSearch.bind(this) },
+	                                        { href: '/', onClick: this.toggleSearch.bind(this) },
 	                                        'Home'
 	                                    )
 	                                ),
@@ -21423,43 +21509,16 @@
 	    function GetRates() {
 	        _classCallCheck(this, GetRates);
 
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(GetRates).call(this));
-
-	        _this.state = {
-	            hotels: [],
-	            city: '',
-	            checkin: '',
-	            checkout: ''
-	        };
-	        return _this;
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(GetRates).apply(this, arguments));
 	    }
 
 	    _createClass(GetRates, [{
-	        key: 'getHotels',
-	        value: function getHotels(checkin, checkout, city) {
-	            var _this2 = this;
-
-	            var urlRemainder = city + '/hotels?checkin=' + checkin + '&checkout=' + checkout;
-
-	            fetch(API_URL + urlRemainder, { headers: API_HEADERS }).then(function (response) {
-	                return response.json();
-	            }).then(function (responseData) {
-	                _this2.setState({ hotels: responseData,
-	                    city: city,
-	                    checkin: checkin,
-	                    checkout: checkout
-	                });
-	            }).catch(function (error) {
-	                console.log('Error fetching and parsing data', error);
-	            });
-	        }
-	    }, {
 	        key: 'handleSubmit',
 	        value: function handleSubmit(event) {
 	            var city = event.target.city.value;
 	            var checkin = event.target.checkin.value;
 	            var checkout = event.target.checkout.value;
-	            this.getHotels(checkin, checkout, city);
+	            this.props.taskCallbacks.getHotelsSearch(city, checkin, checkout);
 	            event.preventDefault();
 	        }
 	    }, {
@@ -21518,7 +21577,7 @@
 	                        'Get Rates'
 	                    )
 	                ),
-	                _react2.default.createElement(_HotelsList2.default, { data: this.state.hotels, info: { city: this.state.city, checkin: this.state.checkin, checkout: this.state.checkout } })
+	                _react2.default.createElement(_HotelsList2.default, { taskCallbacks: this.props.taskCallbacks, hotelData: this.props.hotelData })
 	            );
 	        }
 	    }]);
@@ -21566,10 +21625,6 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var API_URL = 'https://hotel-project-ajboyle.c9users.io/api/locations/';
-	var API_HEADERS = {
-	    'Content-Type': 'application/json'
-	};
 	//'https://hotel-project-ajboyle.c9users.io/api/locations/' + city + '/hotels/' + hotel.id + '?checkin=' + checkin + '&checkout=' + checkout
 	//http://localhost:9696/api/locations/ charlottesville /hotels/ 0ZEzgGG4W04s8EP05g9krVMw ?checkin= 2015-05-02 &checkout= 2015-05-04
 
@@ -21580,49 +21635,24 @@
 	    function HotelsList() {
 	        _classCallCheck(this, HotelsList);
 
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(HotelsList).call(this));
-
-	        _this.state = {
-	            hotel: [],
-	            showHotel: false
-	        };
-	        return _this;
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(HotelsList).apply(this, arguments));
 	    }
 
 	    _createClass(HotelsList, [{
-	        key: 'getHotel',
-	        value: function getHotel(hotelId) {
-	            var _this2 = this;
-
-	            fetch(API_URL + this.props.info.city + "/hotels/" + hotelId + "?checkin=" + this.props.info.checkin + "&checkout=" + this.props.info.checkout, { headers: API_HEADERS }).then(function (response) {
-	                return response.json();
-	            }).then(function (responseData) {
-	                _this2.setState({
-	                    hotel: _react2.default.createElement(_Hotel2.default, { hotel: responseData }),
-	                    showHotel: true
-	                });
-	            }).catch(function (error) {
-
-	                console.log('Error fetching and parsing data hotel ' + hotelId, error);
-	            });
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this3 = this;
+	            var city = this.props.hotelData.city;
+	            var checkin = this.props.hotelData.checkin;
+	            var checkout = this.props.hotelData.checkout;
 
-	            var city = this.props.info.city;
-	            var checkin = this.props.info.checkin;
-	            var checkout = this.props.info.checkout;
-
-	            var hotelNodes = this.props.data.map(function (hotel) {
+	            var hotelNodes = this.props.hotelData.hotelsSearch.map(function (hotel) {
 	                return _react2.default.createElement(_HotelsIndv2.default, {
 	                    key: hotel.id,
 	                    id: hotel.id,
 	                    link: '#api/locations/' + city + '/hotels/' + hotel.id + '?checkin=' + checkin + '&checkout=' + checkout,
 	                    photo: hotel.photos[0]['thumbnail'],
-	                    name: hotel.name, rate: hotel.available ? '$' + Number(hotel['nightly_rate']).toFixed(0) : "Unavailable",
-	                    hotelCallback: _this3.getHotel.bind(_this3)
+	                    name: hotel.name, rate: hotel.available ? '$' + Number(hotel['nightly_rate']).toFixed(0) : "Unavailable"
+
 	                });
 	            });
 
@@ -21631,10 +21661,9 @@
 	                { className: 'results' },
 	                _react2.default.createElement(
 	                    'div',
-	                    { id: 'hotels', className: this.state.showHotel ? "hotelsHide" : "" },
+	                    { id: 'hotels' },
 	                    hotelNodes
-	                ),
-	                this.state.hotel
+	                )
 	            );
 	        }
 	    }]);
@@ -21686,7 +21715,7 @@
 	                { className: 'hotels', id: this.props.id },
 	                _react2.default.createElement(
 	                    'a',
-	                    { href: this.props.link, onClick: this.props.hotelCallback.bind(this, this.props.id) },
+	                    { href: this.props.link },
 	                    _react2.default.createElement('img', { src: this.props.photo }),
 	                    _react2.default.createElement(
 	                        'h3',
