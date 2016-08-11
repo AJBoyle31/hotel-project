@@ -26,6 +26,7 @@ class Nav extends Component {
             showContact: false
         });
         this.props.taskCallbacks.clearHotelsSearch();
+        this.props.taskCallbacks.clearHotel();
     }
     toggleContact(){
         this.setState({
