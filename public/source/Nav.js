@@ -25,6 +25,7 @@ class Nav extends Component {
             showSearch: true,
             showContact: false
         });
+        this.props.taskCallbacks.clearHotelsSearch();
     }
     toggleContact(){
         this.setState({
@@ -43,7 +44,7 @@ class Nav extends Component {
         else if (this.state.showContact){
             homepage = <Contact />;
         }
-        else { homepage = <GetRates /> }
+        else { homepage = <GetRates taskCallbacks={this.props.taskCallbacks} hotelData={this.props.hotelData} /> }
         
         return (
             <div className='navsearch'>
@@ -60,7 +61,7 @@ class Nav extends Component {
                 </div>
                 <div className='collapse navbar-collapse'>
                     <ul className='nav navbar-nav navbar'>
-                        <li className='navlinks'><a href='#' onClick={this.toggleSearch.bind(this)} >Home</a></li>
+                        <li className='navlinks'><a href='/' onClick={this.toggleSearch.bind(this)} >Home</a></li>
                         <li className='navlinks'><a href='#cities' id='cities' onClick={this.toggleCities.bind(this)} >Cities We Represent</a></li>
                         <li className='navlinks'><a href='#search' id='search' onClick={this.toggleSearch.bind(this)} >Search Hotels</a></li>
                         <li className='navlinks'><a href='#contact' id='contact' onClick={this.toggleContact.bind(this)} >Contact Us</a></li>
