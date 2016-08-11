@@ -21366,6 +21366,7 @@
 	                showContact: false
 	            });
 	            this.props.taskCallbacks.clearHotelsSearch();
+	            this.props.taskCallbacks.clearHotel();
 	        }
 	    }, {
 	        key: 'toggleContact',
@@ -21486,6 +21487,10 @@
 
 	var _HotelsList2 = _interopRequireDefault(_HotelsList);
 
+	var _Hotel = __webpack_require__(177);
+
+	var _Hotel2 = _interopRequireDefault(_Hotel);
+
 	__webpack_require__(183);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -21524,6 +21529,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
+
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'searchBox' },
@@ -21641,6 +21647,8 @@
 	    _createClass(HotelsList, [{
 	        key: 'render',
 	        value: function render() {
+	            var _this2 = this;
+
 	            var city = this.props.hotelData.city;
 	            var checkin = this.props.hotelData.checkin;
 	            var checkout = this.props.hotelData.checkout;
@@ -21651,8 +21659,9 @@
 	                    id: hotel.id,
 	                    link: '#api/locations/' + city + '/hotels/' + hotel.id + '?checkin=' + checkin + '&checkout=' + checkout,
 	                    photo: hotel.photos[0]['thumbnail'],
-	                    name: hotel.name, rate: hotel.available ? '$' + Number(hotel['nightly_rate']).toFixed(0) : "Unavailable"
-
+	                    name: hotel.name, rate: hotel.available ? '$' + Number(hotel['nightly_rate']).toFixed(0) : "Unavailable",
+	                    taskCallbacks: _this2.props.taskCallbacks,
+	                    hotelData: _this2.props.hotelData
 	                });
 	            });
 
