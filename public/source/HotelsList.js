@@ -28,11 +28,16 @@ class HotelsList extends Component {
                 />
             );
         });
+        
+        
+        let singleHotel = <Hotel hotel={this.props.hotelData.hotel} />;
+        
+        
                 
         return (
             <div className="results">
             <div id='hotels'>{hotelNodes}</div>
-         
+            
             </div>
         );
     }   
