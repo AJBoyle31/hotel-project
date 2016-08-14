@@ -21665,6 +21665,8 @@
 	                });
 	            });
 
+	            var singleHotel = _react2.default.createElement(_Hotel2.default, { hotel: this.props.hotelData.hotel });
+
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'results' },
@@ -21716,15 +21718,20 @@
 	    }
 
 	    _createClass(HotelsIndv, [{
+	        key: 'handleEvent',
+	        value: function handleEvent(hotelId) {
+	            this.props.taskCallbacks.getHotel(hotelId);
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var hotelId = this.props.id;
+
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'hotels', id: this.props.id },
 	                _react2.default.createElement(
 	                    'a',
-	                    { href: this.props.link },
+	                    { href: this.props.link, onClick: this.handleEvent.bind(this.props.id) },
 	                    _react2.default.createElement('img', { src: this.props.photo }),
 	                    _react2.default.createElement(
 	                        'h3',
