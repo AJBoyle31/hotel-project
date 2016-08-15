@@ -21,7 +21,8 @@ class App extends Component {
             hotelsSearch: [],
             city: "",
             checkin: "",
-            checkout: ""
+            checkout: "",
+            showHotel: false
         };
         
     }
@@ -35,7 +36,8 @@ class App extends Component {
                 hotelsSearch: responseData, 
                 city: city,
                 checkin: checkin,
-                checkout: checkout
+                checkout: checkout,
+                
             });
         })
         .catch((error) => {
@@ -47,7 +49,8 @@ class App extends Component {
         .then((response) => response.json())
         .then((responseData) => {
             this.setState({ 
-                hotel: responseData 
+                hotel: responseData,
+                showHotel: true
             });
         })
         .catch((error) => {
@@ -83,6 +86,7 @@ class App extends Component {
                         city: this.state.city,
                         checkin: this.state.checkin,
                         checkout: this.state.checkout,
+                        showHotel: this.state.showHotel                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
                     }}    
                 />
                 

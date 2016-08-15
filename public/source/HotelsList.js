@@ -10,6 +10,7 @@ import 'whatwg-fetch';
 
 class HotelsList extends Component {
     
+    
     render(){
         var city = this.props.hotelData.city;
         var checkin = this.props.hotelData.checkin;
@@ -25,6 +26,7 @@ class HotelsList extends Component {
                     name={hotel.name} rate={hotel.available ? '$' + (Number(hotel['nightly_rate']).toFixed(0)) : "Unavailable"}
                     taskCallbacks={this.props.taskCallbacks}
                     hotelData={this.props.hotelData}
+                    
                 />
             );
         });
@@ -36,7 +38,7 @@ class HotelsList extends Component {
                 
         return (
             <div className="results">
-            <div id='hotels'>{hotelNodes}</div>
+            <div id='hotels'>{this.props.hotelData.showHotel ? singleHotel : hotelNodes}</div>
             
             </div>
         );

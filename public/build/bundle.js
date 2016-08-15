@@ -93,7 +93,8 @@
 	            hotelsSearch: [],
 	            city: "",
 	            checkin: "",
-	            checkout: ""
+	            checkout: "",
+	            showHotel: false
 	        };
 
 	        return _this;
@@ -114,6 +115,7 @@
 	                    city: city,
 	                    checkin: checkin,
 	                    checkout: checkout
+
 	                });
 	            }).catch(function (error) {
 	                console.log('Error fetching and parsing data hotels', error);
@@ -128,7 +130,8 @@
 	                return response.json();
 	            }).then(function (responseData) {
 	                _this3.setState({
-	                    hotel: responseData
+	                    hotel: responseData,
+	                    showHotel: true
 	                });
 	            }).catch(function (error) {
 
@@ -176,7 +179,8 @@
 	                        hotelsSearch: this.state.hotelsSearch,
 	                        city: this.state.city,
 	                        checkin: this.state.checkin,
-	                        checkout: this.state.checkout
+	                        checkout: this.state.checkout,
+	                        showHotel: this.state.showHotel
 	                    }
 	                })
 	            );
@@ -21662,6 +21666,7 @@
 	                    name: hotel.name, rate: hotel.available ? '$' + Number(hotel['nightly_rate']).toFixed(0) : "Unavailable",
 	                    taskCallbacks: _this2.props.taskCallbacks,
 	                    hotelData: _this2.props.hotelData
+
 	                });
 	            });
 
@@ -21673,7 +21678,7 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { id: 'hotels' },
-	                    hotelNodes
+	                    this.props.hotelData.showHotel ? singleHotel : hotelNodes
 	                )
 	            );
 	        }
@@ -21718,9 +21723,9 @@
 	    }
 
 	    _createClass(HotelsIndv, [{
-	        key: 'handleEvent',
-	        value: function handleEvent(hotelId) {
-	            this.props.taskCallbacks.getHotel(hotelId);
+	        key: 'handleClick',
+	        value: function handleClick() {
+	            this.props.taskCallbacks.getHotel(this.props.id);
 	        }
 	    }, {
 	        key: 'render',
@@ -21731,7 +21736,7 @@
 	                { className: 'hotels', id: this.props.id },
 	                _react2.default.createElement(
 	                    'a',
-	                    { href: this.props.link, onClick: this.handleEvent.bind(this.props.id) },
+	                    { href: this.props.link, onClick: this.handleClick.bind(this) },
 	                    _react2.default.createElement('img', { src: this.props.photo }),
 	                    _react2.default.createElement(
 	                        'h3',
@@ -21841,7 +21846,7 @@
 
 	var _Reviews2 = _interopRequireDefault(_Reviews);
 
-	var _Stars = __webpack_require__(181);
+	var _Stars = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./Stars\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 	var _Stars2 = _interopRequireDefault(_Stars);
 
@@ -22151,74 +22156,7 @@
 	exports.default = Reviews;
 
 /***/ },
-/* 181 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Stars = function (_Component) {
-	    _inherits(Stars, _Component);
-
-	    function Stars() {
-	        _classCallCheck(this, Stars);
-
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Stars).apply(this, arguments));
-	    }
-
-	    _createClass(Stars, [{
-	        key: "render",
-	        value: function render() {
-	            var star = this.props.star;
-	            var starsResult;
-	            for (var m = 0; m < 6; m++) {
-	                if (m <= star) {
-	                    starsResult += _react2.default.createElement(
-	                        "span",
-	                        null,
-	                        "&#9733"
-	                    );
-	                }
-	                if (m > star) {
-	                    starsResult += _react2.default.createElement(
-	                        "span",
-	                        null,
-	                        "&#9734"
-	                    );
-	                }
-	            }
-
-	            return _react2.default.createElement(
-	                "div",
-	                { className: "stars" },
-	                starsResult
-	            );
-	        }
-	    }]);
-
-	    return Stars;
-	}(_react.Component);
-
-	exports.default = Stars;
-
-/***/ },
+/* 181 */,
 /* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
