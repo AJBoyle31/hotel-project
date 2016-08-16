@@ -32,9 +32,9 @@ class Hotel extends Component {
                     <p id="descinfo">{this.props.hotel.description > 675 ? this.props.hotel.description.slice(0, 675) : this.props.hotel.description}</p>
                 </div>
                 
-                <Amenities key={this.props.hotel.id} amenity={this.props.hotel.amenities} />
+                <Amenities amenity={this.props.hotel.amenities} />
                 
-                <Reviews review={this.props.hotel["guest_reviews"]} /> 
+                <Reviews review={this.props.hotel} /> 
                 
                 
                 
