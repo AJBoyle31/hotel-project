@@ -15,6 +15,7 @@ class GetRates extends Component {
         let city = event.target.city.value;
         let checkin = event.target.checkin.value;
         let checkout = event.target.checkout.value;
+        this.props.taskCallbacks.clearHotel;
         this.props.taskCallbacks.getHotelsSearch(city, checkin, checkout);
         event.preventDefault();
     }
