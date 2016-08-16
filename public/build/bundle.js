@@ -21527,6 +21527,7 @@
 	            var city = event.target.city.value;
 	            var checkin = event.target.checkin.value;
 	            var checkout = event.target.checkout.value;
+	            this.props.taskCallbacks.clearHotel;
 	            this.props.taskCallbacks.getHotelsSearch(city, checkin, checkout);
 	            event.preventDefault();
 	        }
@@ -21666,7 +21667,6 @@
 	                    name: hotel.name, rate: hotel.available ? '$' + Number(hotel['nightly_rate']).toFixed(0) : "Unavailable",
 	                    taskCallbacks: _this2.props.taskCallbacks,
 	                    hotelData: _this2.props.hotelData
-
 	                });
 	            });
 
@@ -21909,8 +21909,8 @@
 	                        this.props.hotel.description > 675 ? this.props.hotel.description.slice(0, 675) : this.props.hotel.description
 	                    )
 	                ),
-	                _react2.default.createElement(_Amenities2.default, { key: this.props.hotel.id, amenity: this.props.hotel.amenities }),
-	                _react2.default.createElement(_Reviews2.default, { review: this.props.hotel["guest_reviews"] })
+	                _react2.default.createElement(_Amenities2.default, { key: this.props.hotel.amenities.length, amenity: this.props.hotel.amenities }),
+	                _react2.default.createElement(_Reviews2.default, { key: this.props.hotel.guest_rating, review: this.props.hotel })
 	            );
 	        }
 	    }]);
@@ -21946,6 +21946,10 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	//TO DO
+	//picture sizes vary
+	//add captions?
+
 	var Photos = function (_Component) {
 	    _inherits(Photos, _Component);
 
@@ -21961,29 +21965,48 @@
 	    }
 
 	    _createClass(Photos, [{
-	        key: "plusDivs",
-	        value: function plusDivs(n) {}
+	        key: "previousSlide",
+	        value: function previousSlide() {
+	            var y = this.state.slideIndex - 1;
+	            if (y < 0) {
+	                y = this.props.pics.length - 1;
+	            }
+	            this.whichSlide(y);
+	        }
+	    }, {
+	        key: "nextSlide",
+	        value: function nextSlide() {
+	            var x = this.state.slideIndex + 1;
+	            if (x > this.props.pics.length - 1) {
+	                x = 0;
+	            }
+
+	            this.whichSlide(x);
+	        }
+	    }, {
+	        key: "whichSlide",
+	        value: function whichSlide(n) {
+	            this.setState({ slideIndex: n });
+	        }
 	    }, {
 	        key: "render",
 	        value: function render() {
 	            var _this2 = this;
 
-	            var photos = this.props.pics.map(function (photo, index) {
-	                return _react2.default.createElement("img", _defineProperty({ className: "slideShow", src: photo.url, key: photo.url }, "className", index == _this2.state.slideIndex ? "showPic" : "hidePic"));
-	            });
-
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "picture" },
+	                { className: "pictures" },
 	                _react2.default.createElement(
 	                    "a",
-	                    { className: "btn-floating styleLeft" },
+	                    { className: "btn-floating styleLeft", onClick: this.previousSlide.bind(this) },
 	                    "❮"
 	                ),
-	                photos,
+	                this.props.pics.map(function (photo, index) {
+	                    return _react2.default.createElement("img", _defineProperty({ className: "slideShow", src: photo.url, key: photo.url }, "className", index == _this2.state.slideIndex ? "" : "hidePic"));
+	                }),
 	                _react2.default.createElement(
 	                    "a",
-	                    { className: "btn-floating styleRight" },
+	                    { className: "btn-floating styleRight", onClick: this.nextSlide.bind(this) },
 	                    "❯"
 	                )
 	            );
@@ -22064,7 +22087,7 @@
 /* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -22094,36 +22117,54 @@
 	    }
 
 	    _createClass(Reviews, [{
-	        key: 'render',
+	        key: "render",
 	        value: function render() {
-	            /*
-	            var reviews = this.props.review.guest_reviews.map((review) => {
-	                return (
-	                    <div>
-	                        <h4 className="usertitle">{review.title}</h4>
-	                        <h5 className="userrating">Rating: {review.rating}</h5>
-	                        <p className="usersummary">{review.summary}</p>
-	                        <br />
-	                    </div>
+
+	            var reviews = this.props.review.guest_reviews.map(function (review) {
+	                return _react2.default.createElement(
+	                    "div",
+	                    null,
+	                    _react2.default.createElement(
+	                        "h4",
+	                        { className: "usertitle" },
+	                        review.title
+	                    ),
+	                    _react2.default.createElement(
+	                        "h5",
+	                        { className: "userrating" },
+	                        "Rating: ",
+	                        review.rating
+	                    ),
+	                    _react2.default.createElement(
+	                        "p",
+	                        { className: "usersummary" },
+	                        review.summary
+	                    ),
+	                    _react2.default.createElement("br", null)
 	                );
 	            });
-	            */
+
+	            var rating = this.props.review.guest_rating;
 	            return _react2.default.createElement(
-	                'div',
-	                { id: 'reviews' },
+	                "div",
+	                { id: "reviews" },
 	                _react2.default.createElement(
-	                    'h3',
-	                    { id: 'reviewtitle' },
-	                    'Overall Guest Rating: ',
-	                    this.props.review["guest_rating"]
+	                    "h3",
+	                    { id: "reviewtitle" },
+	                    "Overall Guest Rating: ",
+	                    rating
 	                ),
 	                _react2.default.createElement(
-	                    'h4',
+	                    "h4",
 	                    null,
-	                    'Recent Reviews: '
+	                    "Recent Reviews: "
 	                ),
-	                _react2.default.createElement('br', null),
-	                _react2.default.createElement('div', { className: 'userreviews' })
+	                _react2.default.createElement("br", null),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "userreviews" },
+	                    reviews
+	                )
 	            );
 	        }
 	    }]);
