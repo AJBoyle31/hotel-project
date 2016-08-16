@@ -1,43 +1,27 @@
 import React, {Component} from 'react';
 
-var slideIndex = 1;
-
 class Photos extends Component {
+    constructor(){
+        super();
+        this.state = {
+            slideIndex: 0
+        };  
+    }
     plusDivs(n){
-        this.showDivs(slideIndex =+ n);
-    }
-    showDivs(n){
-        var i;
-        var x = this.props.pics;
-        if (n > x.length) { slideIndex = 1 }
-        if (n < 1) {slideIndex = x.length}
-        //for (i=0; i < x.length; i++){
-        //    x[i].style.display = "none";
-        //}
-        //x[slideIndex - 1].style.display = "block";
-    }
-    render(){
-        var photos = this.props.pics.map((photo) => {
-            return <img className="slideShow" src={photo.url} key={photo.url} />;
-        });
         
-        var styleLeft = {
-            position: "absolute",
-            top: '45%',
-            left: 0
-        };
-        var styleRight = {
-            position: "absolute",
-            top: '45%',
-            right: 0
-        };
+    }
+
+    render(){
+        var photos = this.props.pics.map((photo, index) => {
+            return <img className="slideShow" src={photo.url} key={photo.url} className={index == this.state.slideIndex ? "" : "hidePic"} />;
+        });
         
         
         return (
             <div className="picture">
+                <a className="btn-floating styleLeft">&#10094;</a>
                 {photos}
-                <a className="btn-floating" style={styleLeft} onClick={this.plusDivs(-1)}>&#10094;</a>
-                <a className="btn-floating" style={styleRight} onClick={this.plusDivs(+1)}>&#10095;</a>
+                <a className="btn-floating styleRight">&#10095;</a>
             </div>        
         );
     }
