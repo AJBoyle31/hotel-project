@@ -168,6 +168,10 @@ html {
   display: inline-block;
   
 }
+#removeHotel {
+    text-align: right;
+}
+
 #titlerating {
   width: 100%;
   
