@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 class Reviews extends Component {
     render(){
-        /*
+        
         var reviews = this.props.review.guest_reviews.map((review) => {
             return (
                 <div>
@@ -13,14 +13,15 @@ class Reviews extends Component {
                 </div>
             );
         });
-        */
+        
+        var rating = this.props.review.guest_rating;
         return (
             <div id="reviews">
-                <h3 id='reviewtitle'>Overall Guest Rating: {this.props.review["guest_rating"]}</h3>
+                <h3 id='reviewtitle'>Overall Guest Rating: {rating}</h3>
                 <h4>Recent Reviews: </h4>
                 <br/>
                 <div className="userreviews">
-                    
+                    {reviews}
                 </div>
             </div>
         );
