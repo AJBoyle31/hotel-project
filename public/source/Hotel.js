@@ -5,6 +5,8 @@ import Reviews from './Reviews';
 import Stars from './Stars';
 import Address from './Address';
 
+//USE MODAL FOR SINGLE HOTEL SHOW
+
 class Hotel extends Component {
     render(){
         
