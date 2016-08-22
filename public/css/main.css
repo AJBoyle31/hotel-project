@@ -158,6 +158,8 @@ html {
 }
 
 
+
+
 /* Single Hotel */
 #hotels {
   text-align: center;
@@ -189,7 +191,7 @@ html {
 }
 
 .pictures {
-    max-width: 800px;
+    max-width: 500px;
     position: relative;
     margin-left: auto;
     margin-right: auto;
@@ -215,12 +217,12 @@ html {
     display: none;
 }
 .styleLeft {
-    position: "absolute";
+    position: absolute;
     top: 45%;
     left: 0; 
 }
 .styleRight {
-    position: "absolute";
+    position: absolute;
     top: 45%;
     right: 0;
 }
