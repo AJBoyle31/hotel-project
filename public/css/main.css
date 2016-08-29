@@ -191,10 +191,12 @@ html {
 }
 
 .pictures {
-    max-width: 500px;
+    text-align: center;
     position: relative;
-    margin-left: auto;
-    margin-right: auto;
+}
+.slideShow {
+    height: 700px;
+    width: 500px;
 }
 .btn-floating:hover {
     cursor: pointer;
@@ -206,13 +208,6 @@ html {
     font-size: 250%;
     color: black;
 }
-
-.slideShow {
-    width: 100%;
-    height: 100%;
-    max-height: 700px;
-}
-
 .hidePic {
     display: none;
 }
