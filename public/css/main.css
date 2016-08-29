@@ -174,9 +174,9 @@ html {
     text-align: right;
 }
 
-#titlerating {
+#titleRating {
   width: 100%;
-  
+  text-align: center;
 }
 .stars {
   margin-left: 50px;
@@ -227,26 +227,20 @@ html {
     right: 0;
 }
 
-#desc, #amenities {
-  display: inline-block;
-  vertical-align: top;
-  margin-left: 50px;
-  margin-top: 50px;
-}
-#desc {
-  width: 500px;
-  text-align: left;
-}
 
 #reviews {
   margin-top: 50px;
 }
-#amenitiestitle, #reviewtitle, #desctitle {
+#amenitiesTitle, #reviewTitle, #desctitle {
   text-decoration: underline;
+  text-align: center;
 }
 
-.usersummary {
+.userSummary {
   width: 75%;
   margin-left: auto;
   margin-right: auto;
+}
+.userReviews, #recentReviewTitle, #amenitiesList, #desc {
+    text-align: center;
 }
