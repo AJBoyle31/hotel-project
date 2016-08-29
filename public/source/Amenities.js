@@ -8,8 +8,8 @@ class Amenities extends Component {
         });
         return (
             <div id="amenities">
-                    <h3 id='amenitiestitle'>Amenities</h3>
-                    <div id='list'>
+                    <h3 id='amenitiesTitle'>Amenities</h3>
+                    <div id='amenitiesList'>
                         {amenities}
                     </div>
                 </div>

@@ -24,19 +24,14 @@ class HotelsList extends Component {
                     photo={hotel.photos[0]['thumbnail']} 
                     name={hotel.name} rate={hotel.available ? '$' + (Number(hotel['nightly_rate']).toFixed(0)) : "Unavailable"}
                     taskCallbacks={this.props.taskCallbacks}
-                    hotelData={this.props.hotelData}
+                    hotel={hotel}
                 />
             );
         });
         
-        
-        let singleHotel = <Hotel hotel={this.props.hotelData.hotel}  />;
-        
-        
-                
         return (
             <div className="results">
-            <div id='hotels'>{this.props.hotelData.showHotel ? singleHotel : hotelNodes}</div>
+            <div id='hotels'>{hotelNodes}</div>
             
             </div>
         );

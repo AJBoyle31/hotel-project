@@ -4,8 +4,8 @@ import Amenities from './Amenities';
 import Reviews from './Reviews';
 import Stars from './Stars';
 import Address from './Address';
+import {Button, Modal, FormGroup, Form, Col, FormControl} from 'react-bootstrap';
 
-//USE MODAL FOR SINGLE HOTEL SHOW
 
 class Hotel extends Component {
     render(){
@@ -16,15 +16,12 @@ class Hotel extends Component {
                 <Photos pics={this.props.hotel.photos} />
                 
                 
-                <div id="titlerating">
+                <div id="titleRating">
                     <div className="hotelTitle">
-                        <h2 id="hotelname">{this.props.hotel.name}</h2>
+                        <h2 id="hotelName">{this.props.hotel.name}</h2>
                         <Address key={this.props.hotel.address.line1} address={this.props.hotel.address} />
                     </div>
-                    
                     <Stars star={this.props.hotel.stars} />
-                    
-                    
                 </div>
                 
                 <br/>
