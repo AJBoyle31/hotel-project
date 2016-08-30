@@ -17,15 +17,14 @@ class HotelsIndv extends Component {
     close(){
         this.setState({showModal: false});
     }
-    handleClick(){
-        this.props.taskCallbacks.getHotel(this.props.id);
-        
+    booked(){
+        alert("You've booked this hotel. Have fun!");
     }
     render(){
         
         return (
-            <div>
-                <div className="hotels" id={this.props.id}>
+            <div className="hotels">
+                <div id={this.props.id}>
                     <a href={this.props.link} onClick={this.open} >
                     <img src={this.props.photo} />
                     <h3 className='hotelname'>{this.props.name.length > 20 ? this.props.name.slice(0,20) + '...' : this.props.name}</h3>
@@ -41,6 +40,7 @@ class HotelsIndv extends Component {
                     <Hotel key={this.props.id} hotel={this.props.hotel} />
                 </Modal.Body>
                 <Modal.Footer>
+                    <Button onClick={this.booked}>Book</Button>
                     <Button onClick={this.close}>Close</Button>
                 </Modal.Footer>
             </Modal>
