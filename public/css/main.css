@@ -65,7 +65,7 @@ html {
     padding: 10px 10px 10px 10px;
     border: 2px solid black;
     text-align: center;
-    width: 50%;
+    width: 65%;
     margin-right: auto;
     margin-left: auto;
 }
@@ -116,26 +116,24 @@ html {
 
 
 /* Hotel Search Results */
-#hotels {
-    text-align: center;
-}
 
 .hotels {
-  display: inline-block;
-  vertical-align: top;
-  width: 204px;
-  height: 300px;
-  margin-left: 50px;
-  margin-right: 50px;
-  margin-top: 50px;
-  text-align: center;
-  border: 2px solid black;
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+    width: 204px;
+    height: 300px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 50px;
+    border: 2px solid black;
+    border-radius: 10px;
 }
 
 .hotels img {
   width: 200px;
   height: 170px;
-  
+  border-radius: 10px;
 }
 
 .filter, #hotels {
