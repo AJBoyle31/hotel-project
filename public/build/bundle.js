@@ -21744,9 +21744,9 @@
 	            this.setState({ showModal: false });
 	        }
 	    }, {
-	        key: 'handleClick',
-	        value: function handleClick() {
-	            this.props.taskCallbacks.getHotel(this.props.id);
+	        key: 'booked',
+	        value: function booked() {
+	            alert("You've booked this hotel. Have fun!");
 	        }
 	    }, {
 	        key: 'render',
@@ -21754,10 +21754,10 @@
 
 	            return _react2.default.createElement(
 	                'div',
-	                null,
+	                { className: 'hotels' },
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'hotels', id: this.props.id },
+	                    { id: this.props.id },
 	                    _react2.default.createElement(
 	                        'a',
 	                        { href: this.props.link, onClick: this.open },
@@ -21794,6 +21794,11 @@
 	                    _react2.default.createElement(
 	                        _reactBootstrap.Modal.Footer,
 	                        null,
+	                        _react2.default.createElement(
+	                            _reactBootstrap.Button,
+	                            { onClick: this.booked },
+	                            'Book'
+	                        ),
 	                        _react2.default.createElement(
 	                            _reactBootstrap.Button,
 	                            { onClick: this.close },
