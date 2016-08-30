@@ -2,16 +2,17 @@
 import React, {Component} from 'react';
 
 class FilterOptions extends Component {
+    handleClickLow(){
+            
+    }
+    handleClickHigh(){
+        
+    }
     render(){
         return (
         <div className="filter">
-        <form>
-            <input type='text' ref='name' onChange={this.props.filterList} placeholder='Hotel Name Contains..' />
-            <input type='text' ref='minprice' placeholder='Min Price' />
-            <input type='text' ref='maxprice' placeholder='Max Price' />
-            <input type='checkbox' ref='pet' name='amenities' value='pet' /> Pet Friendly
-            <input type='checkbox' ref='wifi' name='amenities' value='wifi' /> Wifi
-        </form>
+            <button onClick={this.handleClickLow}>Price Low to High</button>
+            <button onClick={this.handleClickHigh}>Price High to Low</button>
         </div>
         );
     }

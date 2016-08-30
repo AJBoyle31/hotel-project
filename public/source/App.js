@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Nav from './Nav';
 import 'whatwg-fetch';
 
+
 const API_URL = 'https://hotel-project-ajboyle.c9users.io/api/locations/';
 const API_HEADERS = {
     'Content-Type': 'application/json'
@@ -57,6 +58,9 @@ class App extends Component {
             
             console.log('Error fetching and parsing data hotel ', error);
         });
+    }
+    sortPriceLow(){
+        
     }
     clearHotel(){
         this.setState({

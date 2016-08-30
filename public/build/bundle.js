@@ -21673,6 +21673,7 @@
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'results' },
+	                _react2.default.createElement(_FilterOptions2.default, null),
 	                _react2.default.createElement(
 	                    'div',
 	                    { id: 'hotels' },
