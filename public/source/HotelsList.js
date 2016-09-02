@@ -31,7 +31,7 @@ class HotelsList extends Component {
         
         return (
             <div className="results">
-                <FilterOptions />
+                
                 <div id='hotels'>{hotelNodes}</div>
             </div>
         );

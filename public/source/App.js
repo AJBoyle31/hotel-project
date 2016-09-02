@@ -74,7 +74,7 @@ class App extends Component {
     }
     render(){
         return(
-            <div>
+            <div id="pageContainer">
                 <h1 className="title">HotelsLite.com</h1>
                 <h3 className="subtitle">The Limited Choice in Hotels!</h3>
                 

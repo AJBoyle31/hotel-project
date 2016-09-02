@@ -38,7 +38,7 @@ class GetRates extends Component {
                 <label>Check Out
                 <input type='text' name='checkout' id='checkout' placeholder='YYYY-MM-DD' required />
                 </label>
-                <button type="submit">Get Rates</button>
+                <button type="submit" id="getRates">Get Rates</button>
             </form>
             
             <HotelsList taskCallbacks={this.props.taskCallbacks} hotelData={this.props.hotelData} />

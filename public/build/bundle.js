@@ -139,6 +139,9 @@
 	            });
 	        }
 	    }, {
+	        key: 'sortPriceLow',
+	        value: function sortPriceLow() {}
+	    }, {
 	        key: 'clearHotel',
 	        value: function clearHotel() {
 	            this.setState({
@@ -157,7 +160,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'div',
-	                null,
+	                { id: 'pageContainer' },
 	                _react2.default.createElement(
 	                    'h1',
 	                    { className: 'title' },
@@ -21584,7 +21587,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        'button',
-	                        { type: 'submit' },
+	                        { type: 'submit', id: 'getRates' },
 	                        'Get Rates'
 	                    )
 	                ),
@@ -21673,7 +21676,6 @@
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'results' },
-	                _react2.default.createElement(_FilterOptions2.default, null),
 	                _react2.default.createElement(
 	                    'div',
 	                    { id: 'hotels' },
@@ -41143,7 +41145,7 @@
 /* 435 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -41174,21 +41176,26 @@
 	    }
 
 	    _createClass(FilterOptions, [{
-	        key: 'render',
+	        key: "handleClickLow",
+	        value: function handleClickLow() {}
+	    }, {
+	        key: "handleClickHigh",
+	        value: function handleClickHigh() {}
+	    }, {
+	        key: "render",
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'div',
-	                { className: 'filter' },
+	                "div",
+	                { className: "filter" },
 	                _react2.default.createElement(
-	                    'form',
-	                    null,
-	                    _react2.default.createElement('input', { type: 'text', ref: 'name', onChange: this.props.filterList, placeholder: 'Hotel Name Contains..' }),
-	                    _react2.default.createElement('input', { type: 'text', ref: 'minprice', placeholder: 'Min Price' }),
-	                    _react2.default.createElement('input', { type: 'text', ref: 'maxprice', placeholder: 'Max Price' }),
-	                    _react2.default.createElement('input', { type: 'checkbox', ref: 'pet', name: 'amenities', value: 'pet' }),
-	                    ' Pet Friendly',
-	                    _react2.default.createElement('input', { type: 'checkbox', ref: 'wifi', name: 'amenities', value: 'wifi' }),
-	                    ' Wifi'
+	                    "button",
+	                    { onClick: this.handleClickLow },
+	                    "Price Low to High"
+	                ),
+	                _react2.default.createElement(
+	                    "button",
+	                    { onClick: this.handleClickHigh },
+	                    "Price High to Low"
 	                )
 	            );
 	        }
@@ -41674,9 +41681,18 @@
 	    _createClass(Contact, [{
 	        key: "handleSubmit",
 	        value: function handleSubmit(event) {
-	            var reply = "Thank you " + event.target.firstname.value + ", we will get back to you shortly!";
-	            alert(reply);
-	            event.preventDefault();
+	            var first = event.target.firstname.value;
+	            var last = event.target.lastname.value;
+	            var email = event.target.email.value;
+	            var mess = event.target.message.value;
+	            if (first && last && email && mess) {
+	                var reply = "Thank you " + event.target.firstname.value + ", we will get back to you shortly!";
+	                alert(reply);
+	                event.preventDefault();
+	            } else {
+	                alert("Please complete the form");
+	                event.preventDefault();
+	            }
 	        }
 	    }, {
 	        key: "render",
@@ -41694,28 +41710,28 @@
 	                    { id: "contactform", onSubmit: this.handleSubmit.bind(this) },
 	                    _react2.default.createElement(
 	                        "h4",
-	                        null,
+	                        { className: "contactId" },
 	                        "First Name:"
 	                    ),
 	                    _react2.default.createElement("input", { type: "text", name: "firstname", id: "firstname" }),
 	                    _react2.default.createElement("br", null),
 	                    _react2.default.createElement(
 	                        "h4",
-	                        null,
+	                        { className: "contactId" },
 	                        "Last Name:"
 	                    ),
 	                    _react2.default.createElement("input", { type: "text", name: "lastname", id: "lastname" }),
 	                    _react2.default.createElement("br", null),
 	                    _react2.default.createElement(
 	                        "h4",
-	                        null,
+	                        { className: "contactId" },
 	                        "Email Address:"
 	                    ),
 	                    _react2.default.createElement("input", { type: "text", name: "email", id: "email" }),
 	                    _react2.default.createElement("br", null),
 	                    _react2.default.createElement(
 	                        "h4",
-	                        null,
+	                        { className: "contactId" },
 	                        "What's on your mind?"
 	                    ),
 	                    _react2.default.createElement("textarea", { type: "text", name: "message", id: "message", form: "contactform", rows: "8", cols: "75" }),
@@ -41855,7 +41871,7 @@
 	                { className: 'loc' },
 	                _react2.default.createElement(
 	                    'h3',
-	                    null,
+	                    { className: 'cityTitle' },
 	                    this.props.name,
 	                    ', ',
 	                    this.props.state

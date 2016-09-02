@@ -10,7 +10,7 @@ class Cities extends Component {
     render(){
         return (
             <div className="loc">
-            <h3>{this.props.name}, {this.props.state}</h3>
+            <h3 className="cityTitle">{this.props.name}, {this.props.state}</h3>
             <img id="pic" src={cityPics[this.props.name]} />
             </div>
         );

@@ -3,8 +3,9 @@ html {
     height: 100%;
 }
 
-#page {
-    
+body {
+    background: url("https://www.caftophotels.com/wp-content/uploads/2014/08/seaside-hotels.jpg") no-repeat center fixed;
+    background-size: cover;
 }
 
 
@@ -12,11 +13,15 @@ html {
 
 .title {
     text-align: center;
+    color: white;
+    text-shadow: 2px 2px 2px black;
     
 }
 .subtitle{
     margin-bottom: 20px;
     text-align: center;
+    color: white;
+    text-shadow: 2px 2px 2px black;
 }
 
 /* Navigation Bar */
@@ -24,14 +29,17 @@ html {
 
 .navlinks {
     font-size: 150%;
-    color: black;
+    text-shadow: 2px 2px 2px black;
 }
 .nav .navbar-nav li a {
-    color: black;
+    color: white;
+    text-shadow: 2px 2px 2px black;
 }
 
 .nav .navbar-nav li a:hover, .nav .navbar-nav li a:focus {
+    background: none;
     color: black;
+    text-shadow: 2px 2px 2px white;
 }
 
 .options {
@@ -59,11 +67,14 @@ html {
     text-align: center;
     margin-top: 20px;
 }
-
+#city {
+    font-size: 125%;
+}
 .searchBox {
     margin-top: 10px;
     padding: 10px 10px 10px 10px;
     border: 2px solid black;
+    border-radius: 15px;
     text-align: center;
     width: 65%;
     margin-right: auto;
@@ -74,14 +85,25 @@ html {
     margin-left: 10px;
     margin-right: 10px;
 }
-
-
+label {
+    font-size: 125%;
+    color: black;
+    text-shadow: 2px 2px 2px white;
+}
+#getRates {
+    font-size: 125%;
+}
+.searchHotels {
+    color: white;
+    text-shadow: 2px 2px 2px black;
+}
 
 /* Search Cities */
 #location{
     text-align: center;
 }
 .loc {
+  display: inline-block;
   margin-left: auto;
   margin-right: auto;
   padding-bottom: 20px;
@@ -93,7 +115,10 @@ html {
   height: 200px;
   width: 400px;
 }
-
+.cityTitle{
+    color: white;
+    text-shadow: 2px 2px 2px black;
+}
 
 
 /* Contact Us */
@@ -107,13 +132,18 @@ html {
 }
 #contactTitle {
     margin-top: 20px;
+    color: white;
+    text-shadow: 2px 2px 2px black;
 }
 
 #submitbut {
     margin-top: 15px;
     font-size: 150%;
 }
-
+.contactId {
+    color: white;
+    text-shadow: 2px 2px 2px black;
+}
 
 /* Hotel Search Results */
 
