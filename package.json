@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "body-parser": "~1.8.1",
+    "bootstrap-datepicker": "^1.6.4",
     "express": "~4.9.0",
     "ip": "^0.3.3",
     "lodash": "^2.4.1",

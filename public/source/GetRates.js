@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 import HotelsList from './HotelsList';
 import Hotel from './Hotel';
 import 'whatwg-fetch';
+import datepicker from 'bootstrap-datepicker';
 
 const API_URL = 'https://hotel-project-ajboyle.c9users.io/api/locations/';
 const API_HEADERS = {
     'Content-Type': 'application/json'
 };
+
 
 //Get information from user regarding city, checkin and checkout dates. 
 class GetRates extends Component {
@@ -33,10 +35,10 @@ class GetRates extends Component {
                 </select>
                 </label>
                 <label>Check In
-                <input type='text' name='checkin' id='checkin' placeholder='YYYY-MM-DD' required />
+                <input type='text' name='checkin' id='checkin' placeholder='YYYY-MM-DD' data-provide="datepicker" data-date-format="yyyy/mm/dd" data-autoclose="true" required />
                 </label>
                 <label>Check Out
-                <input type='text' name='checkout' id='checkout' placeholder='YYYY-MM-DD' required />
+                <input type='text' name='checkout' id='checkout' placeholder='YYYY-MM-DD' data-provide="datepicker" data-date-format="yyyy/mm/dd" required />
                 </label>
                 <button type="submit" id="getRates">Get Rates</button>
             </form>
