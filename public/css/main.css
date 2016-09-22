@@ -4,7 +4,7 @@ html {
 }
 
 body {
-    background: url("https://www.caftophotels.com/wp-content/uploads/2014/08/seaside-hotels.jpg") no-repeat center fixed;
+    background: url("http://www.seaside-hotel.gr/umbraco/imageHandler.ashx?image=/media/3792/activate_pool.jpg&type=sliderThumb") no-repeat center fixed;
     background-size: cover;
 }
 
@@ -69,6 +69,7 @@ body {
 }
 #city {
     font-size: 125%;
+    width: 80%;
 }
 .searchBox {
     margin-top: 10px;
