@@ -21472,7 +21472,6 @@
 	                console.log("checkout is " + yDay);
 	                return false;
 	            } else {
-
 	                return true;
 	            }
 	        }
@@ -21547,13 +21546,13 @@
 	                        'label',
 	                        null,
 	                        'Check In',
-	                        _react2.default.createElement('input', { type: 'text', name: 'checkin', id: 'checkin', placeholder: 'YYYY-MM-DD', 'data-provide': 'datepicker', 'data-date-format': 'yyyy/mm/dd', 'data-autoclose': 'true', required: true })
+	                        _react2.default.createElement('input', { type: 'text', name: 'checkin', id: 'checkin', placeholder: 'YYYY-MM-DD', 'data-provide': 'datepicker', 'data-date-format': 'yyyy/mm/dd', 'data-date-autoclose': 'true', required: true })
 	                    ),
 	                    _react2.default.createElement(
 	                        'label',
 	                        null,
 	                        'Check Out',
-	                        _react2.default.createElement('input', { type: 'text', name: 'checkout', id: 'checkout', placeholder: 'YYYY-MM-DD', 'data-provide': 'datepicker', 'data-date-format': 'yyyy/mm/dd', required: true })
+	                        _react2.default.createElement('input', { type: 'text', name: 'checkout', id: 'checkout', placeholder: 'YYYY-MM-DD', 'data-provide': 'datepicker', 'data-date-format': 'yyyy/mm/dd', 'data-date-autoclose': 'true', required: true })
 	                    ),
 	                    _react2.default.createElement(
 	                        'button',
