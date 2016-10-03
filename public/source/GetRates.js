@@ -4,8 +4,8 @@ import Hotel from './Hotel';
 import 'whatwg-fetch';
 import datepicker from 'bootstrap-datepicker';
 
-const API_URL = 'https://hotel-project-ajboyle.c9users.io/api/locations/';
-//const API_URL = 'https://ajbhotelpage.herokuapp.com/api/locations/'
+//const API_URL = 'https://hotel-project-ajboyle.c9users.io/api/locations/';
+const API_URL = 'https://ajbhotelpage.herokuapp.com/api/locations/'
 const API_HEADERS = {
     'Content-Type': 'application/json'
 };
