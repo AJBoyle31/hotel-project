@@ -77,10 +77,10 @@ class GetRates extends Component {
                 </select>
                 </label>
                 <label>Check In
-                <input type='text' name='checkin' id='checkin' placeholder='YYYY-MM-DD' data-provide="datepicker" data-date-format="yyyy/mm/dd" data-autoclose="true" required />
+                <input type='text' name='checkin' id='checkin' placeholder='YYYY-MM-DD' data-provide="datepicker" data-date-format="yyyy/mm/dd" data-date-autoclose="true" required />
                 </label>
                 <label>Check Out
-                <input type='text' name='checkout' id='checkout' placeholder='YYYY-MM-DD' data-provide="datepicker" data-date-format="yyyy/mm/dd" required />
+                <input type='text' name='checkout' id='checkout' placeholder='YYYY-MM-DD' data-provide="datepicker" data-date-format="yyyy/mm/dd" data-date-autoclose="true" required />
                 </label>
                 <button type="submit" id="getRates">Get Rates</button>
             </form>
