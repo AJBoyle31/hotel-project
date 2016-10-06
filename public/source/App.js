@@ -4,8 +4,8 @@ import Nav from './Nav';
 import 'whatwg-fetch';
 
 
-const API_URL = 'https://hotel-project-ajboyle.c9users.io/api/locations/';
-//const API_URL = 'https://ajbhotelpage.herokuapp.com/api/locations/';
+//const API_URL = 'https://hotel-project-ajboyle.c9users.io/api/locations/';
+const API_URL = 'https://ajbhotelpage.herokuapp.com/api/locations/';
 const API_HEADERS = {
     'Content-Type': 'application/json'
 };
