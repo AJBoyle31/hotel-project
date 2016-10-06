@@ -70,8 +70,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	//const API_URL = 'https://hotel-project-ajboyle.c9users.io/api/locations/';
-	var API_URL = 'https://ajbhotelpage.herokuapp.com/api/locations/';
+	var API_URL = 'https://hotel-project-ajboyle.c9users.io/api/locations/';
+	//const API_URL = 'https://ajbhotelpage.herokuapp.com/api/locations/';
 	var API_HEADERS = {
 	    'Content-Type': 'application/json'
 	};
@@ -21460,6 +21460,9 @@
 	        console.log(xYear);
 	        alert("Invalid Date Range");
 	        return false;
+	    } else if (x == y) {
+	        alert("Invalid Date Range");
+	        return false;
 	    } else {
 	        if (xMonth > yMonth) {
 	            console.log(xMonth);
@@ -21729,7 +21732,7 @@
 	                { className: 'hotels' },
 	                _react2.default.createElement(
 	                    'div',
-	                    { id: this.props.id },
+	                    { id: this.props.id, className: 'eachHotel' },
 	                    _react2.default.createElement(
 	                        'a',
 	                        { href: this.props.link, onClick: this.open },
