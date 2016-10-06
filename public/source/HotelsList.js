@@ -29,9 +29,13 @@ class HotelsList extends Component {
             );
         });
         
+        if (hotelNodes){
+            var searchFilters = <FilterOptions />
+        }
+        
         return (
             <div className="results">
-                
+                {searchFilters}
                 <div id='hotels'>{hotelNodes}</div>
             </div>
         );
