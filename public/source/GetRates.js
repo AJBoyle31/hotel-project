@@ -28,6 +28,10 @@ function validateDate(x, y) {
         alert("Invalid Date Range");
         return false;
     }
+    else if (x == y) {
+        alert("Invalid Date Range");
+        return false;
+    }
     else {
         if (xMonth > yMonth){
             console.log(xMonth);
