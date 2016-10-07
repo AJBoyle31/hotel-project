@@ -70,8 +70,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	//const API_URL = 'https://hotel-project-ajboyle.c9users.io/api/locations/';
-	var API_URL = 'https://ajbhotelpage.herokuapp.com/api/locations/';
+	var API_URL = 'https://hotel-project-ajboyle.c9users.io/api/locations/';
+	//const API_URL = 'https://ajbhotelpage.herokuapp.com/api/locations/';
 	var API_HEADERS = {
 	    'Content-Type': 'application/json'
 	};
@@ -88,6 +88,7 @@
 	        _this.getHotel = _this.getHotel.bind(_this);
 	        _this.clearHotel = _this.clearHotel.bind(_this);
 	        _this.clearHotelsSearch = _this.clearHotelsSearch.bind(_this);
+	        _this.sortPriceLow = _this.sortPriceLow.bind(_this);
 
 	        _this.state = {
 	            hotel: [],
@@ -141,7 +142,14 @@
 	        }
 	    }, {
 	        key: 'sortPriceLow',
-	        value: function sortPriceLow() {}
+	        value: function sortPriceLow() {
+	            console.log("SORT");
+	            var sortHotels = this.state.hotelsSearch;
+	            sortHotels = sortHotels.sort(function (a, b) {
+	                return a["nightly_rate"].localeCompare(b["nightly_rate"]);
+	            });
+	            this.setState({ hotelsSearch: sortHotels });
+	        }
 	    }, {
 	        key: 'clearHotel',
 	        value: function clearHotel() {
@@ -176,7 +184,8 @@
 	                        getHotel: this.getHotel,
 	                        getHotelsSearch: this.getHotelsSearch,
 	                        clearHotel: this.clearHotel,
-	                        clearHotelsSearch: this.clearHotelsSearch },
+	                        clearHotelsSearch: this.clearHotelsSearch,
+	                        sortPriceLow: this.sortPriceLow },
 
 	                    hotelData: {
 	                        hotel: this.state.hotel,
@@ -21614,6 +21623,7 @@
 	//'https://hotel-project-ajboyle.c9users.io/api/locations/' + city + '/hotels/' + hotel.id + '?checkin=' + checkin + '&checkout=' + checkout
 	//http://localhost:9696/api/locations/ charlottesville /hotels/ 0ZEzgGG4W04s8EP05g9krVMw ?checkin= 2015-05-02 &checkout= 2015-05-04
 
+	var searchFilters = "";
 
 	var HotelsList = function (_Component) {
 	    _inherits(HotelsList, _Component);
@@ -21645,9 +21655,14 @@
 	                });
 	            });
 
+	            if (this.props.hotelData.hotelsSearch.length > 0) {
+	                searchFilters = _react2.default.createElement(_FilterOptions2.default, { taskCallbacks: this.props.taskCallbacks });
+	            }
+
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'results' },
+	                searchFilters,
 	                _react2.default.createElement(
 	                    'div',
 	                    { id: 'hotels' },
@@ -41149,7 +41164,9 @@
 
 	    _createClass(FilterOptions, [{
 	        key: "handleClickLow",
-	        value: function handleClickLow() {}
+	        value: function handleClickLow() {
+	            this.props.taskCallbacks.sortPriceLow.bind(this);
+	        }
 	    }, {
 	        key: "handleClickHigh",
 	        value: function handleClickHigh() {}
@@ -41161,7 +41178,7 @@
 	                { className: "filter" },
 	                _react2.default.createElement(
 	                    "button",
-	                    { onClick: this.handleClickLow },
+	                    { onClick: this.handleClickLow.bind(this) },
 	                    "Price Low to High"
 	                ),
 	                _react2.default.createElement(
