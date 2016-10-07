@@ -4,9 +4,11 @@ import FilterOptions from './FilterOptions';
 import Hotel from './Hotel';
 import 'whatwg-fetch';
 
+
 //'https://hotel-project-ajboyle.c9users.io/api/locations/' + city + '/hotels/' + hotel.id + '?checkin=' + checkin + '&checkout=' + checkout
 //http://localhost:9696/api/locations/ charlottesville /hotels/ 0ZEzgGG4W04s8EP05g9krVMw ?checkin= 2015-05-02 &checkout= 2015-05-04
 
+var searchFilters = "";
 
 class HotelsList extends Component {
     
@@ -29,8 +31,8 @@ class HotelsList extends Component {
             );
         });
         
-        if (hotelNodes){
-            var searchFilters = <FilterOptions />
+        if (this.props.hotelData.hotelsSearch.length > 0) {
+            searchFilters = <FilterOptions taskCallbacks={this.props.taskCallbacks} />;
         }
         
         return (
