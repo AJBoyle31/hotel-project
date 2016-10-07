@@ -4,8 +4,8 @@ import Nav from './Nav';
 import 'whatwg-fetch';
 
 
-//const API_URL = 'https://hotel-project-ajboyle.c9users.io/api/locations/';
-const API_URL = 'https://ajbhotelpage.herokuapp.com/api/locations/';
+const API_URL = 'https://hotel-project-ajboyle.c9users.io/api/locations/';
+//const API_URL = 'https://ajbhotelpage.herokuapp.com/api/locations/';
 const API_HEADERS = {
     'Content-Type': 'application/json'
 };
@@ -17,6 +17,7 @@ class App extends Component {
         this.getHotel = this.getHotel.bind(this);
         this.clearHotel = this.clearHotel.bind(this);
         this.clearHotelsSearch = this.clearHotelsSearch.bind(this);
+        this.sortPriceLow = this.sortPriceLow.bind(this);
         
         this.state = {
             hotel: [],
@@ -61,7 +62,10 @@ class App extends Component {
         });
     }
     sortPriceLow(){
-        
+        console.log("SORT");
+        let sortHotels = this.state.hotelsSearch;
+        sortHotels = sortHotels.sort((a,b) => a["nightly_rate"].localeCompare(b["nightly_rate"]));
+        this.setState({ hotelsSearch: sortHotels });
     }
     clearHotel(){
         this.setState({
@@ -83,7 +87,9 @@ class App extends Component {
                     getHotel: this.getHotel,
                     getHotelsSearch: this.getHotelsSearch,
                     clearHotel: this.clearHotel,
-                    clearHotelsSearch: this.clearHotelsSearch }} 
+                    clearHotelsSearch: this.clearHotelsSearch,
+                    sortPriceLow: this.sortPriceLow }}
+                    
                     
                     hotelData={{
                         hotel: this.state.hotel,
