@@ -1,4 +1,4 @@
-This is a challenge I'm going to use React.js. 
+I took on this challenge and saw it as an opportunity to grow my skills in React. 
 
 
 
